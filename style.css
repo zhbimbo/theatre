@@ -6,59 +6,74 @@
 
 body {
     font-family: Arial, sans-serif;
-    background: #f5f0e6; /* Бежевый фон */
+    background: #f5f0e6;
     padding: 0;
     margin: 0;
     width: 100%;
-    height: 100vh;
-    overflow: hidden; /* Скрываем скролл */
+    overflow-x: hidden;
 }
 
-/* Контейнер для полотна */
-.canvas-container {
+/* Контейнер для слайдов */
+.slides-container {
     width: 100%;
-    height: calc(100vh - 120px); /* Высота минус место для кнопки */
-    overflow: hidden;
-    position: relative;
+    padding: 20px 0;
+}
+
+/* Обертка для слайдов */
+.slide-wrapper {
+    width: 100%;
     display: flex;
+    flex-direction: column;
+    gap: 20px;
     align-items: center;
-    justify-content: center;
 }
 
-/* Полотно со слайдами */
-.slides-canvas {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    align-content: flex-start;
-    gap: 15px;
-    padding: 20px;
-    overflow: hidden;
-}
-
-/* Каждый слайд в полотне */
+/* Каждый слайд */
 .slide-item {
-    flex: 1 1 calc(33.333% - 10px); /* 3 в ряд на больших экранах */
-    min-width: 200px;
-    height: auto;
-    object-fit: cover;
-    border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-    transition: all 0.3s ease;
+    width: 90%;
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s ease forwards;
     background: white;
-    padding: 8px;
 }
 
-.slide-item:hover {
-    transform: translateY(-5px) scale(1.02);
-    box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+/* Анимация появления */
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Анимируем слайды по очереди */
+.slide-item:nth-child(1) { animation-delay: 0.1s; }
+.slide-item:nth-child(2) { animation-delay: 0.3s; }
+.slide-item:nth-child(3) { animation-delay: 0.5s; }
+.slide-item:nth-child(4) { animation-delay: 0.7s; }
+.slide-item:nth-child(5) { animation-delay: 0.9s; }
+.slide-item:nth-child(6) { animation-delay: 1.1s; }
+.slide-item:nth-child(7) { animation-delay: 1.3s; }
+.slide-item:nth-child(8) { animation-delay: 1.5s; }
+.slide-item:nth-child(9) { animation-delay: 1.7s; }
+.slide-item:nth-child(10) { animation-delay: 1.9s; }
+.slide-item:nth-child(11) { animation-delay: 2.1s; }
+
+.slide-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    aspect-ratio: 16/9; /* Соотношение 16:9 */
+    object-fit: cover;
 }
 
 /* Кнопка с фоном */
 .button-container {
     text-align: center;
-    padding: 30px 20px;
+    padding: 40px 20px 60px 20px;
     width: 100%;
 }
 
@@ -92,39 +107,19 @@ body {
     transform: translateY(-1px);
 }
 
-/* Адаптивность для планшетов */
-@media (max-width: 1024px) {
-    .slide-item {
-        flex: 1 1 calc(50% - 8px); /* 2 в ряд */
-        min-width: 150px;
-    }
-    
-    .slides-canvas {
-        gap: 12px;
-        padding: 15px;
-    }
-}
-
-/* Адаптивность для мобильных */
+/* Адаптивность */
 @media (max-width: 768px) {
-    body {
-        height: 100vh;
+    .slides-container {
+        padding: 15px 0;
     }
     
-    .canvas-container {
-        height: calc(100vh - 100px);
+    .slide-wrapper {
+        gap: 15px;
     }
     
     .slide-item {
-        flex: 1 1 calc(50% - 6px);
-        min-width: 120px;
-        border-radius: 10px;
-        padding: 6px;
-    }
-    
-    .slides-canvas {
-        gap: 10px;
-        padding: 12px;
+        width: 95%;
+        border-radius: 12px;
     }
     
     .main-button {
@@ -134,22 +129,18 @@ body {
     }
 }
 
-/* Маленькие мобильные */
 @media (max-width: 480px) {
-    .canvas-container {
-        height: calc(100vh - 80px);
+    .slides-container {
+        padding: 10px 0;
+    }
+    
+    .slide-wrapper {
+        gap: 12px;
     }
     
     .slide-item {
-        flex: 1 1 100%; /* 1 в ряд */
-        min-width: 100%;
-        border-radius: 8px;
-        padding: 5px;
-    }
-    
-    .slides-canvas {
-        gap: 8px;
-        padding: 10px;
+        width: 98%;
+        border-radius: 10px;
     }
     
     .main-button {
@@ -161,14 +152,14 @@ body {
 
 /* Очень маленькие экраны */
 @media (max-width: 320px) {
+    .slide-item {
+        width: 100%;
+        border-radius: 8px;
+    }
+    
     .main-button {
         padding: 12px 30px;
         font-size: 14px;
         border-radius: 25px;
-    }
-    
-    .slides-canvas {
-        padding: 8px;
-        gap: 6px;
     }
 }
