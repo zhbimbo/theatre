@@ -9,61 +9,87 @@
 <body>
     <!-- Все картинки по очереди -->
     <div class="slides-container">
-        <div class="slide">
+        <div class="slide fade-in">
             <img src="Images/img1.png" alt="Слайд 1" onerror="this.nextElementSibling.style.display='block'">
             <div class="error-message" style="display: none;">❌ Слайд 1 не загружен</div>
         </div>
-        <div class="slide">
+        <div class="slide fade-in">
             <img src="Images/img2.png" alt="Слайд 2" onerror="this.nextElementSibling.style.display='block'">
             <div class="error-message" style="display: none;">❌ Слайд 2 не загружен</div>
         </div>
-        <div class="slide">
+        <div class="slide fade-in">
             <img src="Images/img3.png" alt="Слайд 3" onerror="this.nextElementSibling.style.display='block'">
             <div class="error-message" style="display: none;">❌ Слайд 3 не загружен</div>
         </div>
-        <div class="slide">
+        <div class="slide fade-in">
             <img src="Images/img4.png" alt="Слайд 4" onerror="this.nextElementSibling.style.display='block'">
             <div class="error-message" style="display: none;">❌ Слайд 4 не загружен</div>
         </div>
-        <div class="slide">
+        <div class="slide fade-in">
             <img src="Images/img5.png" alt="Слайд 5" onerror="this.nextElementSibling.style.display='block'">
             <div class="error-message" style="display: none;">❌ Слайд 5 не загружен</div>
         </div>
-        <div class="slide">
+        <div class="slide fade-in">
             <img src="Images/img6.png" alt="Слайд 6" onerror="this.nextElementSibling.style.display='block'">
             <div class="error-message" style="display: none;">❌ Слайд 6 не загружен</div>
         </div>
-        <div class="slide">
+        <div class="slide fade-in">
             <img src="Images/img7.png" alt="Слайд 7" onerror="this.nextElementSibling.style.display='block'">
             <div class="error-message" style="display: none;">❌ Слайд 7 не загружен</div>
         </div>
-        <div class="slide">
+        <div class="slide fade-in">
             <img src="Images/img8.png" alt="Слайд 8" onerror="this.nextElementSibling.style.display='block'">
             <div class="error-message" style="display: none;">❌ Слайд 8 не загружен</div>
         </div>
-        <div class="slide">
+        <div class="slide fade-in">
             <img src="Images/img9.png" alt="Слайд 9" onerror="this.nextElementSibling.style.display='block'">
             <div class="error-message" style="display: none;">❌ Слайд 9 не загружен</div>
         </div>
-        <div class="slide">
+        <div class="slide fade-in">
             <img src="Images/img10.png" alt="Слайд 10" onerror="this.nextElementSibling.style.display='block'">
             <div class="error-message" style="display: none;">❌ Слайд 10 не загружен</div>
         </div>
-        <div class="slide">
+        <div class="slide fade-in">
             <img src="Images/img11.png" alt="Слайд 11" onerror="this.nextElementSibling.style.display='block'">
             <div class="error-message" style="display: none;">❌ Слайд 11 не загружен</div>
         </div>
     </div>
 
-    <!-- Кнопка -->
+    <!-- Кнопка с фоном -->
     <div class="button-container">
-        <button class="main-button" onclick="contactMe()">Связаться со мной</button>
+        <button class="main-button" onclick="contactMe()">
+            <span class="button-text">Связаться со мной</span>
+        </button>
     </div>
 
     <script>
         function contactMe() {
             alert('Спасибо за интерес! Свяжитесь со мной по телефону или email.');
         }
+
+        // Анимация появления при скролле
+        document.addEventListener('DOMContentLoaded', function() {
+            const slides = document.querySelectorAll('.slide');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            slides.forEach(slide => {
+                slide.style.opacity = '0';
+                slide.style.transform = 'translateY(20px)';
+                slide.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(slide);
+            });
+        });
     </script>
 </body>
 </html>
