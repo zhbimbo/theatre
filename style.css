@@ -33,9 +33,9 @@ body {
     display: block;
     margin: 0 auto;
     background: white;
-    padding: 0; /* Убрал padding */
+    padding: 0;
     max-width: 100%;
-    border-radius: 15px; /* Скругление углов */
+    border-radius: 15px;
     box-shadow: 0 15px 35px rgba(0,0,0,0.1);
 }
 
@@ -44,11 +44,6 @@ body {
     opacity: 0;
     transform: translateY(20px);
     transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-.slide.fade-in.visible {
-    opacity: 1;
-    transform: translateY(0);
 }
 
 .error-message {
@@ -66,16 +61,16 @@ body {
     text-align: center;
     padding: 50px 20px;
     width: 100%;
-    position: relative;
 }
 
 .main-button {
     padding: 20px 50px;
-    background: linear-gradient(45deg, #8b4513, #6b3a0e);
-    background-image: url('button-bg.png'); /* Фон для кнопки */
+    background: 
+        linear-gradient(rgba(139, 69, 19, 0.8), rgba(107, 58, 14, 0.9)),
+        url('button-bg.png');
     background-size: cover;
     background-position: center;
-    background-blend-mode: overlay;
+    background-repeat: no-repeat;
     color: white;
     border: none;
     border-radius: 40px;
@@ -85,29 +80,22 @@ body {
     box-shadow: 0 8px 25px rgba(139,69,19,0.4);
     transition: all 0.3s ease;
     margin: 0 auto;
-    position: relative;
-    overflow: hidden;
     border: 2px solid #5d2e0a;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
 }
 
 .main-button:hover {
     transform: translateY(-3px) scale(1.02);
-    box-shadow: 0 12px 35px rgba(139,69,19,0.5);
+    box-shadow: 0 12px 35px rgba(139,69,19,0.6);
+    background: 
+        linear-gradient(rgba(139, 69, 19, 0.9), rgba(107, 58, 14, 1)),
+        url('button-bg.png');
+    background-size: cover;
+    background-position: center;
 }
 
 .main-button:active {
     transform: translateY(-1px);
-}
-
-.button-text {
-    position: relative;
-    z-index: 2;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-}
-
-/* Если фоновая картинка для кнопки не загрузится */
-.main-button {
-    background: linear-gradient(45deg, #8b4513, #6b3a0e) !important;
 }
 
 /* Адаптивность */
@@ -150,17 +138,5 @@ body {
         padding: 14px 35px;
         font-size: 15px;
         border-radius: 30px;
-    }
-}
-
-/* Очень маленькие экраны */
-@media (max-width: 320px) {
-    .main-button {
-        padding: 12px 30px;
-        font-size: 14px;
-    }
-    
-    .slide {
-        margin-bottom: 20px;
     }
 }
