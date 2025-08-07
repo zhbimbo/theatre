@@ -7,119 +7,59 @@
 body {
     font-family: Arial, sans-serif;
     background: #f5f0e6;
-    padding: 0;
     margin: 0;
-    width: 100%;
-    overflow-x: hidden;
 }
 
-/* Закрепленная шапка */
-.fixed-header {
-    position: fixed;
+/* Шапка */
+.site-header {
+    background: #fff;
+    padding: 10px 0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    position: sticky;
     top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-    background: rgba(245, 240, 230, 0.98);
-    box-shadow: 0 2px 15px rgba(0,0,0,0.15);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: auto;
+    z-index: 100;
 }
 
-.header-image {
+.header-logo {
     width: 100%;
     height: auto;
-    max-width: 100%;
-    object-fit: contain;
     display: block;
+    max-height: 120px;
+    object-fit: contain;
 }
 
-/* Контейнер для слайдов с отступом под шапку */
-.slides-container {
-    width: 100%;
-    height: 100vh;
-    padding: 0;
-    margin-top: 0;
-    overflow-y: auto;
-    overflow-x: hidden;
-    padding-top: 150px; /* Отступ под шапку */
+/* Основной контент */
+.main-content {
+    padding: 20px 0;
 }
 
-/* Обертка для слайдов */
-.slide-wrapper {
-    width: 100%;
+.slides-wrapper {
     display: flex;
     flex-direction: column;
+    gap: 0;
 }
 
-/* Каждый слайд */
-.slide-item {
+.slide {
     width: 100%;
-    position: relative;
-    opacity: 0;
-    transform: translateY(30px);
-    animation: fadeInUp 0.8s ease forwards;
-    background: white;
-    border-radius: 0;
 }
 
-/* Анимация появления */
-@keyframes fadeInUp {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Анимируем слайды по очереди */
-.slide-item:nth-child(1) { animation-delay: 0.1s; }
-.slide-item:nth-child(2) { animation-delay: 0.3s; }
-.slide-item:nth-child(3) { animation-delay: 0.5s; }
-.slide-item:nth-child(4) { animation-delay: 0.7s; }
-.slide-item:nth-child(5) { animation-delay: 0.9s; }
-.slide-item:nth-child(6) { animation-delay: 1.1s; }
-.slide-item:nth-child(7) { animation-delay: 1.3s; }
-.slide-item:nth-child(8) { animation-delay: 1.5s; }
-.slide-item:nth-child(9) { animation-delay: 1.7s; }
-.slide-item:nth-child(10) { animation-delay: 1.9s; }
-.slide-item:nth-child(11) { animation-delay: 2.1s; }
-
-.slide-item img {
+.slide img {
     width: 100%;
     height: auto;
-    display: block;
     aspect-ratio: 16/9;
     object-fit: cover;
-    border-radius: 0;
+    display: block;
 }
 
-/* Плавающая кнопка */
-.floating-button {
-    position: fixed;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%) translateY(20px);
-    z-index: 1001;
-    opacity: 0;
-    transition: all 0.5s ease;
-    padding: 0 20px;
+/* Кнопка */
+.cta-button {
+    text-align: center;
+    padding: 30px 20px;
 }
 
-.floating-button.show {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-}
-
-.main-button {
+.buy-button {
     padding: 18px 45px;
-    background: 
-        linear-gradient(rgba(139, 69, 19, 0.9), rgba(107, 58, 14, 0.9)),
-        url('button-bg.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    background: linear-gradient(45deg, #8b4513, #6b3a0e);
     color: white;
     border: none;
     border-radius: 40px;
@@ -128,106 +68,46 @@ body {
     cursor: pointer;
     box-shadow: 0 8px 25px rgba(139,69,19,0.4);
     transition: all 0.3s ease;
-    margin: 0 auto;
-    border: 2px solid #5d2e0a;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-    white-space: nowrap;
 }
 
-.main-button:hover {
-    transform: translateY(-3px) scale(1.02);
+.buy-button:hover {
+    transform: translateY(-3px);
     box-shadow: 0 12px 35px rgba(139,69,19,0.6);
 }
 
-.main-button:active {
-    transform: translateY(-1px);
-}
-
 /* Адаптивность */
-@media (min-width: 1200px) {
-    .fixed-header {
-        height: 180px;
-    }
-    
-    .slides-container {
-        padding-top: 180px;
-    }
-}
-
-@media (min-width: 769px) and (max-width: 1199px) {
-    .fixed-header {
-        height: 150px;
-    }
-    
-    .slides-container {
-        padding-top: 150px;
-    }
-    
-    .main-button {
-        padding: 16px 40px;
-        font-size: 17px;
-        border-radius: 35px;
-    }
-}
-
 @media (max-width: 768px) {
-    .fixed-header {
-        height: 120px;
+    .header-logo {
+        max-height: 80px;
     }
     
-    .slides-container {
-        padding-top: 120px;
+    .main-content {
+        padding: 15px 0;
     }
     
-    .main-button {
+    .buy-button {
         padding: 15px 35px;
         font-size: 16px;
         border-radius: 35px;
     }
-    
-    .floating-button {
-        bottom: 20px;
-        padding: 0 15px;
-    }
 }
 
 @media (max-width: 480px) {
-    .fixed-header {
-        height: 100px;
+    .site-header {
+        padding: 5px 0;
     }
     
-    .slides-container {
-        padding-top: 100px;
+    .header-logo {
+        max-height: 60px;
     }
     
-    .main-button {
+    .main-content {
+        padding: 10px 0;
+    }
+    
+    .buy-button {
         padding: 13px 30px;
         font-size: 15px;
         border-radius: 30px;
-    }
-    
-    .floating-button {
-        bottom: 15px;
-        padding: 0 10px;
-    }
-}
-
-@media (max-width: 320px) {
-    .fixed-header {
-        height: 80px;
-    }
-    
-    .slides-container {
-        padding-top: 80px;
-    }
-    
-    .main-button {
-        padding: 11px 25px;
-        font-size: 14px;
-        border-radius: 25px;
-    }
-    
-    .floating-button {
-        bottom: 10px;
     }
 }
