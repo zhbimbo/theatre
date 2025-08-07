@@ -15,40 +15,40 @@
         </div>
     </header>
 
-    <!-- Слайды -->
+    <!-- Слайды с анимацией -->
     <div class="slides-container" id="slidesContainer">
         <div class="slide-wrapper">
-            <div class="slide-item">
+            <div class="slide-item" data-slide="1">
                 <img src="Images/img1.png" alt="Слайд 1">
             </div>
-            <div class="slide-item">
+            <div class="slide-item" data-slide="2">
                 <img src="Images/img2.png" alt="Слайд 2">
             </div>
-            <div class="slide-item">
+            <div class="slide-item" data-slide="3">
                 <img src="Images/img3.png" alt="Слайд 3">
             </div>
-            <div class="slide-item">
+            <div class="slide-item" data-slide="4">
                 <img src="Images/img4.png" alt="Слайд 4">
             </div>
-            <div class="slide-item">
+            <div class="slide-item" data-slide="5">
                 <img src="Images/img5.png" alt="Слайд 5">
             </div>
-            <div class="slide-item">
+            <div class="slide-item" data-slide="6">
                 <img src="Images/img6.png" alt="Слайд 6">
             </div>
-            <div class="slide-item">
+            <div class="slide-item" data-slide="7">
                 <img src="Images/img7.png" alt="Слайд 7">
             </div>
-            <div class="slide-item">
+            <div class="slide-item" data-slide="8">
                 <img src="Images/img8.png" alt="Слайд 8">
             </div>
-            <div class="slide-item">
+            <div class="slide-item" data-slide="9">
                 <img src="Images/img9.png" alt="Слайд 9">
             </div>
-            <div class="slide-item">
+            <div class="slide-item" data-slide="10">
                 <img src="Images/img10.png" alt="Слайд 10">
             </div>
-            <div class="slide-item">
+            <div class="slide-item" data-slide="11">
                 <img src="Images/img11.png" alt="Слайд 11">
             </div>
         </div>
@@ -66,17 +66,34 @@
             alert('Спасибо за интерес! Свяжитесь со мной по телефону или email.');
         }
 
-        // Показываем кнопку только когда докрутили до конца
+        // Анимация слайдов при прокрутке
         document.addEventListener('DOMContentLoaded', function() {
             const slidesContainer = document.getElementById('slidesContainer');
             const floatingButton = document.getElementById('floatingButton');
+            const slides = document.querySelectorAll('.slide-item');
             
-            // Функция проверки прокрутки
-            function checkScroll() {
-                const scrollPosition = slidesContainer.scrollTop;
-                const scrollHeight = slidesContainer.scrollHeight - slidesContainer.clientHeight;
+            // Функция проверки прокрутки для анимации слайдов
+            function checkSlidesAnimation() {
+                const containerRect = slidesContainer.getBoundingClientRect();
+                const scrollTop = slidesContainer.scrollTop;
+                const containerHeight = slidesContainer.clientHeight;
                 
-                // Если почти в конце - показываем кнопку
+                slides.forEach(slide => {
+                    const slideRect = slide.getBoundingClientRect();
+                    const slideTop = slideRect.top - containerRect.top + scrollTop;
+                    const slideBottom = slideTop + slide.offsetHeight;
+                    
+                    // Если слайд в поле зрения
+                    if (slideTop < scrollTop + containerHeight * 0.8 && 
+                        slideBottom > scrollTop) {
+                        slide.classList.add('animate');
+                    }
+                });
+                
+                // Проверка для кнопки
+                const scrollPosition = scrollTop;
+                const scrollHeight = slidesContainer.scrollHeight - containerHeight;
+                
                 if (scrollPosition >= scrollHeight * 0.8) {
                     floatingButton.classList.add('show');
                 } else {
@@ -85,10 +102,17 @@
             }
             
             // Слушаем прокрутку
-            slidesContainer.addEventListener('scroll', checkScroll);
+            slidesContainer.addEventListener('scroll', checkSlidesAnimation);
             
             // Проверяем сразу при загрузке
-            setTimeout(checkScroll, 100);
+            setTimeout(checkSlidesAnimation, 100);
+            
+            // Анимируем первый слайд сразу
+            if (slides.length > 0) {
+                setTimeout(() => {
+                    slides[0].classList.add('animate');
+                }, 300);
+            }
         });
     </script>
 </body>
