@@ -7,40 +7,48 @@
 body {
     font-family: Arial, sans-serif;
     background: #f0f0f0;
+    padding: 0;
+    margin: 0;
 }
 
 /* Шапка */
 .header {
     width: 100%;
+    text-align: center;
     margin-bottom: 20px;
 }
 
 .header img {
     width: 100%;
-    display: block;
+    height: auto;
+    max-height: 150px;
+    object-fit: contain;
 }
 
 /* Контейнер для слайдов */
 .slides-container {
     width: 100%;
-    max-width: 800px;
+    max-width: 900px;
     margin: 0 auto;
-    padding: 0 10px;
+    padding: 0 15px 30px 15px;
 }
 
 /* Каждый слайд */
 .slide {
     width: 100%;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     text-align: center;
 }
 
 .slide img {
     width: 100%;
     height: auto;
+    max-width: 100%;
     border: 2px solid #ddd;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    display: block;
+    margin: 0 auto;
 }
 
 /* Кнопка */
@@ -50,23 +58,59 @@ body {
 }
 
 .main-button {
-    padding: 15px 30px;
+    padding: 16px 32px;
     background: #007AFF;
     color: white;
     border: none;
     border-radius: 30px;
     font-size: 16px;
+    font-weight: bold;
     cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0,122,255,0.3);
+    transition: all 0.3s ease;
 }
 
 .main-button:hover {
     background: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,122,255,0.4);
 }
 
-/* Мобильная версия */
+/* Адаптивность для планшетов */
 @media (max-width: 768px) {
     .slides-container {
-        padding: 0 5px;
+        padding: 0 10px 25px 10px;
+    }
+    
+    .slide {
+        margin-bottom: 20px;
+    }
+    
+    .slide img {
+        border-radius: 10px;
+        border-width: 1px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    
+    .header img {
+        max-height: 120px;
+    }
+    
+    .main-button {
+        padding: 14px 28px;
+        font-size: 15px;
+    }
+}
+
+/* Адаптивность для мобильных */
+@media (max-width: 480px) {
+    body {
+        padding: 0;
+        margin: 0;
+    }
+    
+    .slides-container {
+        padding: 0 8px 20px 8px;
     }
     
     .slide {
@@ -74,11 +118,37 @@ body {
     }
     
     .slide img {
-        border-radius: 5px;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    
+    .header {
+        margin-bottom: 15px;
+    }
+    
+    .header img {
+        max-height: 100px;
     }
     
     .main-button {
-        padding: 12px 25px;
+        padding: 12px 24px;
         font-size: 14px;
+        border-radius: 25px;
+    }
+}
+
+/* Очень маленькие экраны */
+@media (max-width: 320px) {
+    .slides-container {
+        padding: 0 5px 15px 5px;
+    }
+    
+    .slide img {
+        border-radius: 6px;
+    }
+    
+    .main-button {
+        padding: 10px 20px;
+        font-size: 13px;
     }
 }
