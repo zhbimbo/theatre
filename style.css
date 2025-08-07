@@ -13,13 +13,18 @@ body {
     overflow-x: hidden;
 }
 
-/* Новая шапка - текст на всю ширину */
+/* Шапка с прозрачностью */
 .new-header {
-    background: white;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
     padding: 25px 0;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-    position: relative;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
 }
 
 .header-container {
@@ -39,14 +44,13 @@ body {
     letter-spacing: 3px;
     text-transform: uppercase;
     width: 100%;
-    max-width: 100%;
 }
 
-/* Контейнер для слайдов */
+/* Контейнер для слайдов с отступом под шапку */
 .slides-container {
     width: 100%;
     padding: 0;
-    margin-top: 20px;
+    margin-top: 120px;
 }
 
 /* Обертка для слайдов */
@@ -73,17 +77,27 @@ body {
     border-radius: 0;
 }
 
-/* Контейнер для кнопки */
-.button-container {
-    text-align: center;
-    padding: 40px 20px 60px 20px;
-    width: 100%;
+/* Плавающая кнопка поверх последнего слайда */
+.floating-button {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    z-index: 1001;
+    opacity: 0;
+    transition: all 0.5s ease;
+    padding: 0 20px;
+}
+
+.floating-button.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
 }
 
 .main-button {
     padding: 20px 50px;
     background: 
-        linear-gradient(135deg, #8b4513 0%, #6b3a0e 50%, #4a2808 100%),
+        linear-gradient(135deg, rgba(139, 69, 19, 0.9) 0%, rgba(107, 58, 14, 0.9) 50%, rgba(74, 40, 8, 0.9) 100%),
         url('button-bg.png');
     background-size: cover;
     background-position: center;
@@ -99,15 +113,15 @@ body {
         inset 0 2px 10px rgba(255,255,255,0.3);
     transition: all 0.3s ease;
     margin: 0 auto;
-    border: 2px solid #5d2e0a;
+    border: 2px solid rgba(93, 46, 10, 0.8);
     text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
     white-space: nowrap;
-    display: inline-block;
+    display: block;
 }
 
 /* Fallback если фон не загрузится */
 .main-button {
-    background: linear-gradient(135deg, #8b4513 0%, #6b3a0e 50%, #4a2808 100%) !important;
+    background: linear-gradient(135deg, rgba(139, 69, 19, 0.9) 0%, rgba(107, 58, 14, 0.9) 50%, rgba(74, 40, 8, 0.9) 100%) !important;
 }
 
 .main-button:hover {
@@ -127,17 +141,31 @@ body {
         font-size: 2.5rem;
         letter-spacing: 2px;
     }
+    
+    .slides-container {
+        margin-top: 110px;
+    }
 }
 
 @media (max-width: 768px) {
+    .new-header {
+        padding: 20px 0;
+        background: rgba(255, 255, 255, 0.98);
+    }
+    
     .header-title {
         font-size: 2rem;
         letter-spacing: 1px;
         padding: 0 15px;
     }
     
-    .button-container {
-        padding: 30px 15px 50px 15px;
+    .slides-container {
+        margin-top: 90px;
+    }
+    
+    .floating-button {
+        bottom: 20px;
+        padding: 0 15px;
     }
     
     .main-button {
@@ -149,7 +177,7 @@ body {
 
 @media (max-width: 480px) {
     .new-header {
-        padding: 20px 0;
+        padding: 15px 0;
     }
     
     .header-title {
@@ -158,13 +186,17 @@ body {
         padding: 0 10px;
     }
     
-    .slide-item img {
-        aspect-ratio: 16/9;
-        object-fit: cover;
+    .slides-container {
+        margin-top: 80px;
     }
     
-    .button-container {
-        padding: 25px 10px 40px 10px;
+    .slide-item img {
+        aspect-ratio: 16/9;
+    }
+    
+    .floating-button {
+        bottom: 15px;
+        padding: 0 10px;
     }
     
     .main-button {
@@ -182,13 +214,17 @@ body {
         letter-spacing: 0.5px;
     }
     
+    .slides-container {
+        margin-top: 70px;
+    }
+    
     .main-button {
         padding: 12px 30px;
         font-size: 14px;
         border-radius: 25px;
     }
     
-    .button-container {
-        padding: 20px 5px 30px 5px;
+    .floating-button {
+        bottom: 10px;
     }
 }
