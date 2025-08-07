@@ -13,10 +13,32 @@ body {
     overflow-x: hidden;
 }
 
-/* Контейнер для слайдов */
+/* Закрепленная шапка */
+.fixed-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background: rgba(245, 240, 230, 0.95);
+    backdrop-filter: blur(5px);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.header-image {
+    width: 100%;
+    height: auto;
+    max-height: 80px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Контейнер для слайдов с отступом под шапку */
 .slides-container {
     width: 100%;
     padding: 0;
+    margin-top: 80px; /* Отступ под шапку */
 }
 
 /* Обертка для слайдов */
@@ -34,7 +56,7 @@ body {
     transform: translateY(30px);
     animation: fadeInUp 0.8s ease forwards;
     background: white;
-    border-radius: 0; /* Убрал закругления */
+    border-radius: 0;
 }
 
 /* Анимация появления */
@@ -64,40 +86,44 @@ body {
     display: block;
     aspect-ratio: 16/9;
     object-fit: cover;
-    border-radius: 0; /* Убрал закругления */
+    border-radius: 0;
 }
 
-/* Кнопка с фоном */
-.button-container {
-    text-align: center;
-    padding: 30px 20px 50px 20px;
-    width: 100%;
+/* Плавающая кнопка */
+.floating-button {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1001;
+    padding: 0 20px;
 }
 
 .main-button {
-    padding: 20px 50px;
+    padding: 18px 45px;
     background: 
-        linear-gradient(rgba(139, 69, 19, 0.8), rgba(107, 58, 14, 0.9)),
-        url('button-bg.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+        linear-gradient(135deg, #8b4513 0%, #6b3a0e 50%, #4a2808 100%);
     color: white;
     border: none;
     border-radius: 40px;
     font-size: 18px;
     font-weight: bold;
     cursor: pointer;
-    box-shadow: 0 8px 25px rgba(139,69,19,0.4);
+    box-shadow: 
+        0 8px 25px rgba(139,69,19,0.4),
+        inset 0 2px 10px rgba(255,255,255,0.3);
     transition: all 0.3s ease;
     margin: 0 auto;
     border: 2px solid #5d2e0a;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    white-space: nowrap;
 }
 
 .main-button:hover {
-    transform: translateY(-3px) scale(1.02);
-    box-shadow: 0 12px 35px rgba(139,69,19,0.6);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 
+        0 12px 35px rgba(139,69,19,0.6),
+        inset 0 2px 15px rgba(255,255,255,0.4);
 }
 
 .main-button:active {
@@ -106,25 +132,55 @@ body {
 
 /* Адаптивность */
 @media (max-width: 768px) {
+    .header-image {
+        max-height: 60px;
+    }
+    
+    .slides-container {
+        margin-top: 60px;
+    }
+    
     .main-button {
-        padding: 16px 40px;
+        padding: 15px 35px;
         font-size: 16px;
         border-radius: 35px;
+    }
+    
+    .floating-button {
+        bottom: 20px;
+        padding: 0 15px;
     }
 }
 
 @media (max-width: 480px) {
+    .header-image {
+        max-height: 50px;
+    }
+    
+    .slides-container {
+        margin-top: 50px;
+    }
+    
     .main-button {
-        padding: 14px 35px;
+        padding: 13px 30px;
         font-size: 15px;
         border-radius: 30px;
+    }
+    
+    .floating-button {
+        bottom: 15px;
+        padding: 0 10px;
     }
 }
 
 @media (max-width: 320px) {
     .main-button {
-        padding: 12px 30px;
+        padding: 11px 25px;
         font-size: 14px;
         border-radius: 25px;
+    }
+    
+    .floating-button {
+        bottom: 10px;
     }
 }
