@@ -16,7 +16,7 @@ body {
 /* Контейнер для слайдов */
 .slides-container {
     width: 100%;
-    padding: 20px 0;
+    padding: 0;
 }
 
 /* Обертка для слайдов */
@@ -24,21 +24,17 @@ body {
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    align-items: center;
 }
 
 /* Каждый слайд */
 .slide-item {
-    width: 90%;
+    width: 100%;
     position: relative;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
     opacity: 0;
     transform: translateY(30px);
     animation: fadeInUp 0.8s ease forwards;
     background: white;
+    border-radius: 0; /* Убрал закругления */
 }
 
 /* Анимация появления */
@@ -66,14 +62,15 @@ body {
     width: 100%;
     height: auto;
     display: block;
-    aspect-ratio: 16/9; /* Соотношение 16:9 */
+    aspect-ratio: 16/9;
     object-fit: cover;
+    border-radius: 0; /* Убрал закругления */
 }
 
 /* Кнопка с фоном */
 .button-container {
     text-align: center;
-    padding: 40px 20px 60px 20px;
+    padding: 30px 20px 50px 20px;
     width: 100%;
 }
 
@@ -109,19 +106,6 @@ body {
 
 /* Адаптивность */
 @media (max-width: 768px) {
-    .slides-container {
-        padding: 15px 0;
-    }
-    
-    .slide-wrapper {
-        gap: 15px;
-    }
-    
-    .slide-item {
-        width: 95%;
-        border-radius: 12px;
-    }
-    
     .main-button {
         padding: 16px 40px;
         font-size: 16px;
@@ -130,19 +114,6 @@ body {
 }
 
 @media (max-width: 480px) {
-    .slides-container {
-        padding: 10px 0;
-    }
-    
-    .slide-wrapper {
-        gap: 12px;
-    }
-    
-    .slide-item {
-        width: 98%;
-        border-radius: 10px;
-    }
-    
     .main-button {
         padding: 14px 35px;
         font-size: 15px;
@@ -150,13 +121,7 @@ body {
     }
 }
 
-/* Очень маленькие экраны */
 @media (max-width: 320px) {
-    .slide-item {
-        width: 100%;
-        border-radius: 8px;
-    }
-    
     .main-button {
         padding: 12px 30px;
         font-size: 14px;
