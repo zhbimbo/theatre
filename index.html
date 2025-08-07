@@ -9,13 +9,11 @@
 <body>
     <!-- Закрепленная шапка -->
     <div class="fixed-header">
-        <div class="header-wrapper">
-            <img src="header.png" alt="Театр историй" class="header-image">
-        </div>
+        <img src="header.png" alt="Театр историй" class="header-image">
     </div>
 
     <!-- Вертикальная прокрутка слайдов -->
-    <div class="slides-container">
+    <div class="slides-container" id="slidesContainer">
         <div class="slide-wrapper">
             <div class="slide-item">
                 <img src="Images/img1.png" alt="Слайд 1">
@@ -54,7 +52,7 @@
     </div>
 
     <!-- Кнопка поверх последнего слайда -->
-    <div class="floating-button">
+    <div class="floating-button" id="floatingButton">
         <button class="main-button" onclick="contactMe()">
             <span class="button-text">Купить билет</span>
         </button>
@@ -67,22 +65,18 @@
 
         // Показываем кнопку только когда докрутили до конца
         document.addEventListener('DOMContentLoaded', function() {
-            const slidesContainer = document.querySelector('.slides-container');
-            const floatingButton = document.querySelector('.floating-button');
-            
-            // Скрываем кнопку изначально
-            floatingButton.style.opacity = '0';
-            floatingButton.style.transform = 'translateX(-50%) translateY(20px)';
-            floatingButton.style.transition = 'all 0.5s ease';
+            const slidesContainer = document.getElementById('slidesContainer');
+            const floatingButton = document.getElementById('floatingButton');
             
             slidesContainer.addEventListener('scroll', function() {
                 const scrollPosition = slidesContainer.scrollTop;
                 const scrollHeight = slidesContainer.scrollHeight - slidesContainer.clientHeight;
                 
                 // Если почти в конце - показываем кнопку
-                if (scrollPosition >= scrollHeight * 0.8) {
-                    floatingButton.style.opacity = '1';
-                    floatingButton.style.transform = 'translateX(-50%) translateY(0)';
+                if (scrollPosition >= scrollHeight * 0.9) {
+                    floatingButton.classList.add('show');
+                } else {
+                    floatingButton.classList.remove('show');
                 }
             });
         });
