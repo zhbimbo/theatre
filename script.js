@@ -19,13 +19,10 @@ const swiper = new Swiper('.mySwiper', {
     mousewheel: {
         invert: false,
     },
+    effect: 'slide',
+    spaceBetween: 20,
 });
 
-// Обработчик кнопки
 document.querySelector('.main-button').addEventListener('click', () => {
-    // Здесь можно:
-    // - Открыть модальное окно
-    // - Перейти по ссылке
-    // - Показать контактную информацию
     alert('Спасибо за интерес! Свяжитесь со мной по телефону или email.');
 });
