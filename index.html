@@ -5,15 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Театр историй</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Новая шапка -->
+    <!-- Новая шапка - текст на всю ширину -->
     <header class="new-header">
-        <h1 class="header-title">Театр историй</h1>
+        <div class="header-container">
+            <h1 class="header-title">ТЕАТР ИСТОРИЙ</h1>
+        </div>
     </header>
 
-    <!-- Вертикальная прокрутка слайдов -->
+    <!-- Слайды -->
     <div class="slides-container">
         <div class="slide-wrapper">
             <div class="slide-item">
@@ -52,8 +54,8 @@
         </div>
     </div>
 
-    <!-- Кнопка поверх последнего слайда -->
-    <div class="floating-button">
+    <!-- Кнопка внизу -->
+    <div class="button-container">
         <button class="main-button" onclick="contactMe()">
             <span class="button-text">Купить билет</span>
         </button>
