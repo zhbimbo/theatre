@@ -6,36 +6,18 @@
 
 body {
     font-family: Arial, sans-serif;
-    background: #f5f5f5;
+    background: #f5f0e6; /* Бежевый фон */
     padding: 0;
     margin: 0;
     width: 100%;
     overflow-x: hidden;
 }
 
-/* Шапка */
-.header {
-    width: 100%;
-    text-align: center;
-    padding: 15px 0;
-    background: white;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-}
-
-.header-img {
-    max-width: 300px;
-    width: 100%;
-    height: auto;
-    max-height: 120px;
-    object-fit: contain;
-}
-
 /* Контейнер для слайдов */
 .slides-container {
     width: 100%;
-    max-width: 1200px;
+    padding: 20px 5%;
     margin: 0 auto;
-    padding: 20px;
 }
 
 /* Каждый слайд */
@@ -46,16 +28,26 @@ body {
 }
 
 .slide img {
-    max-width: 100%;
-    width: 100%;
+    width: 90%; /* Растянуты на 90% */
     height: auto;
-    border: 1px solid #ddd;
-    border-radius: 12px;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    border: 1px solid #d9d0c0;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
     display: block;
     margin: 0 auto;
     background: white;
-    padding: 10px;
+    padding: 15px;
+    max-width: 100%;
+}
+
+.error-message {
+    color: #d32f2f;
+    background: #ffebee;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px auto;
+    max-width: 90%;
+    border: 1px solid #ffcdd2;
 }
 
 /* Кнопка */
@@ -66,68 +58,29 @@ body {
 }
 
 .main-button {
-    padding: 16px 40px;
-    background: #007AFF;
+    padding: 18px 45px;
+    background: #8b4513; /* Коричневатый цвет для контраста с бежевым */
     color: white;
     border: none;
-    border-radius: 30px;
-    font-size: 16px;
+    border-radius: 35px;
+    font-size: 17px;
     font-weight: bold;
     cursor: pointer;
-    box-shadow: 0 4px 15px rgba(0,122,255,0.3);
+    box-shadow: 0 6px 20px rgba(139,69,19,0.3);
     transition: all 0.3s ease;
     margin: 0 auto;
 }
 
 .main-button:hover {
-    background: #0056b3;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0,122,255,0.4);
+    background: #6b3a0e;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(139,69,19,0.4);
 }
 
-/* ПК версия */
-@media (min-width: 1025px) {
-    .slides-container {
-        max-width: 1000px;
-        padding: 30px;
-    }
-    
-    .slide img {
-        max-width: 800px;
-        margin: 0 auto;
-    }
-    
-    .header-img {
-        max-width: 400px;
-    }
-}
-
-/* Планшеты */
-@media (min-width: 769px) and (max-width: 1024px) {
-    .slides-container {
-        max-width: 800px;
-        padding: 25px;
-    }
-    
-    .slide img {
-        max-width: 700px;
-    }
-    
-    .header-img {
-        max-width: 350px;
-    }
-}
-
-/* Мобильные устройства */
+/* Адаптивность */
 @media (max-width: 768px) {
-    body {
-        padding: 0;
-        margin: 0;
-    }
-    
     .slides-container {
-        padding: 15px 10px;
-        max-width: 100%;
+        padding: 15px 3%;
     }
     
     .slide {
@@ -135,45 +88,31 @@ body {
     }
     
     .slide img {
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        padding: 8px;
-    }
-    
-    .header {
-        padding: 10px 0;
-    }
-    
-    .header-img {
-        max-width: 250px;
-        max-height: 100px;
+        width: 95%;
+        border-radius: 12px;
+        padding: 10px;
     }
     
     .main-button {
-        padding: 14px 30px;
-        font-size: 15px;
+        padding: 15px 35px;
+        font-size: 16px;
+        border-radius: 30px;
     }
 }
 
-/* Маленькие мобильные */
 @media (max-width: 480px) {
     .slides-container {
-        padding: 12px 8px;
+        padding: 10px 2%;
     }
     
     .slide img {
-        border-radius: 8px;
-        padding: 6px;
-    }
-    
-    .header-img {
-        max-width: 200px;
-        max-height: 80px;
+        width: 98%;
+        border-radius: 10px;
+        padding: 8px;
     }
     
     .main-button {
-        padding: 12px 25px;
-        font-size: 14px;
-        border-radius: 25px;
+        padding: 13px 30px;
+        font-size: 15px;
     }
 }
