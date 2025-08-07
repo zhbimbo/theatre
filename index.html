@@ -3,10 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Мой сайт</title>
+    <title>Театр историй</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Закрепленная шапка -->
+    <div class="fixed-header">
+        <img src="header.png" alt="Театр историй" class="header-image">
+    </div>
+
     <!-- Вертикальная прокрутка слайдов -->
     <div class="slides-container">
         <div class="slide-wrapper">
@@ -46,10 +51,10 @@
         </div>
     </div>
 
-    <!-- Кнопка с фоном -->
-    <div class="button-container">
+    <!-- Кнопка поверх последнего слайда -->
+    <div class="floating-button">
         <button class="main-button" onclick="contactMe()">
-            <span class="button-text">Связаться со мной</span>
+            <span class="button-text">Купить билет</span>
         </button>
     </div>
 
