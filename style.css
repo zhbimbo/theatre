@@ -24,11 +24,19 @@ body {
     box-shadow: 0 2px 15px rgba(0,0,0,0.15);
 }
 
+.header-wrapper {
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+}
+
 .header-image {
     width: 100%;
     height: auto;
-    max-height: 200px; /* Увеличил максимальную высоту */
-    object-fit: cover; /* Изменил с contain на cover */
+    max-height: none;
+    object-fit: contain;
     display: block;
     margin: 0 auto;
 }
@@ -36,8 +44,11 @@ body {
 /* Контейнер для слайдов с отступом под шапку */
 .slides-container {
     width: 100%;
+    height: calc(100vh - 150px); /* Высота экрана минус высота шапки */
     padding: 0;
-    margin-top: 200px; /* Увеличил отступ под шапку */
+    margin-top: 150px;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 /* Обертка для слайдов */
@@ -101,7 +112,11 @@ body {
 .main-button {
     padding: 18px 45px;
     background: 
-        linear-gradient(135deg, #8b4513 0%, #6b3a0e 50%, #4a2808 100%);
+        linear-gradient(135deg, #8b4513 0%, #6b3a0e 50%, #4a2808 100%),
+        url('button-bg.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     color: white;
     border: none;
     border-radius: 40px;
@@ -137,6 +152,7 @@ body {
     
     .slides-container {
         margin-top: 180px;
+        height: calc(100vh - 180px);
     }
 }
 
@@ -148,6 +164,7 @@ body {
     
     .slides-container {
         margin-top: 150px;
+        height: calc(100vh - 150px);
     }
     
     .main-button {
@@ -165,6 +182,7 @@ body {
     
     .slides-container {
         margin-top: 120px;
+        height: calc(100vh - 120px);
     }
     
     .main-button {
@@ -182,11 +200,12 @@ body {
 /* Адаптивность для мобильных */
 @media (max-width: 480px) {
     .header-image {
-        max-height: 80px; /* Уменьшил для мобильных */
+        max-height: 80px;
     }
     
     .slides-container {
         margin-top: 80px;
+        height: calc(100vh - 80px);
     }
     
     .main-button {
@@ -209,6 +228,7 @@ body {
     
     .slides-container {
         margin-top: 60px;
+        height: calc(100vh - 60px);
     }
     
     .main-button {
