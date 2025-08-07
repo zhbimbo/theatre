@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Новая шапка - текст на всю ширину -->
+    <!-- Шапка с прозрачностью -->
     <header class="new-header">
         <div class="header-container">
             <h1 class="header-title">ТЕАТР ИСТОРИЙ</h1>
@@ -16,7 +16,7 @@
     </header>
 
     <!-- Слайды -->
-    <div class="slides-container">
+    <div class="slides-container" id="slidesContainer">
         <div class="slide-wrapper">
             <div class="slide-item">
                 <img src="Images/img1.png" alt="Слайд 1">
@@ -54,8 +54,8 @@
         </div>
     </div>
 
-    <!-- Кнопка внизу -->
-    <div class="button-container">
+    <!-- Плавающая кнопка поверх последнего слайда -->
+    <div class="floating-button" id="floatingButton">
         <button class="main-button" onclick="contactMe()">
             <span class="button-text">Купить билет</span>
         </button>
@@ -65,6 +65,31 @@
         function contactMe() {
             alert('Спасибо за интерес! Свяжитесь со мной по телефону или email.');
         }
+
+        // Показываем кнопку только когда докрутили до конца
+        document.addEventListener('DOMContentLoaded', function() {
+            const slidesContainer = document.getElementById('slidesContainer');
+            const floatingButton = document.getElementById('floatingButton');
+            
+            // Функция проверки прокрутки
+            function checkScroll() {
+                const scrollPosition = slidesContainer.scrollTop;
+                const scrollHeight = slidesContainer.scrollHeight - slidesContainer.clientHeight;
+                
+                // Если почти в конце - показываем кнопку
+                if (scrollPosition >= scrollHeight * 0.8) {
+                    floatingButton.classList.add('show');
+                } else {
+                    floatingButton.classList.remove('show');
+                }
+            }
+            
+            // Слушаем прокрутку
+            slidesContainer.addEventListener('scroll', checkScroll);
+            
+            // Проверяем сразу при загрузке
+            setTimeout(checkScroll, 100);
+        });
     </script>
 </body>
 </html>
