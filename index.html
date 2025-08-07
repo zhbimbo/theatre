@@ -9,7 +9,9 @@
 <body>
     <!-- Закрепленная шапка -->
     <div class="fixed-header">
-        <img src="header.png" alt="Театр историй" class="header-image">
+        <div class="header-wrapper">
+            <img src="header.png" alt="Театр историй" class="header-image">
+        </div>
     </div>
 
     <!-- Вертикальная прокрутка слайдов -->
@@ -62,6 +64,28 @@
         function contactMe() {
             alert('Спасибо за интерес! Свяжитесь со мной по телефону или email.');
         }
+
+        // Показываем кнопку только когда докрутили до конца
+        document.addEventListener('DOMContentLoaded', function() {
+            const slidesContainer = document.querySelector('.slides-container');
+            const floatingButton = document.querySelector('.floating-button');
+            
+            // Скрываем кнопку изначально
+            floatingButton.style.opacity = '0';
+            floatingButton.style.transform = 'translateX(-50%) translateY(20px)';
+            floatingButton.style.transition = 'all 0.5s ease';
+            
+            slidesContainer.addEventListener('scroll', function() {
+                const scrollPosition = slidesContainer.scrollTop;
+                const scrollHeight = slidesContainer.scrollHeight - slidesContainer.clientHeight;
+                
+                // Если почти в конце - показываем кнопку
+                if (scrollPosition >= scrollHeight * 0.8) {
+                    floatingButton.style.opacity = '1';
+                    floatingButton.style.transform = 'translateX(-50%) translateY(0)';
+                }
+            });
+        });
     </script>
 </body>
 </html>
