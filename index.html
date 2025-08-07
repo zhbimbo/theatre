@@ -5,55 +5,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Театр историй</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Простая шапка -->
-    <header class="site-header">
-        <img src="header.png" alt="Театр историй" class="header-logo">
+    <!-- Новая шапка -->
+    <header class="new-header">
+        <h1 class="header-title">Театр историй</h1>
     </header>
 
-    <!-- Слайды -->
-    <main class="main-content">
-        <div class="slides-wrapper">
-            <div class="slide">
+    <!-- Вертикальная прокрутка слайдов -->
+    <div class="slides-container">
+        <div class="slide-wrapper">
+            <div class="slide-item">
                 <img src="Images/img1.png" alt="Слайд 1">
             </div>
-            <div class="slide">
+            <div class="slide-item">
                 <img src="Images/img2.png" alt="Слайд 2">
             </div>
-            <div class="slide">
+            <div class="slide-item">
                 <img src="Images/img3.png" alt="Слайд 3">
             </div>
-            <div class="slide">
+            <div class="slide-item">
                 <img src="Images/img4.png" alt="Слайд 4">
             </div>
-            <div class="slide">
+            <div class="slide-item">
                 <img src="Images/img5.png" alt="Слайд 5">
             </div>
-            <div class="slide">
+            <div class="slide-item">
                 <img src="Images/img6.png" alt="Слайд 6">
             </div>
-            <div class="slide">
+            <div class="slide-item">
                 <img src="Images/img7.png" alt="Слайд 7">
             </div>
-            <div class="slide">
+            <div class="slide-item">
                 <img src="Images/img8.png" alt="Слайд 8">
             </div>
-            <div class="slide">
+            <div class="slide-item">
                 <img src="Images/img9.png" alt="Слайд 9">
             </div>
-            <div class="slide">
+            <div class="slide-item">
                 <img src="Images/img10.png" alt="Слайд 10">
             </div>
-            <div class="slide">
+            <div class="slide-item">
                 <img src="Images/img11.png" alt="Слайд 11">
             </div>
         </div>
-    </main>
+    </div>
 
-    <!-- Кнопка -->
-    <div class="cta-button">
-        <button class="buy-button" onclick="contactMe()">Купить билет</button>
+    <!-- Кнопка поверх последнего слайда -->
+    <div class="floating-button">
+        <button class="main-button" onclick="contactMe()">
+            <span class="button-text">Купить билет</span>
+        </button>
     </div>
 
     <script>
