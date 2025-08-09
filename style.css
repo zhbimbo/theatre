@@ -145,20 +145,13 @@ body {
 
 /* Кнопка внизу как ШАПКА */
 .bottom-button {
-    background: 
-        url('button-bg.png'),
-        rgba(139, 69, 19, 0.95);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    background: none; /* Убираем фон */
     padding: 20px 0;
-    box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
     z-index: 1000;
-    border-top: 1px solid rgba(255,255,255,0.1);
 }
 
 .button-container {
@@ -268,52 +261,3 @@ body {
 
 @media (max-width: 480px) {
     .new-header {
-        background: #f5f0e6;
-    }
-    
-    .header-title {
-        font-size: 1.8rem;
-        font-weight: 700;
-        letter-spacing: 1px;
-    }
-    
-    .reviews-title {
-        font-size: 1.8rem;
-    }
-    
-    .slide-item {
-        width: 98%;
-        border-radius: 6px;
-    }
-    
-    .video-item {
-        width: 98%;
-        padding: 15px 0;
-    }
-    
-    .reviews-section {
-        padding: 30px 15px 20px 15px;
-    }
-    
-    .main-button {
-        padding: 14px 30px;
-        font-size: 15px;
-        max-width: 300px;
-    }
-}
-
-@media (max-width: 320px) {
-    .header-title {
-        font-size: 1.6rem;
-    }
-    
-    .reviews-title {
-        font-size: 1.6rem;
-    }
-    
-    .main-button {
-        padding: 12px 25px;
-        font-size: 14px;
-        max-width: 250px;
-    }
-}
