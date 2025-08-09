@@ -25,7 +25,7 @@
             
             <!-- Чехов1.M4V (после 1 слайда) -->
             <div class="video-item" data-video="1">
-                <video controls preload="metadata" playsinline muted autoplay>
+                <video controls preload="metadata" playsinline muted>
                     <source src="Чехов1.M4V" type="video/mp4">
                     Ваш браузер не поддерживает видео.
                 </video>
@@ -41,7 +41,7 @@
             
             <!-- Изба3.MP4 (после 3 слайда) -->
             <div class="video-item" data-video="3">
-                <video controls preload="metadata" playsinline muted autoplay>
+                <video controls preload="metadata" playsinline muted>
                     <source src="Изба3.mp4" type="video/mp4">
                     Ваш браузер не поддерживает видео.
                 </video>
@@ -57,7 +57,7 @@
             
             <!-- Егор5.MP4 (после 5 слайда) -->
             <div class="video-item" data-video="5">
-                <video controls preload="metadata" playsinline muted autoplay>
+                <video controls preload="metadata" playsinline muted>
                     <source src="Егор5.MP4" type="video/mp4">
                     Ваш браузер не поддерживает видео.
                 </video>
@@ -73,7 +73,7 @@
             
             <!-- Патрики7.MOV (после 7 слайда) -->
             <div class="video-item" data-video="7">
-                <video controls preload="metadata" playsinline muted autoplay>
+                <video controls preload="metadata" playsinline muted>
                     <source src="Патрики7.MOV" type="video/mp4">
                     Ваш браузер не поддерживает видео.
                 </video>
@@ -98,19 +98,19 @@
                 <h2 class="reviews-title">НАШИ ОТЗЫВЫ</h2>
                 <div class="videos-container">
                     <div class="video-wrapper">
-                        <video id="video1" controls preload="metadata" playsinline muted autoplay>
+                        <video id="video1" controls preload="metadata" playsinline muted>
                             <source src="Video1.MOV" type="video/mp4">
                             Ваш браузер не поддерживает видео.
                         </video>
                     </div>
                     <div class="video-wrapper">
-                        <video controls preload="metadata" playsinline muted autoplay>
+                        <video controls preload="metadata" playsinline muted>
                             <source src="Video2.MP4" type="video/mp4">
                             Ваш браузер не поддерживает видео.
                         </video>
                     </div>
                     <div class="video-wrapper">
-                        <video controls preload="metadata" playsinline muted autoplay>
+                        <video controls preload="metadata" playsinline muted>
                             <source src="Video3.MP4" type="video/mp4">
                             Ваш браузер не поддерживает видео.
                         </video>
@@ -138,6 +138,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             const slidesContainer = document.getElementById('slidesContainer');
             const videos = document.querySelectorAll('.video-item video');
+            const reviewsVideos = document.querySelectorAll('.video-wrapper video');
             
             function checkVideoPlayback() {
                 const containerRect = slidesContainer.getBoundingClientRect();
