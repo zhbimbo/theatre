@@ -45,7 +45,7 @@ body {
     width: 100%;
 }
 
-/* Слайды */
+/* Основной контейнер */
 .slides-container {
     width: 100%;
     padding: 0;
@@ -64,7 +64,7 @@ body {
     padding-bottom: 40px;
 }
 
-/* Анимация элементов */
+/* Элементы с анимацией */
 .slide-item, 
 .video-item, 
 .video-wrapper {
@@ -89,29 +89,29 @@ body {
     object-fit: cover;
 }
 
-/* Видео - исправления по вашим замечаниям */
+/* Видео - компактные и центрированные */
 .video-item, 
 .video-wrapper {
     display: flex;
     justify-content: center;
-    background: transparent !important;
-    padding: 0;
+    background: transparent;
+    padding: 10px 0;
 }
 
 .video-item video, 
 .video-wrapper video {
     width: auto;
     height: auto;
-    max-height: 70vh;
-    max-width: 100%;
+    max-width: 300px;
+    max-height: 500px;
     aspect-ratio: 9/16;
     display: block;
     border-radius: 10px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-    background: #000 !important;
+    background: #000;
 }
 
-/* Отзывы */
+/* Секция с отзывами */
 .reviews-section {
     width: 100%;
     padding: 50px 20px 30px;
@@ -142,7 +142,7 @@ body {
     max-width: 300px;
 }
 
-/* Кнопка - исправлен фон */
+/* Кнопка */
 .bottom-button {
     background: none;
     padding: 20px 0;
@@ -183,7 +183,7 @@ body {
     box-shadow: 0 12px 35px rgba(139,69,19,0.6);
 }
 
-/* Адаптивность */
+/* Адаптация для планшетов */
 @media (max-width: 768px) {
     .header-title {
         font-size: 2rem;
@@ -197,18 +197,44 @@ body {
     .videos-container {
         flex-direction: column;
         align-items: center;
+        gap: 20px;
     }
     .video-wrapper {
-        width: 90%;
-        max-width: 400px;
+        width: 95%;
+        max-width: none;
+    }
+    /* Компактные видео */
+    .video-item video, 
+    .video-wrapper video {
+        max-width: 280px;
+        max-height: 450px;
+    }
+    /* Кнопка */
+    .main-button {
+        padding: 15px 35px;
+        font-size: 16px;
+        max-width: 320px;
     }
 }
 
+/* Адаптация для мобильных */
 @media (max-width: 480px) {
     .header-title {
         font-size: 1.8rem;
     }
     .slide-item, .video-item {
         width: 98%;
+    }
+    /* Еще более компактные видео */
+    .video-item video, 
+    .video-wrapper video {
+        max-width: 240px;
+        max-height: 400px;
+    }
+    /* Кнопка */
+    .main-button {
+        padding: 12px 30px;
+        font-size: 15px;
+        max-width: 280px;
     }
 }
