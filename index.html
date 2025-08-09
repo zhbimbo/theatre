@@ -134,48 +134,72 @@
             alert('Спасибо за интерес! Свяжитесь со мной по телефону или email.');
         }
 
-        // Анимация и автозапуск видео
+        // Анимация и автозапуск
         document.addEventListener('DOMContentLoaded', function() {
             const slidesContainer = document.getElementById('slidesContainer');
+            const slideItems = document.querySelectorAll('.slide-item');
             const videoItems = document.querySelectorAll('.video-item, .video-wrapper');
-            const videos = document.querySelectorAll('video');
-            let lastPlayedVideo = null;
-
+            
             function checkVisibility() {
                 const containerRect = slidesContainer.getBoundingClientRect();
                 const scrollTop = slidesContainer.scrollTop;
                 const containerHeight = slidesContainer.clientHeight;
-
+                
+                // Анимация слайдов
+                slideItems.forEach(item => {
+                    const itemRect = item.getBoundingClientRect();
+                    const itemTop = itemRect.top - containerRect.top + scrollTop;
+                    const itemBottom = itemTop + item.offsetHeight;
+                    
+                    // Если слайд в зоне видимости
+                    if (itemTop < scrollTop + containerHeight * 0.8 && 
+                        itemBottom > scrollTop + containerHeight * 0.2) {
+                        item.classList.add('active');
+                    }
+                });
+                
+                // Анимация видео
                 videoItems.forEach(item => {
                     const itemRect = item.getBoundingClientRect();
                     const itemTop = itemRect.top - containerRect.top + scrollTop;
                     const itemBottom = itemTop + item.offsetHeight;
-                    const itemMiddle = itemTop + item.offsetHeight / 2;
-
-                    // Если элемент полностью в зоне видимости
-                    if (itemTop >= scrollTop && itemBottom <= scrollTop + containerHeight) {
+                    
+                    // Если видео в зоне видимости
+                    if (itemTop < scrollTop + containerHeight * 0.8 && 
+                        itemBottom > scrollTop + containerHeight * 0.2) {
                         item.classList.add('active');
-                    } else {
-                        item.classList.remove('active');
                     }
                 });
-
-                // Автозапуск видео только если оно не играет
+                
+                // Автозапуск видео
+                const videos = document.querySelectorAll('video');
                 videos.forEach(video => {
                     const videoRect = video.getBoundingClientRect();
                     const videoTop = videoRect.top - containerRect.top + scrollTop;
                     const videoBottom = videoTop + video.offsetHeight;
-
-                    // Если видео полностью в зоне видимости и не играет
-                    if (videoTop >= scrollTop && videoBottom <= scrollTop + containerHeight && !video.paused && video !== lastPlayedVideo) {
-                        lastPlayedVideo = video;
-                        video.play().catch(e => console.log('Автоплей заблокирован:', e));
+                    
+                    // Если видео полностью в зоне видимости
+                    if (videoTop >= scrollTop && videoBottom <= scrollTop + containerHeight) {
+                        if (video.paused && video.muted) {
+                            // Только если видео еще не играло
+                            if (!video.hasAttribute('data-played')) {
+                                video.play().catch(e => console.log('Автоплей заблокирован:', e));
+                                video.setAttribute('data-played', 'true');
+                            }
+                        }
                     }
                 });
             }
-
+            
             slidesContainer.addEventListener('scroll', checkVisibility);
             setTimeout(checkVisibility, 100);
+            
+            // Анимируем первый слайд сразу
+            if (slideItems.length > 0) {
+                setTimeout(() => {
+                    slideItems[0].classList.add('active');
+                }, 300);
+            }
         });
     </script>
 </body>
