@@ -42,7 +42,7 @@
             <!-- Изба3.MP4 (после 3 слайда) -->
             <div class="video-item" data-video="3">
                 <video controls preload="metadata" playsinline muted>
-                    <source src="Изба3.mp4" type="video/mp4">
+                    <source src="Изба3.MP4" type="video/mp4">
                     Ваш браузер не поддерживает видео.
                 </video>
             </div>
@@ -139,38 +139,41 @@
             const slidesContainer = document.getElementById('slidesContainer');
             const videoItems = document.querySelectorAll('.video-item, .video-wrapper');
             const videos = document.querySelectorAll('video');
-            
+            let lastPlayedVideo = null;
+
             function checkVisibility() {
                 const containerRect = slidesContainer.getBoundingClientRect();
                 const scrollTop = slidesContainer.scrollTop;
                 const containerHeight = slidesContainer.clientHeight;
-                
+
                 videoItems.forEach(item => {
                     const itemRect = item.getBoundingClientRect();
                     const itemTop = itemRect.top - containerRect.top + scrollTop;
                     const itemBottom = itemTop + item.offsetHeight;
                     const itemMiddle = itemTop + item.offsetHeight / 2;
-                    
-                    // Если видео полностью в зоне видимости
+
+                    // Если элемент полностью в зоне видимости
                     if (itemTop >= scrollTop && itemBottom <= scrollTop + containerHeight) {
                         item.classList.add('active');
+                    } else {
+                        item.classList.remove('active');
                     }
                 });
-                
-                // Автозапуск видео
+
+                // Автозапуск видео только если оно не играет
                 videos.forEach(video => {
                     const videoRect = video.getBoundingClientRect();
                     const videoTop = videoRect.top - containerRect.top + scrollTop;
                     const videoBottom = videoTop + video.offsetHeight;
-                    
-                    if (videoTop >= scrollTop && videoBottom <= scrollTop + containerHeight) {
-                        if (video.paused) {
-                            video.play().catch(e => console.log('Автоплей заблокирован:', e));
-                        }
+
+                    // Если видео полностью в зоне видимости и не играет
+                    if (videoTop >= scrollTop && videoBottom <= scrollTop + containerHeight && !video.paused && video !== lastPlayedVideo) {
+                        lastPlayedVideo = video;
+                        video.play().catch(e => console.log('Автоплей заблокирован:', e));
                     }
                 });
             }
-            
+
             slidesContainer.addEventListener('scroll', checkVisibility);
             setTimeout(checkVisibility, 100);
         });
