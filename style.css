@@ -72,6 +72,9 @@ body {
     opacity: 0;
     transform: translateY(30px);
     transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.slide-item {
     background: white;
     border-radius: 10px;
     overflow: hidden;
@@ -86,17 +89,26 @@ body {
     object-fit: cover;
 }
 
-/* Видео */
+/* Видео - исправления по вашим замечаниям */
+.video-item, 
+.video-wrapper {
+    display: flex;
+    justify-content: center;
+    background: transparent !important;
+    padding: 0;
+}
+
 .video-item video, 
 .video-wrapper video {
-    width: 100%;
-    max-width: 300px;
+    width: auto;
     height: auto;
-    display: block;
+    max-height: 70vh;
+    max-width: 100%;
     aspect-ratio: 9/16;
-    object-fit: cover;
-    background: #000;
+    display: block;
     border-radius: 10px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    background: #000 !important;
 }
 
 /* Отзывы */
@@ -130,7 +142,7 @@ body {
     max-width: 300px;
 }
 
-/* Кнопка */
+/* Кнопка - исправлен фон */
 .bottom-button {
     background: none;
     padding: 20px 0;
@@ -150,7 +162,9 @@ body {
 
 .main-button {
     padding: 18px 50px;
-    background: linear-gradient(135deg, #8b4513 0%, #6b3a0e 50%, #4a2808 100%);
+    background: url('button-bg.png'), linear-gradient(135deg, #8b4513 0%, #6b3a0e 50%, #4a2808 100%);
+    background-size: cover;
+    background-position: center;
     color: white;
     border: none;
     border-radius: 40px;
