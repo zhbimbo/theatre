@@ -134,24 +134,36 @@
             alert('Спасибо за интерес! Свяжитесь со мной по телефону или email.');
         }
 
-        // Автозапуск видео при прокрутке
+        // Анимация и автозапуск видео
         document.addEventListener('DOMContentLoaded', function() {
             const slidesContainer = document.getElementById('slidesContainer');
-            const videos = document.querySelectorAll('.video-item video');
-            const reviewsVideos = document.querySelectorAll('.video-wrapper video');
+            const videoItems = document.querySelectorAll('.video-item, .video-wrapper');
+            const videos = document.querySelectorAll('video');
             
-            function checkVideoPlayback() {
+            function checkVisibility() {
                 const containerRect = slidesContainer.getBoundingClientRect();
                 const scrollTop = slidesContainer.scrollTop;
                 const containerHeight = slidesContainer.clientHeight;
                 
+                videoItems.forEach(item => {
+                    const itemRect = item.getBoundingClientRect();
+                    const itemTop = itemRect.top - containerRect.top + scrollTop;
+                    const itemBottom = itemTop + item.offsetHeight;
+                    const itemMiddle = itemTop + item.offsetHeight / 2;
+                    
+                    // Если видео полностью в зоне видимости
+                    if (itemTop >= scrollTop && itemBottom <= scrollTop + containerHeight) {
+                        item.classList.add('active');
+                    }
+                });
+                
+                // Автозапуск видео
                 videos.forEach(video => {
                     const videoRect = video.getBoundingClientRect();
                     const videoTop = videoRect.top - containerRect.top + scrollTop;
                     const videoBottom = videoTop + video.offsetHeight;
                     
-                    if (videoTop < scrollTop + containerHeight && 
-                        videoBottom > scrollTop) {
+                    if (videoTop >= scrollTop && videoBottom <= scrollTop + containerHeight) {
                         if (video.paused) {
                             video.play().catch(e => console.log('Автоплей заблокирован:', e));
                         }
@@ -159,8 +171,8 @@
                 });
             }
             
-            slidesContainer.addEventListener('scroll', checkVideoPlayback);
-            setTimeout(checkVideoPlayback, 100);
+            slidesContainer.addEventListener('scroll', checkVisibility);
+            setTimeout(checkVisibility, 100);
         });
     </script>
 </body>
