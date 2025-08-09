@@ -13,10 +13,9 @@ body {
     overflow-x: hidden;
 }
 
-/* Шапка */
+/* Шапка с цветом фона сайта */
 .new-header {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
+    background: #f5f0e6;
     padding: 25px 0;
     box-shadow: 0 4px 20px rgba(0,0,0,0.1);
     position: fixed;
@@ -35,13 +34,13 @@ body {
 }
 
 .header-title {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Playfair Display', serif;
     font-size: 3rem;
-    font-weight: 900;
-    color: #222;
+    font-weight: 900; /* Пожирнее */
+    color: #8b4513;
     margin: 0;
     text-align: center;
-    letter-spacing: 3px;
+    letter-spacing: 2px;
     text-transform: uppercase;
     width: 100%;
 }
@@ -59,14 +58,18 @@ body {
     width: 100%;
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
-/* Слайды */
+/* Слайды - 90% ширины */
 .slide-item {
-    width: 100%;
+    width: 90%;
     position: relative;
     background: white;
     margin-bottom: 0;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
 }
 
 .slide-item img {
@@ -128,7 +131,6 @@ body {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    backdrop-filter: blur(5px);
     padding: 20px 0;
     box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
     position: fixed;
@@ -176,6 +178,12 @@ body {
 }
 
 /* Адаптивность */
+@media (max-width: 1200px) {
+    .header-title {
+        font-size: 2.5rem;
+    }
+}
+
 @media (max-width: 1024px) {
     .videos-container {
         gap: 20px;
@@ -188,12 +196,23 @@ body {
 }
 
 @media (max-width: 768px) {
+    .new-header {
+        background: rgba(245, 240, 230, 0.95);
+        backdrop-filter: blur(10px);
+    }
+    
     .header-title {
         font-size: 2rem;
+        font-weight: 700;
     }
     
     .reviews-title {
         font-size: 2rem;
+    }
+    
+    .slide-item {
+        width: 95%;
+        border-radius: 8px;
     }
     
     .videos-container {
@@ -217,11 +236,18 @@ body {
 
 @media (max-width: 480px) {
     .header-title {
-        font-size: 1.6rem;
+        font-size: 1.8rem;
+        font-weight: 700;
+        letter-spacing: 1px;
     }
     
     .reviews-title {
         font-size: 1.8rem;
+    }
+    
+    .slide-item {
+        width: 98%;
+        border-radius: 6px;
     }
     
     .reviews-section {
@@ -237,7 +263,7 @@ body {
 
 @media (max-width: 320px) {
     .header-title {
-        font-size: 1.4rem;
+        font-size: 1.6rem;
     }
     
     .reviews-title {
