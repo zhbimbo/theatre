@@ -13,7 +13,7 @@ body {
     overflow-x: hidden;
 }
 
-/* Шапка с цветом фона сайта */
+/* Шапка */
 .new-header {
     background: #f5f0e6;
     padding: 25px 0;
@@ -45,34 +45,37 @@ body {
     width: 100%;
 }
 
-/* Контейнер для слайдов */
+/* Слайды */
 .slides-container {
     width: 100%;
     padding: 0;
     margin-top: 120px;
     margin-bottom: 100px;
+    overflow-y: auto;
+    height: calc(100vh - 220px);
 }
 
-/* Обертка для слайдов */
 .slide-wrapper {
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 20px;
+    padding-bottom: 40px;
 }
 
-/* Слайды - 90% ширины с анимацией */
-.slide-item {
+/* Анимация элементов */
+.slide-item, 
+.video-item, 
+.video-wrapper {
     width: 90%;
-    position: relative;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
     background: white;
-    margin-bottom: 0;
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .slide-item img {
@@ -83,18 +86,9 @@ body {
     object-fit: cover;
 }
 
-/* Видео между слайдами */
-.video-item {
-    width: 90%;
-    padding: 20px 0;
-    display: flex;
-    justify-content: center;
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-.video-item video {
+/* Видео */
+.video-item video, 
+.video-wrapper video {
     width: 100%;
     max-width: 300px;
     height: auto;
@@ -103,13 +97,12 @@ body {
     object-fit: cover;
     background: #000;
     border-radius: 10px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
 }
 
-/* Раздел с отзывами */
+/* Отзывы */
 .reviews-section {
     width: 100%;
-    padding: 50px 20px 30px 20px;
+    padding: 50px 20px 30px;
     text-align: center;
 }
 
@@ -122,7 +115,6 @@ body {
     font-weight: 400;
 }
 
-/* Контейнер для видео отзывов */
 .videos-container {
     display: flex;
     justify-content: center;
@@ -136,23 +128,9 @@ body {
     flex: 1;
     min-width: 250px;
     max-width: 300px;
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-.video-wrapper video {
-    width: 100%;
-    height: auto;
-    display: block;
-    aspect-ratio: 9/16;
-    object-fit: cover;
-    background: #000;
-    border-radius: 10px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-}
-
-/* Кнопка внизу как ШАПКА */
+/* Кнопка */
 .bottom-button {
     background: none;
     padding: 20px 0;
@@ -172,12 +150,7 @@ body {
 
 .main-button {
     padding: 18px 50px;
-    background: 
-        url('button-bg.png'),
-        linear-gradient(135deg, #8b4513 0%, #6b3a0e 50%, #4a2808 100%);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    background: linear-gradient(135deg, #8b4513 0%, #6b3a0e 50%, #4a2808 100%);
     color: white;
     border: none;
     border-radius: 40px;
@@ -187,11 +160,8 @@ body {
     box-shadow: 0 8px 25px rgba(139,69,19,0.4);
     transition: all 0.3s ease;
     border: 2px solid rgba(255, 255, 255, 0.3);
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-    white-space: nowrap;
-    display: block;
-    width: 100%;
     max-width: 400px;
+    width: 100%;
 }
 
 .main-button:hover {
@@ -200,131 +170,31 @@ body {
 }
 
 /* Адаптивность */
-@media (max-width: 1200px) {
-    .header-title {
-        font-size: 2.5rem;
-    }
-}
-
-@media (max-width: 1024px) {
-    .videos-container {
-        gap: 20px;
-    }
-    
-    .video-wrapper {
-        min-width: 200px;
-        max-width: 250px;
-    }
-    
-    .video-item video {
-        max-width: 250px;
-    }
-}
-
 @media (max-width: 768px) {
-    .new-header {
-        background: rgba(245, 240, 230, 0.95);
-        backdrop-filter: blur(10px);
-    }
-    
     .header-title {
         font-size: 2rem;
-        font-weight: 700;
     }
-    
     .reviews-title {
         font-size: 2rem;
     }
-    
-    .slide-item {
-        width: 95%;
-        border-radius: 8px;
-    }
-    
-    .video-item {
+    .slide-item, .video-item {
         width: 95%;
     }
-    
-    .video-item video {
-        max-width: 100%;
-        max-height: 400px;
-    }
-    
     .videos-container {
         flex-direction: column;
         align-items: center;
-        gap: 25px;
     }
-    
     .video-wrapper {
         width: 90%;
         max-width: 400px;
-        min-width: auto;
-    }
-    
-    .main-button {
-        padding: 16px 40px;
-        font-size: 16px;
-        max-width: 350px;
     }
 }
 
 @media (max-width: 480px) {
-    .new-header {
-        background: #f5f0e6;
-    }
-    
     .header-title {
         font-size: 1.8rem;
-        font-weight: 700;
-        letter-spacing: 1px;
     }
-    
-    .reviews-title {
-        font-size: 1.8rem;
-    }
-    
-    .slide-item {
+    .slide-item, .video-item {
         width: 98%;
-        border-radius: 6px;
-    }
-    
-    .video-item {
-        width: 98%;
-        padding: 15px 0;
-    }
-    
-    .video-item video {
-        max-height: 350px;
-    }
-    
-    .reviews-section {
-        padding: 30px 15px 20px 15px;
-    }
-    
-    .main-button {
-        padding: 14px 30px;
-        font-size: 15px;
-        max-width: 300px;
-    }
-}
-
-@media (max-width: 320px) {
-    .header-title {
-        font-size: 1.6rem;
-    }
-    
-    .reviews-title {
-        font-size: 1.6rem;
-    }
-    
-    .video-item video {
-        max-height: 300px;
-    }
-    
-    .main-button {
-        padding: 12px 25px;
-        font-size: 14px;
-        max-width: 250px;
     }
 }
