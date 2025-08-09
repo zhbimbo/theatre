@@ -80,11 +80,13 @@ body {
 /* Видео */
 .video-item video {
     width: 100%;
+    max-width: 100%;
     height: auto;
     display: block;
     aspect-ratio: 9/16;
     object-fit: cover;
     background: #000;
+    outline: none;
 }
 
 /* Кнопка внизу как ШАПКА */
@@ -111,9 +113,9 @@ body {
 .main-button {
     padding: 18px 50px;
     background: 
-        linear-gradient(135deg, #8b4513 0%, #6b3a0e 50%, #4a2808 100%),
-        url('button-bg.png');
-    background-size: cover;
+        url('button-bg.png'),
+        linear-gradient(135deg, #8b4513 0%, #6b3a0e 50%, #4a2808 100%);
+    background-size: 100% 100%;
     background-position: center;
     background-repeat: no-repeat;
     color: white;
