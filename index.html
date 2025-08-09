@@ -19,12 +19,12 @@
     <div class="slides-container" id="slidesContainer">
         <div class="slide-wrapper">
             <!-- Слайд 1 -->
-            <div class="slide-item" data-slide="1">
+            <div class="slide-item">
                 <img src="Images/img1.png" alt="Слайд 1">
             </div>
             
             <!-- Чехов1.M4V (после 1 слайда) -->
-            <div class="video-item" data-video="1">
+            <div class="video-item">
                 <video controls preload="metadata" playsinline muted>
                     <source src="Чехов1.M4V" type="video/mp4">
                     Ваш браузер не поддерживает видео.
@@ -32,15 +32,15 @@
             </div>
             
             <!-- Слайды 2-3 -->
-            <div class="slide-item" data-slide="2">
+            <div class="slide-item">
                 <img src="Images/img2.png" alt="Слайд 2">
             </div>
-            <div class="slide-item" data-slide="3">
+            <div class="slide-item">
                 <img src="Images/img3.png" alt="Слайд 3">
             </div>
             
             <!-- Изба3.MP4 (после 3 слайда) -->
-            <div class="video-item" data-video="3">
+            <div class="video-item">
                 <video controls preload="metadata" playsinline muted>
                     <source src="Изба3.MP4" type="video/mp4">
                     Ваш браузер не поддерживает видео.
@@ -48,15 +48,15 @@
             </div>
             
             <!-- Слайды 4-5 -->
-            <div class="slide-item" data-slide="4">
+            <div class="slide-item">
                 <img src="Images/img4.png" alt="Слайд 4">
             </div>
-            <div class="slide-item" data-slide="5">
+            <div class="slide-item">
                 <img src="Images/img5.png" alt="Слайд 5">
             </div>
             
             <!-- Егор5.MP4 (после 5 слайда) -->
-            <div class="video-item" data-video="5">
+            <div class="video-item">
                 <video controls preload="metadata" playsinline muted>
                     <source src="Егор5.MP4" type="video/mp4">
                     Ваш браузер не поддерживает видео.
@@ -64,15 +64,15 @@
             </div>
             
             <!-- Слайды 6-7 -->
-            <div class="slide-item" data-slide="6">
+            <div class="slide-item">
                 <img src="Images/img6.png" alt="Слайд 6">
             </div>
-            <div class="slide-item" data-slide="7">
+            <div class="slide-item">
                 <img src="Images/img7.png" alt="Слайд 7">
             </div>
             
             <!-- Патрики7.MOV (после 7 слайда) -->
-            <div class="video-item" data-video="7">
+            <div class="video-item">
                 <video controls preload="metadata" playsinline muted>
                     <source src="Патрики7.MOV" type="video/mp4">
                     Ваш браузер не поддерживает видео.
@@ -80,16 +80,16 @@
             </div>
             
             <!-- Слайды 8-11 -->
-            <div class="slide-item" data-slide="8">
+            <div class="slide-item">
                 <img src="Images/img8.png" alt="Слайд 8">
             </div>
-            <div class="slide-item" data-slide="9">
+            <div class="slide-item">
                 <img src="Images/img9.png" alt="Слайд 9">
             </div>
-            <div class="slide-item" data-slide="10">
+            <div class="slide-item">
                 <img src="Images/img10.png" alt="Слайд 10">
             </div>
-            <div class="slide-item" data-slide="11">
+            <div class="slide-item">
                 <img src="Images/img11.png" alt="Слайд 11">
             </div>
             
@@ -98,7 +98,7 @@
                 <h2 class="reviews-title">НАШИ ОТЗЫВЫ</h2>
                 <div class="videos-container">
                     <div class="video-wrapper">
-                        <video id="video1" controls preload="metadata" playsinline muted>
+                        <video controls preload="metadata" playsinline muted>
                             <source src="Video1.MOV" type="video/mp4">
                             Ваш браузер не поддерживает видео.
                         </video>
@@ -137,42 +137,55 @@
         // Анимация и автозапуск
         document.addEventListener('DOMContentLoaded', function() {
             const slidesContainer = document.getElementById('slidesContainer');
-            const slideItems = document.querySelectorAll('.slide-item');
-            const videoItems = document.querySelectorAll('.video-item, .video-wrapper');
+            const items = document.querySelectorAll('.slide-item, .video-item, .video-wrapper');
+            const videos = document.querySelectorAll('video');
+            
+            // Инициализация состояния видео
+            videos.forEach(video => {
+                video.setAttribute('data-current-time', '0');
+            });
             
             function checkVisibility() {
                 const containerRect = slidesContainer.getBoundingClientRect();
                 const scrollTop = slidesContainer.scrollTop;
                 const containerHeight = slidesContainer.clientHeight;
                 
-                // Анимация слайдов
-                slideItems.forEach(item => {
+                // Анимация элементов
+                items.forEach(item => {
                     const itemRect = item.getBoundingClientRect();
                     const itemTop = itemRect.top - containerRect.top + scrollTop;
                     const itemBottom = itemTop + item.offsetHeight;
+                    const itemHeight = item.offsetHeight;
                     
-                    // Если слайд в зоне видимости
-                    if (itemTop < scrollTop + containerHeight * 0.8 && 
-                        itemBottom > scrollTop + containerHeight * 0.2) {
-                        item.classList.add('active');
-                    }
-                });
-                
-                // Анимация видео
-                videoItems.forEach(item => {
-                    const itemRect = item.getBoundingClientRect();
-                    const itemTop = itemRect.top - containerRect.top + scrollTop;
-                    const itemBottom = itemTop + item.offsetHeight;
+                    // Проверяем, находится ли элемент в зоне видимости
+                    const isVisible = (
+                        itemTop < scrollTop + containerHeight &&
+                        itemBottom > scrollTop
+                    );
                     
-                    // Если видео в зоне видимости
-                    if (itemTop < scrollTop + containerHeight * 0.8 && 
-                        itemBottom > scrollTop + containerHeight * 0.2) {
-                        item.classList.add('active');
+                    if (isVisible) {
+                        // Рассчитываем прогресс видимости (0-1)
+                        const visibleTop = Math.max(itemTop, scrollTop);
+                        const visibleBottom = Math.min(itemBottom, scrollTop + containerHeight);
+                        const visibleHeight = visibleBottom - visibleTop;
+                        const progress = Math.min(1, visibleHeight / itemHeight);
+                        
+                        // Применяем анимацию
+                        item.style.opacity = progress;
+                        item.style.transform = `translateY(${(1 - progress) * 30}px)`;
+                        
+                        // Если элемент полностью виден - добавляем класс
+                        if (progress >= 0.9) {
+                            item.classList.add('fully-visible');
+                        }
+                    } else {
+                        item.style.opacity = '0';
+                        item.style.transform = 'translateY(30px)';
+                        item.classList.remove('fully-visible');
                     }
                 });
                 
                 // Автозапуск видео
-                const videos = document.querySelectorAll('video');
                 videos.forEach(video => {
                     const videoRect = video.getBoundingClientRect();
                     const videoTop = videoRect.top - containerRect.top + scrollTop;
@@ -181,11 +194,19 @@
                     // Если видео полностью в зоне видимости
                     if (videoTop >= scrollTop && videoBottom <= scrollTop + containerHeight) {
                         if (video.paused && video.muted) {
-                            // Только если видео еще не играло
-                            if (!video.hasAttribute('data-played')) {
-                                video.play().catch(e => console.log('Автоплей заблокирован:', e));
-                                video.setAttribute('data-played', 'true');
-                            }
+                            // Восстанавливаем позицию воспроизведения
+                            const savedTime = video.getAttribute('data-current-time') || '0';
+                            video.currentTime = parseFloat(savedTime);
+                            
+                            video.play().catch(e => {
+                                console.log('Автоплей заблокирован:', e);
+                            });
+                        }
+                    } else {
+                        // Сохраняем позицию и останавливаем видео
+                        if (!video.paused) {
+                            video.setAttribute('data-current-time', video.currentTime.toString());
+                            video.pause();
                         }
                     }
                 });
@@ -193,13 +214,6 @@
             
             slidesContainer.addEventListener('scroll', checkVisibility);
             setTimeout(checkVisibility, 100);
-            
-            // Анимируем первый слайд сразу
-            if (slideItems.length > 0) {
-                setTimeout(() => {
-                    slideItems[0].classList.add('active');
-                }, 300);
-            }
         });
     </script>
 </body>
