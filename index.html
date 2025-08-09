@@ -37,7 +37,10 @@
             
             <!-- Первое видео -->
             <div class="video-item" data-video="1">
-                <video src="Video1.MOV" controls preload="none"></video>
+                <video controls preload="metadata" playsinline>
+                    <source src="Video1.MOV" type="video/mp4">
+                    Ваш браузер не поддерживает видео.
+                </video>
             </div>
             
             <!-- Слайды 6-11 -->
@@ -62,12 +65,18 @@
             
             <!-- Второе видео -->
             <div class="video-item" data-video="2">
-                <video src="Video2.MP4" controls preload="none"></video>
+                <video controls preload="metadata" playsinline>
+                    <source src="Video2.MP4" type="video/mp4">
+                    Ваш браузер не поддерживает видео.
+                </video>
             </div>
             
             <!-- Третье видео -->
             <div class="video-item" data-video="3">
-                <video src="Video3.MP4" controls preload="none"></video>
+                <video controls preload="metadata" playsinline>
+                    <source src="Video3.MP4" type="video/mp4">
+                    Ваш браузер не поддерживает видео.
+                </video>
             </div>
         </div>
     </div>
@@ -85,6 +94,19 @@
         function contactMe() {
             alert('Спасибо за интерес! Свяжитесь со мной по телефону или email.');
         }
+
+        // Оптимизация видео
+        document.addEventListener('DOMContentLoaded', function() {
+            const videos = document.querySelectorAll('video');
+            
+            videos.forEach(video => {
+                video.style.maxWidth = '100%';
+                video.style.height = 'auto';
+                video.setAttribute('preload', 'metadata');
+                video.setAttribute('playsinline', '');
+                video.setAttribute('webkit-playsinline', '');
+            });
+        });
     </script>
 </body>
 </html>
