@@ -120,12 +120,24 @@
         </div>
     </div>
 
-    <!-- Кнопка -->
-    <div class="bottom-button">
+    <!-- Нижний блок с соцсетями и кнопкой -->
+    <div class="bottom-section">
+        <div class="social-left">
+            <a href="https://www.instagram.com/story__theatre?igsh=Y3Rub3o2aWZjMmNo" target="_blank" class="social-link">
+                <img src="instagram-icon.png" alt="Instagram">
+            </a>
+        </div>
+        
         <div class="button-container">
             <button class="main-button" onclick="contactMe()">
                 <span class="button-text">Купить билет</span>
             </button>
+        </div>
+        
+        <div class="social-right">
+            <a href="https://t.me/storytheatre" target="_blank" class="social-link">
+                <img src="telegram-icon.png" alt="Telegram">
+            </a>
         </div>
     </div>
 
@@ -170,7 +182,7 @@
             }
 
             container.addEventListener('scroll', checkScroll);
-            checkScroll(); // Инициализация при загрузке
+            checkScroll();
         });
     </script>
 </body>
