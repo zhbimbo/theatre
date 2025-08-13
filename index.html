@@ -150,78 +150,91 @@
         * — Социальная сеть принадлежит компании Meta, признанной экстремистской в РФ
     </div>
 
-    <script>
-        function contactMe() {
-            alert('Спасибо за интерес! Свяжитесь с нами по телефону или через Telegram.');
-        }
+<script>
+    function contactMe() {
+        alert('Спасибо за интерес! Свяжитесь с нами по телефону или через Telegram.');
+    }
 
-        document.addEventListener('DOMContentLoaded', function() {
-            const container = document.getElementById('slidesContainer');
-            const elements = document.querySelectorAll('.slide-item, .video-item, .video-wrapper');
-            const videos = document.querySelectorAll('video');
-            const progressBar = document.querySelector('.progress-bar');
-            let lastScrollPos = 0;
-            let ticking = false;
+    document.addEventListener('DOMContentLoaded', function() {
+        const container = document.getElementById('slidesContainer');
+        const elements = document.querySelectorAll('.slide-item, .video-item, .video-wrapper');
+        const videos = document.querySelectorAll('video');
+        const progressBar = document.querySelector('.progress-bar');
+        let lastScrollPos = 0;
+        let ticking = false;
 
-            // Функция для проверки видимости элементов
-            const checkScroll = () => {
-                const currentScrollPos = container.scrollTop;
-                const scrollHeight = container.scrollHeight;
-                const clientHeight = container.clientHeight;
-                const scrollPercentage = (currentScrollPos / (scrollHeight - clientHeight)) * 100;
-                
-                // Обновление прогресс-бара
-                progressBar.style.width = scrollPercentage + '%';
-                
-                // Анимация элементов
-                elements.forEach(el => {
-                    const elTop = el.getBoundingClientRect().top;
-                    if (elTop < container.clientHeight * 0.8) {
-                        el.style.opacity = '1';
-                        el.style.transform = 'translateY(0)';
-                    }
-                });
+        // Принудительно включаем автовоспроизведение на мобильных
+        const enableAutoPlay = async () => {
+            for (const video of videos) {
+                try {
+                    video.muted = true; // Важно для автовоспроизведения на мобильных
+                    await video.play();
+                    video.pause(); // Сразу ставим на паузу
+                } catch (e) {
+                    console.log('Автоплей инициализация:', e.message);
+                }
+            }
+        };
+        
+        // Инициализация автовоспроизведения
+        enableAutoPlay();
 
-                // Управление видео (прежняя логика)
-                videos.forEach(video => {
-                    const videoTop = video.getBoundingClientRect().top;
-                    const isVisible = videoTop < container.clientHeight && videoTop > -video.offsetHeight;
-                    
-                    if (isVisible && video.paused) {
-                        video.play().catch(e => console.log('Автоплей заблокирован'));
-                    } else if (!isVisible && !video.paused) {
-                        video.pause();
-                    }
-                });
-
-                lastScrollPos = currentScrollPos;
-                ticking = false;
-            };
-
-            // Оптимизация скролла с requestAnimationFrame
-            container.addEventListener('scroll', () => {
-                if (!ticking) {
-                    window.requestAnimationFrame(checkScroll);
-                    ticking = true;
+        const checkScroll = () => {
+            const currentScrollPos = container.scrollTop;
+            const scrollHeight = container.scrollHeight;
+            const clientHeight = container.clientHeight;
+            const scrollPercentage = (currentScrollPos / (scrollHeight - clientHeight)) * 100;
+            
+            progressBar.style.width = scrollPercentage + '%';
+            
+            elements.forEach(el => {
+                const elTop = el.getBoundingClientRect().top;
+                if (elTop < container.clientHeight * 0.8) {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
                 }
             });
 
-            // Инициализация
-            checkScroll();
-
-            // Микроанимации при наведении
-            document.querySelectorAll('.slide-item, .video-item, .video-wrapper').forEach(item => {
-                item.addEventListener('mouseenter', () => {
-                    item.style.transform = 'translateY(-5px)';
-                    item.style.boxShadow = '0 15px 30px rgba(0,0,0,0.2)';
-                });
+            // Управление видео (одинаково для всех устройств)
+            videos.forEach(video => {
+                const videoTop = video.getBoundingClientRect().top;
+                const isVisible = videoTop < container.clientHeight && videoTop > -video.offsetHeight;
                 
-                item.addEventListener('mouseleave', () => {
-                    item.style.transform = 'translateY(0)';
-                    item.style.boxShadow = '0 10px 25px rgba(0,0,0,0.1)';
-                });
+                if (isVisible && video.paused) {
+                    video.play().catch(e => console.log('Автоплей:', e.message));
+                } else if (!isVisible && !video.paused) {
+                    video.pause();
+                }
+            });
+
+            lastScrollPos = currentScrollPos;
+            ticking = false;
+        };
+
+        // Оптимизация скролла
+        container.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(checkScroll);
+                ticking = true;
+            }
+        });
+
+        // Инициализация
+        checkScroll();
+
+        // Микроанимации
+        document.querySelectorAll('.slide-item, .video-item, .video-wrapper').forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                item.style.transform = 'translateY(-5px)';
+                item.style.boxShadow = '0 15px 30px rgba(0,0,0,0.2)';
+            });
+            
+            item.addEventListener('mouseleave', () => {
+                item.style.transform = 'translateY(0)';
+                item.style.boxShadow = '0 10px 25px rgba(0,0,0,0.1)';
             });
         });
-    </script>
+    });
+</script>
 </body>
 </html>
