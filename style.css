@@ -443,3 +443,22 @@ body {
         font-size: 1rem;
     }
 }
+/* Гарантируем muted для видео */
+video {
+    -webkit-muted: true;
+    muted: true;
+}
+
+/* Оптимизация для мобильных */
+@media (max-width: 768px) {
+    .video-item video, 
+    .video-wrapper video {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+    }
+    
+    .video-item, .video-wrapper {
+        width: 95%;
+    }
+}
