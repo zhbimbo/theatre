@@ -8,6 +8,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Прогресс-бар -->
+    <div class="progress-bar"></div>
+
     <!-- Шапка -->
     <header class="new-header">
         <div class="header-container">
@@ -20,77 +23,73 @@
         <div class="slide-wrapper">
             <!-- Слайд 1 -->
             <div class="slide-item">
-                <img src="Images/img1.png" alt="Слайд 1">
+                <img src="Images/img1.png" alt="Слайд 1" loading="lazy">
             </div>
             
             <!-- Чехов1.M4V -->
             <div class="video-item">
-                <video controls preload="metadata" playsinline muted>
-                    <source src="Чехов1.M4V" type="video/mp4">
+                <video controls preload="none" playsinline muted class="lazy" data-src="Чехов1.M4V" poster="Images/video-poster.jpg">
                     Ваш браузер не поддерживает видео.
                 </video>
             </div>
             
             <!-- Слайды 2-3 -->
             <div class="slide-item">
-                <img src="Images/img2.png" alt="Слайд 2">
+                <img src="Images/img2.png" alt="Слайд 2" loading="lazy">
             </div>
             <div class="slide-item">
-                <img src="Images/img3.png" alt="Слайд 3">
+                <img src="Images/img3.png" alt="Слайд 3" loading="lazy">
             </div>
             
             <!-- Изба3.MP4 -->
             <div class="video-item">
-                <video controls preload="metadata" playsinline muted>
-                    <source src="Изба3.MP4" type="video/mp4">
+                <video controls preload="none" playsinline muted class="lazy" data-src="Изба3.MP4" poster="Images/video-poster.jpg">
                     Ваш браузер не поддерживает видео.
                 </video>
             </div>
             
             <!-- Слайды 4-5 -->
             <div class="slide-item">
-                <img src="Images/img4.png" alt="Слайд 4">
+                <img src="Images/img4.png" alt="Слайд 4" loading="lazy">
             </div>
             <div class="slide-item">
-                <img src="Images/img5.png" alt="Слайд 5">
+                <img src="Images/img5.png" alt="Слайд 5" loading="lazy">
             </div>
             
             <!-- Егор5.MP4 -->
             <div class="video-item">
-                <video controls preload="metadata" playsinline muted>
-                    <source src="Егор5.MP4" type="video/mp4">
+                <video controls preload="none" playsinline muted class="lazy" data-src="Егор5.MP4" poster="Images/video-poster.jpg">
                     Ваш браузер не поддерживает видео.
                 </video>
             </div>
             
             <!-- Слайды 6-7 -->
             <div class="slide-item">
-                <img src="Images/img6.png" alt="Слайд 6">
+                <img src="Images/img6.png" alt="Слайд 6" loading="lazy">
             </div>
             <div class="slide-item">
-                <img src="Images/img7.png" alt="Слайд 7">
+                <img src="Images/img7.png" alt="Слайд 7" loading="lazy">
             </div>
             
             <!-- Патрики7.MOV -->
             <div class="video-item">
-                <video controls preload="metadata" playsinline muted>
-                    <source src="Патрики7.MOV" type="video/mp4">
+                <video controls preload="none" playsinline muted class="lazy" data-src="Патрики7.MOV" poster="Images/video-poster.jpg">
                     Ваш браузер не поддерживает видео.
                 </video>
             </div>
             
             <!-- Слайды 8-11 -->
             <div class="slide-item">
-                <img src="Images/img8.png" alt="Слайд 8">
+                <img src="Images/img8.png" alt="Слайд 8" loading="lazy">
             </div>
             <div class="slide-item">
-                <img src="Images/img9.png" alt="Слайд 9">
+                <img src="Images/img9.png" alt="Слайд 9" loading="lazy">
             </div>
             <div class="slide-item">
-                <img src="Images/img10.png" alt="Слайд 10">
+                <img src="Images/img10.png" alt="Слайд 10" loading="lazy">
             </div>
             <div class="slide-item">
-                <img src="Images/img11.png" alt="Слайд 11">
+                <img src="Images/img11.png" alt="Слайд 11" loading="lazy">
             </div>
             
             <!-- Отзывы -->
@@ -98,20 +97,17 @@
                 <h2 class="reviews-title">НАШИ ОТЗЫВЫ</h2>
                 <div class="videos-container">
                     <div class="video-wrapper">
-                        <video controls preload="metadata" playsinline muted>
-                            <source src="Video1.MOV" type="video/mp4">
+                        <video controls preload="none" playsinline muted class="lazy" data-src="Video1.MOV" poster="Images/video-poster.jpg">
                             Ваш браузер не поддерживает видео.
                         </video>
                     </div>
                     <div class="video-wrapper">
-                        <video controls preload="metadata" playsinline muted>
-                            <source src="Video2.MP4" type="video/mp4">
+                        <video controls preload="none" playsinline muted class="lazy" data-src="Video2.MP4" poster="Images/video-poster.jpg">
                             Ваш браузер не поддерживает видео.
                         </video>
                     </div>
                     <div class="video-wrapper">
-                        <video controls preload="metadata" playsinline muted>
-                            <source src="Video3.MP4" type="video/mp4">
+                        <video controls preload="none" playsinline muted class="lazy" data-src="Video3.MP4" poster="Images/video-poster.jpg">
                             Ваш браузер не поддерживает видео.
                         </video>
                     </div>
@@ -124,7 +120,7 @@
     <div class="bottom-section">
         <div class="social-left">
             <div class="social-link">
-                <img src="telegram-icon.png" alt="Telegram">
+                <img src="telegram-icon.png" alt="Telegram" loading="lazy">
             </div>
         </div>
         
@@ -136,7 +132,7 @@
         
         <div class="social-right">
             <div class="social-link">
-                <img src="instagram-icon.png" alt="Галерея*">
+                <img src="instagram-icon.png" alt="Галерея*" loading="lazy">
                 <span class="asterisk">*</span>
             </div>
         </div>
@@ -153,42 +149,93 @@
         }
 
         document.addEventListener('DOMContentLoaded', function() {
+            // Ленивая загрузка
+            const lazyLoad = () => {
+                const lazyItems = document.querySelectorAll('.lazy');
+                
+                lazyItems.forEach(item => {
+                    if (item.dataset.src && item.getBoundingClientRect().top < window.innerHeight * 1.5) {
+                        if (item.tagName === 'VIDEO') {
+                            item.src = item.dataset.src;
+                        } else if (item.tagName === 'IMG') {
+                            item.src = item.dataset.src;
+                        }
+                        item.classList.remove('lazy');
+                    }
+                });
+            };
+
+            // Плавный скролл и прилипание
             const container = document.getElementById('slidesContainer');
             const elements = document.querySelectorAll('.slide-item, .video-item, .video-wrapper');
             const videos = document.querySelectorAll('video');
+            const progressBar = document.querySelector('.progress-bar');
             let lastScrollPos = 0;
+            let ticking = false;
 
-            function checkScroll() {
+            // Функция для проверки видимости элементов
+            const checkScroll = () => {
                 const currentScrollPos = container.scrollTop;
-                const isScrollingDown = currentScrollPos > lastScrollPos;
-                lastScrollPos = currentScrollPos;
-
-                if (!isScrollingDown) return;
-
-                const containerHeight = container.clientHeight;
+                const scrollHeight = container.scrollHeight;
+                const clientHeight = container.clientHeight;
+                const scrollPercentage = (currentScrollPos / (scrollHeight - clientHeight)) * 100;
                 
+                // Обновление прогресс-бара
+                progressBar.style.width = scrollPercentage + '%';
+                
+                // Анимация элементов
                 elements.forEach(el => {
                     const elTop = el.getBoundingClientRect().top;
-                    if (elTop < containerHeight * 0.8) {
+                    const isVisible = elTop < window.innerHeight * 0.8;
+                    
+                    if (isVisible) {
                         el.style.opacity = '1';
                         el.style.transform = 'translateY(0)';
                     }
                 });
 
+                // Управление видео
                 videos.forEach(video => {
                     const videoTop = video.getBoundingClientRect().top;
-                    const isVisible = videoTop < containerHeight && videoTop > -video.offsetHeight;
+                    const isVisible = videoTop < window.innerHeight && videoTop > -video.offsetHeight;
                     
-                    if (isVisible && video.paused) {
+                    if (isVisible && video.paused && video.readyState > 2) {
                         video.play().catch(e => console.log('Автоплей заблокирован'));
                     } else if (!isVisible && !video.paused) {
                         video.pause();
                     }
                 });
-            }
 
-            container.addEventListener('scroll', checkScroll);
+                // Ленивая загрузка при скролле
+                lazyLoad();
+                lastScrollPos = currentScrollPos;
+                ticking = false;
+            };
+
+            // Оптимизация скролла с requestAnimationFrame
+            container.addEventListener('scroll', () => {
+                if (!ticking) {
+                    window.requestAnimationFrame(checkScroll);
+                    ticking = true;
+                }
+            });
+
+            // Инициализация
+            lazyLoad();
             checkScroll();
+
+            // Микроанимации при наведении
+            document.querySelectorAll('.slide-item, .video-item, .video-wrapper').forEach(item => {
+                item.addEventListener('mouseenter', () => {
+                    item.style.transform = 'translateY(-5px)';
+                    item.style.boxShadow = '0 15px 30px rgba(0,0,0,0.2)';
+                });
+                
+                item.addEventListener('mouseleave', () => {
+                    item.style.transform = 'translateY(0)';
+                    item.style.boxShadow = '0 10px 25px rgba(0,0,0,0.1)';
+                });
+            });
         });
     </script>
 </body>
