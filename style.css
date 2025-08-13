@@ -110,16 +110,6 @@ body {
     display: block;
     aspect-ratio: 16/9;
     object-fit: cover;
-    transition: opacity 0.3s ease;
-}
-
-.slide-item img[loading="lazy"] {
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.slide-item img[loading="lazy"].loaded {
-    opacity: 1;
 }
 
 /* Видео */
@@ -188,7 +178,61 @@ body {
     max-width: 300px;
 }
 
-/* Нижний блок с кнопкой и соцсетями */
+/* Контакты */
+.contacts-section {
+    width: 100%;
+    padding: 50px 20px;
+    text-align: center;
+    background: #f9f5eb;
+    border-radius: 10px;
+    margin: 20px 0;
+}
+
+.section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-style: italic;
+    color: #8b4513;
+    margin-bottom: 30px;
+    font-weight: 400;
+}
+
+.contacts-content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.contacts-description {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.contact-name {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #8b4513;
+    margin-bottom: 15px;
+}
+
+.contact-link {
+    color: #8b4513;
+    font-size: 1.2rem;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    display: block;
+    margin: 5px 0;
+}
+
+.contact-link:hover {
+    color: #6b3a0e;
+    text-decoration: underline;
+}
+
+/* Нижний блок с соцсетями и кнопкой */
 .bottom-section {
     position: fixed;
     bottom: 50px;
@@ -271,6 +315,9 @@ body {
     position: relative;
     overflow: hidden;
     z-index: 1;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
 }
 
 .main-button::before {
@@ -319,7 +366,7 @@ body {
     .header-title {
         font-size: 2rem;
     }
-    .reviews-title {
+    .reviews-title, .section-title {
         font-size: 2rem;
     }
     .slide-item, .video-item {
@@ -349,6 +396,9 @@ body {
     }
     .bottom-section {
         bottom: 40px;
+    }
+    .contact-link {
+        font-size: 1.1rem;
     }
 }
 
@@ -380,22 +430,16 @@ body {
     .legal-notice {
         font-size: 9px;
     }
-}
-/* Гарантируем, что видео будут muted для автовоспроизведения */
-video {
-    -webkit-muted: true;
-    muted: true;
-}
-
-/* Оптимизация для мобильных */
-@media (max-width: 768px) {
-    video {
-        width: 100% !important;
-        max-width: 100% !important;
-        height: auto !important;
+    .reviews-title, .section-title {
+        font-size: 1.8rem;
     }
-    
-    .video-item, .video-wrapper {
-        width: 95% !important;
+    .contacts-description {
+        font-size: 1.1rem;
+    }
+    .contact-name {
+        font-size: 1.2rem;
+    }
+    .contact-link {
+        font-size: 1rem;
     }
 }
