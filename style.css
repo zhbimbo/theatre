@@ -11,6 +11,7 @@ body {
     margin: 0;
     width: 100%;
     overflow-x: hidden;
+    color: #333;
 }
 
 /* Шапка */
@@ -50,9 +51,9 @@ body {
     width: 100%;
     padding: 0;
     margin-top: 120px;
-    margin-bottom: 120px;
+    margin-bottom: 140px;
     overflow-y: auto;
-    height: calc(100vh - 240px);
+    height: calc(100vh - 260px);
 }
 
 .slide-wrapper {
@@ -145,7 +146,7 @@ body {
 /* Нижний блок с кнопкой и соцсетями */
 .bottom-section {
     position: fixed;
-    bottom: 0;
+    bottom: 50px;
     left: 0;
     width: 100%;
     display: flex;
@@ -153,9 +154,9 @@ body {
     align-items: center;
     padding: 15px 20px;
     background: rgba(245, 240, 230, 0.95);
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(10px);
     z-index: 1000;
-    box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 -2px 15px rgba(0,0,0,0.1);
 }
 
 .social-left, 
@@ -175,21 +176,32 @@ body {
 
 .social-link {
     display: flex;
+    align-items: center;
+    position: relative;
     padding: 8px;
-    transition: transform 0.3s ease;
 }
 
 .social-link img {
     width: 32px;
     height: 32px;
     object-fit: contain;
-    filter: drop-shadow(0 2px 4px rgba(139, 69, 19, 0.3));
+    transition: transform 0.3s ease;
 }
 
-.social-link:hover {
+.social-link:hover img {
     transform: scale(1.1);
 }
 
+.asterisk {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: red;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* Кнопка "Купить билет" */
 .button-container {
     flex: 2;
     display: flex;
@@ -198,10 +210,8 @@ body {
 }
 
 .main-button {
-    padding: 16px 40px;
-    background: url('button-bg.png'), linear-gradient(135deg, #8b4513 0%, #6b3a0e 50%, #4a2808 100%);
-    background-size: cover;
-    background-position: center;
+    padding: 18px 40px;
+    background: linear-gradient(135deg, #8b4513 0%, #6b3a0e 100%);
     color: white;
     border: none;
     border-radius: 40px;
@@ -212,12 +222,45 @@ body {
     transition: all 0.3s ease;
     border: 2px solid rgba(255, 255, 255, 0.3);
     width: 100%;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.main-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('button-bg.png') center/cover;
+    opacity: 0.8;
+    z-index: -1;
 }
 
 .main-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 35px rgba(139,69,19,0.6);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(139,69,19,0.6);
+}
+
+.button-text {
+    position: relative;
+    z-index: 2;
+}
+
+/* Пояснение о запрещенной соцсети */
+.legal-notice {
+    position: fixed;
+    bottom: 10px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 10px;
+    color: #999;
+    padding: 5px 20px;
+    z-index: 1001;
 }
 
 /* Адаптация для планшетов */
@@ -246,12 +289,15 @@ body {
         max-height: 450px;
     }
     .main-button {
-        padding: 14px 30px;
+        padding: 16px 30px;
         font-size: 16px;
     }
     .social-link img {
         width: 28px;
         height: 28px;
+    }
+    .bottom-section {
+        bottom: 40px;
     }
 }
 
@@ -269,7 +315,7 @@ body {
         max-height: 400px;
     }
     .main-button {
-        padding: 12px 25px;
+        padding: 14px 25px;
         font-size: 15px;
     }
     .social-link img {
@@ -278,5 +324,9 @@ body {
     }
     .bottom-section {
         padding: 12px 15px;
+        bottom: 30px;
+    }
+    .legal-notice {
+        font-size: 9px;
     }
 }
