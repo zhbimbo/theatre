@@ -381,3 +381,21 @@ body {
         font-size: 9px;
     }
 }
+/* Гарантируем, что видео будут muted для автовоспроизведения */
+video {
+    -webkit-muted: true;
+    muted: true;
+}
+
+/* Оптимизация для мобильных */
+@media (max-width: 768px) {
+    video {
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+    }
+    
+    .video-item, .video-wrapper {
+        width: 95% !important;
+    }
+}
