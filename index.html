@@ -27,7 +27,7 @@
             <div class="video-item">
                 <video controls preload="metadata" playsinline muted>
                     <source src="Чехов1.M4V" type="video/mp4">
-                    Ваш браузер не поддерживает видеоо.
+                    Ваш браузер не поддерживает видео.
                 </video>
             </div>
             
@@ -123,9 +123,9 @@
     <!-- Нижний блок с соцсетями и кнопкой -->
     <div class="bottom-section">
         <div class="social-left">
-            <a href="https://www.instagram.com/story__theatre?igsh=Y3Rub3o2aWZjMmNo" target="_blank" class="social-link">
-                <img src="instagram-icon.png" alt="Instagram">
-            </a>
+            <div class="social-link">
+                <img src="telegram-icon.png" alt="Telegram">
+            </div>
         </div>
         
         <div class="button-container">
@@ -135,15 +135,21 @@
         </div>
         
         <div class="social-right">
-            <a href="https://t.me/storytheatre" target="_blank" class="social-link">
-                <img src="telegram-icon.png" alt="Telegram">
-            </a>
+            <div class="social-link">
+                <img src="instagram-icon.png" alt="Галерея*">
+                <span class="asterisk">*</span>
+            </div>
         </div>
+    </div>
+
+    <!-- Пояснение про запрещенную соцсеть -->
+    <div class="legal-notice">
+        * — Социальная сеть принадлежит компании Meta, признанной экстремистской в РФ
     </div>
 
     <script>
         function contactMe() {
-            alert('Спасибо за интерес! Свяжитесь со мной по телефону или email.');
+            alert('Спасибо за интерес! Свяжитесь с нами по телефону или через Telegram.');
         }
 
         document.addEventListener('DOMContentLoaded', function() {
