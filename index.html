@@ -149,15 +149,7 @@
         </div>
         
         <!-- Контейнер для платежной формы -->
-        <div id="payment-form" style="display: none; width: 100%; max-width: 400px; margin: 20px auto;"></div>
-        
-        <div class="social-right">
-            <div class="social-link">
-                <img src="instagram-icon.png" alt="Галерея*">
-                <span class="asterisk">*</span>
-            </div>
-        </div>
-    </div>
+        <div id="payment-form" style="display: none; width: 90%; max-width: 400px; margin: 20px auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.2);"></div>
 
     <!-- Пояснение про запрещенную соцсеть -->
     <div class="legal-notice">
@@ -251,22 +243,31 @@
         });
         <script src="https://yookassa.ru/checkout-widget/v1/checkout-widget.js"></script>
 
+<!-- Подключаем виджет ЮKassa -->
+<script src="https://yookassa.ru/checkout-widget/v1/checkout-widget.js"></script>
+
 <script>
-// Функция для оплаты через ЮKassa
+// 👇 ЗАМЕНИ НА СВОЙ URL С RENDER
+const API_URL = 'https://theatre-o08i.onrender.com';
+
+let checkoutWidget = null;
+
 async function initPayment() {
     try {
         const button = document.querySelector('.main-button');
-        const originalHTML = button.innerHTML;
+        const paymentForm = document.getElementById('payment-form');
         
+        // Показываем загрузку
         button.innerHTML = '<span class="button-text">Подготовка оплаты...</span>';
         button.style.opacity = '0.8';
 
-        // 👇 ЗАМЕНИ НА СВОЙ URL С RENDER (когда настроишь сервер)
-        const API_URL = 'https://theatre-o08i.onrender.com';
+        console.log('🔄 Создаем платеж...');
         
         const response = await fetch(API_URL + '/create-payment', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 
+                'Content-Type': 'application/json' 
+            },
             body: JSON.stringify({
                 amount: "5000.00",
                 description: "Билет в Театр Историй"
@@ -274,41 +275,87 @@ async function initPayment() {
         });
 
         if (!response.ok) {
-            throw new Error('Ошибка соединения с сервером');
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Ошибка сервера');
         }
 
         const paymentData = await response.json();
-        
+        console.log('✅ Платеж создан:', paymentData);
+
+        if (!paymentData.confirmation_token) {
+            throw new Error('Не получили токен для оплаты');
+        }
+
+        // Скрываем кнопку и показываем платежную форму
+        button.style.display = 'none';
+        paymentForm.style.display = 'block';
+
         // Инициализируем виджет
-        const checkout = new window.YooMoneyCheckoutWidget({
+        checkoutWidget = new window.YooMoneyCheckoutWidget({
             confirmation_token: paymentData.confirmation_token,
             return_url: window.location.href,
+            customization: {
+                colors: {
+                    control_primary: '#8b4513', // Цвет как у твоей кнопки
+                    background: '#FFFFFF'
+                }
+            },
             error_callback: function(error) {
-                console.log('Ошибка виджета:', error);
-                alert('Ошибка платежной системы');
-                resetButton();
+                console.error('❌ Ошибка виджета:', error);
+                alert('Ошибка платежной системы. Позвоните нам: +7 926 773 79 70');
+                resetPaymentForm();
             }
         });
 
-        // Показываем платежную форму
-        document.getElementById('payment-form').style.display = 'block';
-        checkout.render('payment-form');
+        // Отображаем платежную форму
+        checkoutWidget.render('payment-form');
         
-        // Скрываем кнопку
-        button.style.display = 'none';
+        // Прокручиваем к форме оплаты
+        paymentForm.scrollIntoView({ behavior: 'smooth' });
 
     } catch (error) {
-        console.error('Ошибка:', error);
-        alert('Онлайн-оплата временно недоступна. Позвоните нам: +7 926 773 79 70');
-        resetButton();
+        console.error('❌ Ошибка оплаты:', error);
+        
+        // Показываем понятное сообщение об ошибке
+        if (error.message.includes('CORS') || error.message.includes('Failed to fetch')) {
+            alert('Ошибка соединения с сервером оплаты. Пожалуйста, позвоните нам: +7 926 773 79 70');
+        } else {
+            alert('Ошибка: ' + error.message + '\n\nПозвоните нам: +7 926 773 79 70');
+        }
+        
+        resetPaymentForm();
     }
 }
 
-function resetButton() {
+function resetPaymentForm() {
     const button = document.querySelector('.main-button');
+    const paymentForm = document.getElementById('payment-form');
+    
+    // Восстанавливаем кнопку
     button.innerHTML = '<span class="button-text">Купить билет</span>';
     button.style.opacity = '1';
     button.style.display = 'block';
+    
+    // Скрываем платежную форму
+    paymentForm.style.display = 'none';
+    
+    // Уничтожаем виджет если он был создан
+    if (checkoutWidget) {
+        try {
+            checkoutWidget.destroy();
+        } catch (e) {
+            console.log('Виджет уже уничтожен');
+        }
+        checkoutWidget = null;
+    }
 }
+
+// Закрыть форму оплаты при клике вне ее
+document.addEventListener('click', function(event) {
+    const paymentForm = document.getElementById('payment-form');
+    if (paymentForm.style.display === 'block' && !paymentForm.contains(event.target)) {
+        resetPaymentForm();
+    }
+});
 </script>
     </script>
