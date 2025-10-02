@@ -156,7 +156,6 @@
         </div>
     </div>
 
-
     <!-- Пояснение про запрещенную соцсеть -->
     <div class="legal-notice">
         * — Социальная сеть принадлежит компании Meta, признанной экстремистской в РФ
@@ -248,55 +247,57 @@
             });
         });
 
-const API_URL = 'https://theatre-o08i.onrender.com';
+        // 👇 Код для Умного платежа через Redirect
+        const API_URL = 'https://theatre-o08i.onrender.com';
 
-async function initPayment() {
-    try {
-        const button = document.querySelector('.main-button');
-        
-        button.innerHTML = '<span class="button-text">Подготовка оплаты...</span>';
-        button.style.opacity = '0.8';
+        async function initPayment() {
+            try {
+                const button = document.querySelector('.main-button');
+                
+                button.innerHTML = '<span class="button-text">Подготовка оплаты...</span>';
+                button.style.opacity = '0.8';
 
-        console.log('🔄 Создаем платеж (Умный платеж)...');
-        
-        const response = await fetch(API_URL + '/create-payment', {
-            method: 'POST',
-            headers: { 
-                'Content-Type': 'application/json' 
-            },
-            body: JSON.stringify({
-                amount: "5000.00",
-                description: "Билет в Театр Историй"
-            })
-        });
+                console.log('🔄 Создаем платеж (Умный платеж)...');
+                
+                const response = await fetch(API_URL + '/create-payment', {
+                    method: 'POST',
+                    headers: { 
+                        'Content-Type': 'application/json' 
+                    },
+                    body: JSON.stringify({
+                        amount: "5000.00", // 👈 Цена билета 5000 рублей
+                        description: "Билет в Театр Историй"
+                    })
+                });
 
-        if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.message || 'Ошибка сервера');
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.message || 'Ошибка сервера');
+                }
+
+                const paymentData = await response.json();
+                console.log('✅ Платеж создан:', paymentData);
+
+                // 👇 ПЕРЕНАПРАВЛЯЕМ НА СТРАНИЦУ ОПЛАТЫ ЮKASSA
+                if (paymentData.confirmation && paymentData.confirmation.confirmation_url) {
+                    console.log('🔗 Redirect to:', paymentData.confirmation.confirmation_url);
+                    window.location.href = paymentData.confirmation.confirmation_url;
+                } else {
+                    throw new Error('Не получили ссылку для оплаты');
+                }
+
+            } catch (error) {
+                console.error('❌ Ошибка оплаты:', error);
+                alert('Ошибка: ' + error.message + '\n\nПозвоните нам: +7 926 773 79 70');
+                resetPaymentButton();
+            }
         }
 
-        const paymentData = await response.json();
-        console.log('✅ Платеж создан:', paymentData);
-
-        // 👇 ПЕРЕНАПРАВЛЯЕМ НА СТРАНИЦУ ОПЛАТЫ ЮKASSA
-        if (paymentData.confirmation && paymentData.confirmation.confirmation_url) {
-            console.log('🔗 Redirect to:', paymentData.confirmation.confirmation_url);
-            window.location.href = paymentData.confirmation.confirmation_url;
-        } else {
-            throw new Error('Не получили ссылку для оплаты');
+        function resetPaymentButton() {
+            const button = document.querySelector('.main-button');
+            button.innerHTML = '<span class="button-text">Купить билет</span>';
+            button.style.opacity = '1';
         }
-
-    } catch (error) {
-        console.error('❌ Ошибка оплаты:', error);
-        alert('Ошибка: ' + error.message + '\n\nПозвоните нам: +7 926 773 79 70');
-        resetPaymentButton();
-    }
-}
-
-function resetPaymentButton() {
-    const button = document.querySelector('.main-button');
-    button.innerHTML = '<span class="button-text">Купить билет</span>';
-    button.style.opacity = '1';
-}
+    </script>
 </body>
 </html>
