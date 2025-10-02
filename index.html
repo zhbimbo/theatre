@@ -143,10 +143,13 @@
         </div>
         
         <div class="button-container">
-            <a href="https://ваша-ссылка-на-билеты" class="main-button" target="_blank">
+            <button class="main-button" onclick="initPayment()" style="border: none; background: inherit; cursor: pointer; width: 100%;">
                 <span class="button-text">Купить билет</span>
-            </a>
+            </button>
         </div>
+        
+        <!-- Контейнер для платежной формы -->
+        <div id="payment-form" style="display: none; width: 100%; max-width: 400px; margin: 20px auto;"></div>
         
         <div class="social-right">
             <div class="social-link">
@@ -246,4 +249,66 @@
                 });
             });
         });
+        <script src="https://yookassa.ru/checkout-widget/v1/checkout-widget.js"></script>
+
+<script>
+// Функция для оплаты через ЮKassa
+async function initPayment() {
+    try {
+        const button = document.querySelector('.main-button');
+        const originalHTML = button.innerHTML;
+        
+        button.innerHTML = '<span class="button-text">Подготовка оплаты...</span>';
+        button.style.opacity = '0.8';
+
+        // 👇 ЗАМЕНИ НА СВОЙ URL С RENDER (когда настроишь сервер)
+        const API_URL = 'https://theatre-o08i.onrender.com';
+        
+        const response = await fetch(API_URL + '/create-payment', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                amount: "5000.00",
+                description: "Билет в Театр Историй"
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error('Ошибка соединения с сервером');
+        }
+
+        const paymentData = await response.json();
+        
+        // Инициализируем виджет
+        const checkout = new window.YooMoneyCheckoutWidget({
+            confirmation_token: paymentData.confirmation_token,
+            return_url: window.location.href,
+            error_callback: function(error) {
+                console.log('Ошибка виджета:', error);
+                alert('Ошибка платежной системы');
+                resetButton();
+            }
+        });
+
+        // Показываем платежную форму
+        document.getElementById('payment-form').style.display = 'block';
+        checkout.render('payment-form');
+        
+        // Скрываем кнопку
+        button.style.display = 'none';
+
+    } catch (error) {
+        console.error('Ошибка:', error);
+        alert('Онлайн-оплата временно недоступна. Позвоните нам: +7 926 773 79 70');
+        resetButton();
+    }
+}
+
+function resetButton() {
+    const button = document.querySelector('.main-button');
+    button.innerHTML = '<span class="button-text">Купить билет</span>';
+    button.style.opacity = '1';
+    button.style.display = 'block';
+}
+</script>
     </script>
