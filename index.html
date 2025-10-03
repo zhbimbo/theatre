@@ -15,19 +15,20 @@
     <header class="new-header">
         <div class="header-container">
             <h1 class="header-title">ТЕАТР ИСТОРИЙ</h1>
-            <div class="event-info" id="eventHeader">
-                <!-- Динамически загружается -->
-            </div>
         </div>
     </header>
 
     <!-- Слайды -->
     <div class="slides-container" id="slidesContainer">
         <div class="slide-wrapper">
-            <!-- Информация о мероприятии -->
-            <div class="event-section">
-                <div class="event-card" id="eventCard">
-                    <!-- Динамически загружается -->
+            <!-- Кнопка покупки в начале -->
+            <div class="cta-section">
+                <div class="cta-card">
+                    <h2 class="cta-title" id="ctaEventTitle">Romans d'amour</h2>
+                    <p class="cta-description" id="ctaEventDate">30 октября 2025</p>
+                    <button class="cta-button" onclick="openModal()">
+                        <span class="button-text">Купить билет</span>
+                    </button>
                 </div>
             </div>
 
@@ -175,7 +176,25 @@
     <div class="modal-overlay" id="modalOverlay">
         <div class="modal-content">
             <button class="modal-close" id="modalClose">&times;</button>
-            <h2 class="modal-title">Покупка билетов</h2>
+            <h2 class="modal-title" id="modalEventTitle">Romans d'amour</h2>
+            <div class="modal-event-info">
+                <p class="modal-event-description" id="modalEventDescription"></p>
+                <div class="modal-event-details">
+                    <div class="modal-detail-item">
+                        <span class="modal-detail-label">📅 Дата:</span>
+                        <span class="modal-detail-value" id="modalEventDate">30 октября 2025</span>
+                    </div>
+                    <div class="modal-detail-item">
+                        <span class="modal-detail-label">📍 Место:</span>
+                        <span class="modal-detail-value" id="modalEventLocation"></span>
+                    </div>
+                    <div class="modal-detail-item">
+                        <span class="modal-detail-label">💰 Цена:</span>
+                        <span class="modal-detail-value" id="modalEventPrice">5 000 ₽</span>
+                    </div>
+                </div>
+            </div>
+
             <form id="purchaseForm" class="purchase-form">
                 <div class="form-group">
                     <label for="eventTime">Выберите время:</label>
@@ -263,74 +282,34 @@
         function renderEventData() {
             const event = eventData.event;
             
-            // Шапка
-            document.getElementById('eventHeader').innerHTML = `
-                <h2 class="event-title">${event.title}</h2>
-                <p class="event-date">${formatDate(event.date)}</p>
-            `;
+            // Обновляем CTA секцию
+            document.getElementById('ctaEventTitle').textContent = event.title;
+            document.getElementById('ctaEventDate').textContent = formatDate(event.date);
 
-            // Основная карточка
-            document.getElementById('eventCard').innerHTML = `
-                <h2 class="section-title">${event.title.toUpperCase()}</h2>
-                <p class="event-description">${event.description}</p>
-                
-                <div class="event-details">
-                    <div class="detail-item">
-                        <span class="detail-label">📅 Дата:</span>
-                        <span class="detail-value">${formatDate(event.date)}</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">📍 Место:</span>
-                        <span class="detail-value">${event.location}</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">💰 Цена:</span>
-                        <span class="detail-value">${event.price.toLocaleString()} ₽</span>
-                    </div>
-                </div>
-
-                <div class="program-section">
-                    <h3>Программа вечера:</h3>
-                    <ul class="program-list">
-                        ${event.program.map(item => `<li>${item}</li>`).join('')}
-                    </ul>
-                </div>
-
-                <div class="available-tickets">
-                    <h3>Доступные сеансы:</h3>
-                    <div class="time-slots" id="timeSlots">
-                        <!-- Динамически обновляется -->
-                    </div>
-                </div>
-            `;
+            // Обновляем модальное окно
+            document.getElementById('modalEventTitle').textContent = event.title;
+            document.getElementById('modalEventDescription').textContent = event.description;
+            document.getElementById('modalEventDate').textContent = formatDate(event.date);
+            document.getElementById('modalEventLocation').textContent = event.location;
+            document.getElementById('modalEventPrice').textContent = event.price.toLocaleString() + ' ₽';
 
             updateTimeSlots();
         }
 
         // Обновление слотов времени
         function updateTimeSlots() {
-            const timeSlotsContainer = document.getElementById('timeSlots');
             const timeSelect = document.getElementById('eventTime');
+            const availabilityInfo = document.getElementById('ticketAvailability');
             
-            if (!timeSlotsContainer || !timeSelect) return;
+            if (!timeSelect || !availabilityInfo) return;
 
-            timeSlotsContainer.innerHTML = '';
             timeSelect.innerHTML = '<option value="">-- Выберите время --</option>';
+            availabilityInfo.innerHTML = '';
 
             eventData.event.times.forEach(timeSlot => {
                 const available = availableTickets[timeSlot.time] || 0;
                 const isAvailable = available > 0;
                 
-                // Для отображения на странице
-                timeSlotsContainer.innerHTML += `
-                    <div class="time-slot ${isAvailable ? 'available' : 'sold-out'}">
-                        <span class="time">${timeSlot.time}</span>
-                        <span class="welcome">Встреча гостей с ${timeSlot.welcome}</span>
-                        <span class="availability">${isAvailable ? `Осталось ${available} билетов` : 'Продано'}</span>
-                    </div>
-                `;
-
-                // Для выпадающего списка в модалке
                 if (isAvailable) {
                     timeSelect.innerHTML += `
                         <option value="${timeSlot.time}">${timeSlot.time} (доступно: ${available})</option>
@@ -383,10 +362,11 @@
                 return;
             }
 
-            // Проверка доступности
+            // Проверка доступности (без резервирования!)
             const available = availableTickets[formData.event_time];
             if (available < formData.quantity) {
                 alert(`Извините, доступно только ${available} билетов на это время`);
+                await loadAvailableTickets(); // Обновляем данные
                 return;
             }
 
@@ -399,6 +379,20 @@
             if (e.target === this) closeModal();
         });
         document.getElementById('ticketQuantity').addEventListener('change', updateTotalAmount);
+        document.getElementById('eventTime').addEventListener('change', function() {
+            const selectedTime = this.value;
+            const available = availableTickets[selectedTime] || 0;
+            const availabilityInfo = document.getElementById('ticketAvailability');
+            if (selectedTime && available > 0) {
+                availabilityInfo.innerHTML = `Доступно билетов: ${available}`;
+                availabilityInfo.className = 'ticket-availability available';
+            } else if (selectedTime) {
+                availabilityInfo.innerHTML = 'Билеты распроданы';
+                availabilityInfo.className = 'ticket-availability sold-out';
+            } else {
+                availabilityInfo.innerHTML = '';
+            }
+        });
 
         // Платежная функция
         async function initPayment(formData) {
