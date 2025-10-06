@@ -79,58 +79,6 @@ body {
     padding-bottom: 40px;
 }
 
-/* CTA секция */
-.cta-section {
-    width: 100%;
-    padding: 40px 20px;
-    display: flex;
-    justify-content: center;
-}
-
-.cta-card {
-    background: white;
-    border-radius: 15px;
-    padding: 40px;
-    text-align: center;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    max-width: 500px;
-    width: 100%;
-}
-
-.cta-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.2rem;
-    color: #8b4513;
-    margin-bottom: 10px;
-}
-
-.cta-description {
-    font-size: 1.1rem;
-    color: #666;
-    margin-bottom: 30px;
-    line-height: 1.5;
-}
-
-.cta-button {
-    padding: 16px 40px;
-    background: linear-gradient(135deg, #8b4513 0%, #6b3a0e 100%);
-    color: white;
-    border: none;
-    border-radius: 40px;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 8px 25px rgba(139,69,19,0.4);
-    transition: all 0.3s ease;
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
-}
-
-.cta-button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 30px rgba(139,69,19,0.6);
-}
-
 /* Элементы с анимацией */
 .slide-item, 
 .video-item, 
@@ -429,7 +377,7 @@ body {
 }
 
 .modal-content {
-    background: white;
+    background: url('Images/modal-bg.png') center/cover no-repeat;
     border-radius: 15px;
     padding: 30px;
     width: 100%;
@@ -437,6 +385,8 @@ body {
     position: relative;
     max-height: 90vh;
     overflow-y: auto;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    border: 2px solid rgba(139, 69, 19, 0.3);
 }
 
 .modal-close {
@@ -448,6 +398,7 @@ body {
     font-size: 24px;
     cursor: pointer;
     color: #666;
+    z-index: 1;
 }
 
 .modal-title {
@@ -461,7 +412,7 @@ body {
 .modal-event-info {
     margin-bottom: 25px;
     padding-bottom: 20px;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid rgba(139, 69, 19, 0.2);
 }
 
 .modal-event-description {
@@ -518,6 +469,7 @@ body {
     border-radius: 8px;
     font-size: 16px;
     transition: border-color 0.3s ease;
+    background: rgba(255, 255, 255, 0.9);
 }
 
 .form-group select:focus,
@@ -535,19 +487,20 @@ body {
 
 .ticket-availability.available {
     color: #2e7d32;
-    background: #e8f5e8;
+    background: rgba(232, 245, 232, 0.7);
 }
 
 .ticket-availability.sold-out {
     color: #c62828;
-    background: #ffebee;
+    background: rgba(255, 235, 238, 0.7);
 }
 
 .form-summary {
-    background: #f9f5eb;
+    background: rgba(249, 245, 235, 0.7);
     padding: 15px;
     border-radius: 8px;
     margin: 10px 0;
+    border: 1px solid rgba(139, 69, 19, 0.2);
 }
 
 .summary-item {
@@ -613,7 +566,7 @@ video {
         max-width: 280px;
         max-height: 450px;
     }
-    .main-button, .cta-button {
+    .main-button {
         padding: 16px 30px;
         font-size: 16px;
     }
@@ -626,12 +579,6 @@ video {
     }
     .contact-link {
         font-size: 1.1rem;
-    }
-    .cta-card {
-        padding: 30px 20px;
-    }
-    .cta-title {
-        font-size: 1.8rem;
     }
     .modal-content {
         padding: 20px;
@@ -652,7 +599,7 @@ video {
         max-width: 240px;
         max-height: 400px;
     }
-    .main-button, .cta-button {
+    .main-button {
         padding: 14px 25px;
         font-size: 15px;
     }
@@ -677,12 +624,6 @@ video {
         font-size: 1.2rem;
     }
     .contact-link {
-        font-size: 1rem;
-    }
-    .cta-title {
-        font-size: 1.6rem;
-    }
-    .cta-description {
         font-size: 1rem;
     }
     .modal-title {
