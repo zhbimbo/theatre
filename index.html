@@ -21,17 +21,6 @@
     <!-- Слайды -->
     <div class="slides-container" id="slidesContainer">
         <div class="slide-wrapper">
-            <!-- Кнопка покупки в начале -->
-            <div class="cta-section">
-                <div class="cta-card">
-                    <h2 class="cta-title" id="ctaEventTitle">Romans d'amour</h2>
-                    <p class="cta-description" id="ctaEventDate">30 октября 2025</p>
-                    <button class="cta-button" onclick="openModal()">
-                        <span class="button-text">Купить билет</span>
-                    </button>
-                </div>
-            </div>
-
             <!-- Слайд 1 -->
             <div class="slide-item">
                 <img src="Images/img1.png" alt="Слайд 1">
@@ -282,10 +271,6 @@
         function renderEventData() {
             const event = eventData.event;
             
-            // Обновляем CTA секцию
-            document.getElementById('ctaEventTitle').textContent = event.title;
-            document.getElementById('ctaEventDate').textContent = formatDate(event.date);
-
             // Обновляем модальное окно
             document.getElementById('modalEventTitle').textContent = event.title;
             document.getElementById('modalEventDescription').textContent = event.description;
@@ -362,7 +347,7 @@
                 return;
             }
 
-            // Проверка доступности (без резервирования!)
+            // Проверка доступности
             const available = availableTickets[formData.event_time];
             if (available < formData.quantity) {
                 alert(`Извините, доступно только ${available} билетов на это время`);
