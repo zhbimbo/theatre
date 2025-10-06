@@ -403,7 +403,7 @@ body {
 
 .modal-title {
     font-family: 'Playfair Display', serif;
-    color: #8b4513;
+    color: #FFFFFF;
     margin-bottom: 20px;
     text-align: center;
     font-size: 1.8rem;
@@ -418,7 +418,7 @@ body {
 .modal-event-description {
     font-size: 1rem;
     line-height: 1.5;
-    color: #8b4513; /* Коричневый цвет как у других надписей */
+    color: #FFFFFF; /* Коричневый цвет как у других надписей */
     margin-bottom: 15px;
     font-weight: 400; /* Нормальный шрифт, не жирный */
 }
@@ -437,12 +437,12 @@ body {
 
 .modal-detail-label {
     font-weight: 600;
-    color: #8b4513;
+    color: #FFFFFF;
     min-width: 60px;
 }
 
 .modal-detail-value {
-    color: #8b4513; /* Коричневый цвет */
+    color: #FFFFFF; /* Коричневый цвет */
     flex: 1;
     font-weight: 400;
 }
