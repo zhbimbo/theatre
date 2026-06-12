@@ -44,12 +44,12 @@
 
     if (events.length) {
       currentEvent = events[0];
-      if (buyBtn) buyBtn.style.display = 'inline-flex';
-      if (affishaBtn) affishaBtn.style.display = 'none';
+      buyBtn?.classList.add('is-shown');
+      affishaBtn?.classList.remove('is-shown');
     } else {
       currentEvent = null;
-      if (buyBtn) buyBtn.style.display = 'none';
-      if (affishaBtn) affishaBtn.style.display = 'inline-flex';
+      buyBtn?.classList.remove('is-shown');
+      affishaBtn?.classList.add('is-shown');
     }
   }
 

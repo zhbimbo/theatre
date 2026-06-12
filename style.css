@@ -15,14 +15,14 @@
     --shadow: 0 8px 32px rgba(45, 30, 15, 0.08);
     --shadow-hover: 0 16px 48px rgba(45, 30, 15, 0.12);
     --radius: 16px;
-    --content-width: 680px;
+    --content-width: min(960px, 94vw);
 }
 
 body {
     font-family: var(--font-body);
     background: linear-gradient(180deg, #faf6ef 0%, var(--color-bg) 35%, #ebe3d4 100%);
     background-attachment: fixed;
-    padding: 0;
+    padding: 0 0 130px;
     margin: 0;
     width: 100%;
     overflow-x: hidden;
@@ -81,17 +81,18 @@ body {
 .cinema-hero {
     position: relative;
     width: 100%;
-    margin-top: 72px;
-    max-height: min(72vh, 820px);
+    margin-top: 64px;
     overflow: hidden;
     background: #1a120c;
+    line-height: 0;
 }
 
 .cinema-hero img {
     width: 100%;
-    height: min(72vh, 820px);
+    height: auto;
+    max-height: min(70vh, 780px);
     object-fit: cover;
-    object-position: center 30%;
+    object-position: center top;
     display: block;
 }
 
@@ -117,8 +118,8 @@ body {
 .slides-container {
     width: 100%;
     max-width: var(--content-width);
-    margin: 0 auto 160px;
-    padding: 40px 20px 0;
+    margin: 0 auto 80px;
+    padding: 32px 0 0;
     overflow: visible;
     height: auto;
 }
@@ -168,8 +169,7 @@ body {
     width: 100%;
     height: auto;
     display: block;
-    aspect-ratio: 16/9;
-    object-fit: cover;
+    vertical-align: middle;
 }
 
 /* Видео */
@@ -293,28 +293,32 @@ body {
     text-decoration: underline;
 }
 
-/* Нижний блок с соцсетями и кнопкой */
+/* Нижняя панель */
 .bottom-section {
     position: fixed;
-    bottom: 50px;
-    left: 0;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(960px, calc(100% - 32px));
+    display: grid;
+    grid-template-columns: 56px 1fr 56px;
     align-items: center;
-    padding: 12px 20px;
-    background: rgba(250, 246, 239, 0.94);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
+    gap: 12px;
+    padding: 10px 16px;
+    background: rgba(255, 252, 247, 0.96);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     z-index: 1000;
-    box-shadow: 0 -1px 0 rgba(139, 69, 19, 0.1), 0 -8px 32px rgba(60, 40, 20, 0.06);
+    border-radius: 999px;
+    border: 1px solid rgba(139, 69, 19, 0.12);
+    box-shadow: 0 8px 40px rgba(45, 30, 15, 0.12);
 }
 
-.social-left, 
+.social-left,
 .social-right {
-    flex: 1;
+    flex: none;
     display: flex;
-    justify-content: center;
+    align-items: center;
 }
 
 .social-left {
@@ -354,38 +358,48 @@ body {
 
 /* Кнопка "Купить билет" */
 .button-container {
-    flex: 2;
     display: flex;
     justify-content: center;
     align-items: center;
-    max-width: 400px;
+    min-width: 0;
 }
 
 .main-button {
-    padding: 0 28px;
+    padding: 14px 36px;
     background: linear-gradient(135deg, #8b4513 0%, #6b3a0e 100%);
-    color: white;
+    color: #fff;
     border: none;
     border-radius: 999px;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 600;
     font-family: var(--font-body);
     cursor: pointer;
-    box-shadow: 0 6px 20px rgba(139,69,19,0.35);
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    width: 100%;
-    max-width: 280px;
-    min-height: 52px;
+    box-shadow: 0 4px 16px rgba(139, 69, 19, 0.3);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    height: 48px;
     line-height: 1;
+    padding: 0 36px;
     position: relative;
     overflow: hidden;
     z-index: 1;
-    display: inline-flex;
+    display: none;
     align-items: center;
     justify-content: center;
     text-align: center;
-    letter-spacing: 0.01em;
+    letter-spacing: 0.03em;
+    -webkit-appearance: none;
+    appearance: none;
+    outline: none;
+    vertical-align: middle;
+}
+
+.main-button.is-shown {
+    display: inline-flex;
+}
+
+.main-button:focus-visible {
+    outline: 2px solid #8b4513;
+    outline-offset: 3px;
 }
 
 .main-button::before {
@@ -393,8 +407,9 @@ body {
     position: absolute;
     inset: 0;
     background: url('button-bg.png') center/cover;
-    opacity: 0.75;
+    opacity: 0.7;
     z-index: -1;
+    pointer-events: none;
 }
 
 .main-button--plain::before {
@@ -403,7 +418,8 @@ body {
 
 .main-button--plain {
     background: linear-gradient(135deg, #8b4513 0%, #734010 100%);
-    box-shadow: 0 6px 18px rgba(139, 69, 19, 0.32);
+    line-height: 1;
+    height: 48px;
 }
 
 .main-button:hover {
@@ -439,14 +455,15 @@ body {
 /* Пояснение о запрещенной соцсети */
 .legal-notice {
     position: fixed;
-    bottom: 10px;
+    bottom: 6px;
     left: 0;
     width: 100%;
     text-align: center;
-    font-size: 10px;
-    color: #999;
-    padding: 5px 20px;
-    z-index: 1001;
+    font-size: 9px;
+    color: #aaa;
+    padding: 4px 16px;
+    z-index: 999;
+    line-height: 1.4;
 }
 
 .legal-notice a {
@@ -659,47 +676,29 @@ video {
 
 /* Адаптация для планшетов */
 @media (max-width: 768px) {
-    .cinema-hero {
-        margin-top: 64px;
-        max-height: 55vh;
-    }
     .cinema-hero img {
-        height: 55vh;
+        max-height: 50vh;
     }
     .header-title {
         font-size: 1.5rem;
     }
     .reviews-title, .section-title {
-        font-size: 2rem;
-    }
-    .slide-item, .video-item {
-        width: 100%;
-    }
-    .videos-container {
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
-    }
-    .video-wrapper {
-        width: 95%;
-        max-width: none;
-    }
-    .video-item video, 
-    .video-wrapper video {
-        max-width: 280px;
-        max-height: 450px;
-    }
-    .main-button {
-        max-width: 100%;
-        font-size: 15px;
-        min-height: 48px;
-    }
-    .social-link img {
-        width: 28px;
-        height: 28px;
+        font-size: 1.75rem;
     }
     .bottom-section {
-        bottom: 40px;
+        width: calc(100% - 24px);
+        bottom: 22px;
+        grid-template-columns: 44px 1fr 44px;
+        padding: 8px 12px;
+    }
+    .main-button {
+        min-width: 140px;
+        height: 44px;
+        font-size: 14px;
+        padding: 0 24px;
+    }
+    .main-button--plain {
+        height: 44px;
     }
     .contact-link {
         font-size: 1.1rem;
@@ -713,27 +712,15 @@ video {
 /* Адаптация для мобильных */
 @media (max-width: 480px) {
     .header-title {
-        font-size: 1.35rem;
-    }
-    .slide-item, .video-item {
-        width: 100%;
-    }
-    .video-item video, 
-    .video-wrapper video {
-        max-width: 240px;
-        max-height: 400px;
-    }
-    .main-button {
-        font-size: 14px;
-        min-height: 46px;
-    }
-    .social-link img {
-        width: 24px;
-        height: 24px;
+        font-size: 1.25rem;
     }
     .bottom-section {
-        padding: 12px 15px;
-        bottom: 30px;
+        bottom: 18px;
+    }
+    .main-button {
+        min-width: 120px;
+        height: 42px;
+        font-size: 13px;
     }
     .legal-notice {
         font-size: 9px;
