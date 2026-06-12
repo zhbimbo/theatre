@@ -218,15 +218,23 @@
                     </div>
                 </div>
                 <div class="form-group consent-group">
-                    <label class="consent-label">
-                        <input type="checkbox" id="consentPd" required>
-                        Даю <a href="consent.html" target="_blank">согласие</a> на обработку ПДн (<a href="privacy.html" target="_blank">политика</a>)
+                    <label class="consent-row">
+                        <input type="checkbox" class="consent-input" id="consentPd" required>
+                        <span class="consent-box" aria-hidden="true"></span>
+                        <span class="consent-text">
+                            Согласен на <a href="consent.html" target="_blank" rel="noopener">обработку персональных данных</a>.
+                            Ознакомлен с <a href="privacy.html" target="_blank" rel="noopener">политикой конфиденциальности</a>.
+                        </span>
                     </label>
                 </div>
-                <div class="form-group consent-group">
-                    <label class="consent-label">
-                        <input type="checkbox" id="consentMarketing">
-                        Согласен на информационную рассылку о мероприятиях
+                <div class="form-group consent-group consent-group--optional">
+                    <label class="consent-row">
+                        <input type="checkbox" class="consent-input" id="consentMarketing">
+                        <span class="consent-box" aria-hidden="true"></span>
+                        <span class="consent-text">
+                            Получать новости о мероприятиях
+                            <span class="consent-optional">Необязательно</span>
+                        </span>
                     </label>
                 </div>
                 <button type="submit" class="submit-button" id="submitButton" disabled>Перейти к оплате</button>
@@ -254,15 +262,23 @@
                     <span class="field-hint">Необязательно · +7, 8 или 10 цифр</span>
                 </div>
                 <div class="form-group consent-group">
-                    <label class="consent-label">
-                        <input type="checkbox" id="waitlistConsentPd" required>
-                        Даю <a href="consent.html" target="_blank">согласие</a> на обработку ПДн (<a href="privacy.html" target="_blank">политика</a>)
+                    <label class="consent-row">
+                        <input type="checkbox" class="consent-input" id="waitlistConsentPd" required>
+                        <span class="consent-box" aria-hidden="true"></span>
+                        <span class="consent-text">
+                            Согласен на <a href="consent.html" target="_blank" rel="noopener">обработку персональных данных</a>.
+                            Ознакомлен с <a href="privacy.html" target="_blank" rel="noopener">политикой конфиденциальности</a>.
+                        </span>
                     </label>
                 </div>
-                <div class="form-group consent-group">
-                    <label class="consent-label">
-                        <input type="checkbox" id="waitlistConsentMarketing">
-                        Согласен на информационную рассылку о мероприятиях
+                <div class="form-group consent-group consent-group--optional">
+                    <label class="consent-row">
+                        <input type="checkbox" class="consent-input" id="waitlistConsentMarketing">
+                        <span class="consent-box" aria-hidden="true"></span>
+                        <span class="consent-text">
+                            Получать новости о мероприятиях
+                            <span class="consent-optional">Необязательно</span>
+                        </span>
                     </label>
                 </div>
                 <button type="submit" class="submit-button" id="waitlistSubmit" disabled>Оставить контакты</button>

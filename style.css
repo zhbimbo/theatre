@@ -293,39 +293,41 @@ body {
 /* ─── Dock: соцсети по краям, CTA по центру ─── */
 .dock {
     position: fixed;
-    bottom: 24px;
-    left: 0;
-    right: 0;
+    bottom: max(20px, env(safe-area-inset-bottom, 0px));
+    left: max(14px, env(safe-area-inset-left, 0px));
+    right: max(14px, env(safe-area-inset-right, 0px));
     z-index: 1000;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 8px;
     pointer-events: none;
-    padding: 0 clamp(16px, 3vw, 40px);
 }
 
 .dock-side,
 .dock-center {
     pointer-events: auto;
+    position: static;
+    transform: none;
 }
 
 .dock-side--left {
-    position: fixed;
-    bottom: 24px;
-    left: clamp(16px, 3vw, 40px);
-}
-
-.dock-side--right {
-    position: fixed;
-    bottom: 24px;
-    right: clamp(16px, 3vw, 40px);
+    grid-column: 1;
+    justify-self: start;
 }
 
 .dock-center {
-    position: fixed;
-    bottom: 24px;
-    left: 50%;
-    transform: translateX(-50%);
+    grid-column: 2;
+    justify-self: center;
     display: flex;
     gap: 10px;
     align-items: center;
+    min-width: 0;
+}
+
+.dock-side--right {
+    grid-column: 3;
+    justify-self: end;
 }
 
 .glass-btn {
@@ -563,23 +565,97 @@ body {
     color: var(--color-primary);
 }
 
-.consent-label {
-    display: flex;
-    gap: 10px;
-    align-items: flex-start;
-    font-size: 12px;
-    line-height: 1.5;
-    font-weight: 400;
+.form-group.consent-group {
+    margin-bottom: 10px;
+}
+
+.consent-row {
+    display: grid;
+    grid-template-columns: 22px 1fr;
+    column-gap: 12px;
+    align-items: start;
     cursor: pointer;
+    padding: 12px 14px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.58);
+    border: 1px solid rgba(139, 69, 19, 0.12);
+    transition: border-color 0.2s, background 0.2s;
 }
 
-.consent-label input {
-    margin-top: 3px;
-    width: auto;
+.consent-row:has(.consent-input:checked) {
+    background: rgba(139, 69, 19, 0.07);
+    border-color: rgba(139, 69, 19, 0.24);
 }
 
-.consent-label a {
+.consent-group--optional .consent-row {
+    background: rgba(255, 255, 255, 0.38);
+}
+
+.consent-input {
+    grid-column: 1;
+    grid-row: 1;
+    width: 22px;
+    height: 22px;
+    margin: 0;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.consent-box {
+    grid-column: 1;
+    grid-row: 1;
+    width: 20px;
+    height: 20px;
+    margin-top: 1px;
+    border-radius: 6px;
+    border: 1.5px solid rgba(139, 69, 19, 0.35);
+    background: rgba(255, 255, 255, 0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.consent-input:focus-visible + .consent-box {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+.consent-input:checked + .consent-box {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+}
+
+.consent-input:checked + .consent-box::after {
+    content: "";
+    width: 5px;
+    height: 9px;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg) translate(-1px, -1px);
+}
+
+.consent-text {
+    grid-column: 2;
+    font-size: 13px;
+    line-height: 1.45;
+    color: #4a4035;
+    font-weight: 400;
+}
+
+.consent-text a {
     color: var(--color-primary);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.consent-optional {
+    display: block;
+    margin-top: 3px;
+    font-size: 11px;
+    color: #8a8078;
 }
 
 .submit-button {
@@ -682,18 +758,19 @@ video {
         margin: 0 auto;
     }
 
-    .dock-side--left {
-        left: 12px;
-        bottom: 18px;
+    .legal-notice {
+        bottom: calc(76px + env(safe-area-inset-bottom, 0px));
+        padding: 0 56px;
+        font-size: 9px;
     }
 
-    .dock-side--right {
-        right: 12px;
-        bottom: 18px;
+    .consent-row {
+        padding: 11px 12px;
     }
 
-    .dock-center {
-        bottom: 18px;
+    .consent-text {
+        font-size: 12px;
+        line-height: 1.5;
     }
 
     .glass-btn--icon {
