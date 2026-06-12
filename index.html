@@ -14,19 +14,22 @@
     <!-- Шапка -->
     <header class="new-header">
         <div class="header-container">
-            <h1 class="header-title">ТЕАТР ИСТОРИЙ</h1>
+            <h1 class="header-title">Театр историй</h1>
         </div>
     </header>
 
-    <!-- Слайды -->
-    <div class="slides-container" id="slidesContainer">
+    <!-- Герой -->
+    <section class="cinema-hero" aria-label="Театр историй">
+        <img src="Images/img1.png" alt="Театр историй" loading="eager" fetchpriority="high">
+        <div class="cinema-hero-overlay">
+            <p class="cinema-hero-tagline">Иммерсивный театр · Москва</p>
+        </div>
+    </section>
+
+    <!-- Лента -->
+    <main class="slides-container" id="slidesContainer">
         <div class="slide-wrapper">
-            <!-- Слайд 1 -->
-            <div class="slide-item">
-                <img src="Images/img1.png" alt="Слайд 1" loading="lazy">
-            </div>
-            
-            <!-- Чехов1.M4V -->
+            <!-- Слайды -->
             <div class="video-item">
                 <video controls preload="none" playsinline muted>
                     <source src="Чехов1.M4V" type="video/mp4">
@@ -98,7 +101,7 @@
             
             <!-- Отзывы -->
             <div class="reviews-section">
-                <h2 class="reviews-title">НАШИ ОТЗЫВЫ</h2>
+                <h2 class="reviews-title">Наши отзывы</h2>
                 <div class="videos-container">
                     <div class="video-wrapper">
                         <video controls preload="none" playsinline muted>
@@ -123,16 +126,16 @@
 
             <!-- Контакты -->
             <div class="contacts-section">
-                <h2 class="section-title">КОНТАКТЫ</h2>
+                <h2 class="section-title">Контакты</h2>
                 <div class="contacts-content">
-                    <p class="contacts-description">Ваше мероприятия от Театра Историй</p>
+                    <p class="contacts-description">Ваше мероприятие от Театра историй</p>
                     <p class="contact-name">Продюсер Виктория Филиппова</p>
                     <a href="tel:+79267737970" class="contact-link">Телефон: +7 926 773 79 70</a>
                     <a href="mailto:storytheatre@yandex.ru" class="contact-link">Почта: storytheatre@yandex.ru</a>
                 </div>
             </div>
         </div>
-    </div>
+    </main>
 
 <!-- Нижний блок с соцсетями и кнопкой -->
 <div class="bottom-section">
@@ -145,12 +148,8 @@
     </div>
     
     <div class="button-container">
-        <button class="main-button" id="mainBuyButton" onclick="openTicketModal()" style="display:none">
-            <span class="button-text">Купить билет</span>
-        </button>
-        <button class="main-button" id="affishaButton" onclick="openAffishaModal()" style="display:none">
-            <span class="button-text">Афиши</span>
-        </button>
+        <button type="button" class="main-button" id="mainBuyButton" onclick="openTicketModal()" style="display:none">Купить билет</button>
+        <button type="button" class="main-button main-button--plain" id="affishaButton" onclick="openAffishaModal()" style="display:none">Афиша</button>
     </div>
     
     <div class="social-right">
@@ -173,10 +172,10 @@
 
     <!-- Модальное окно покупки -->
     <div class="modal-overlay" id="modalOverlay">
-        <div class="modal-content">
+        <div class="modal-content modal-content-light modal-content-ticket">
             <button class="modal-close" id="modalClose">&times;</button>
-            <h2 class="modal-title" id="modalEventTitle">Romans d'amour</h2>
-            <div class="modal-event-info">
+            <h2 class="modal-title-dark" id="modalEventTitle">Romans d'amour</h2>
+            <div class="modal-event-info modal-event-info-light">
                 <p class="modal-event-description" id="modalEventDescription"></p>
                 <div class="modal-event-details">
                     <div class="modal-detail-item">

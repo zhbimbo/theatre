@@ -44,12 +44,12 @@
 
     if (events.length) {
       currentEvent = events[0];
-      if (buyBtn) buyBtn.style.display = 'flex';
+      if (buyBtn) buyBtn.style.display = 'inline-flex';
       if (affishaBtn) affishaBtn.style.display = 'none';
     } else {
       currentEvent = null;
       if (buyBtn) buyBtn.style.display = 'none';
-      if (affishaBtn) affishaBtn.style.display = 'flex';
+      if (affishaBtn) affishaBtn.style.display = 'inline-flex';
     }
   }
 
@@ -163,7 +163,7 @@
 
   async function initPayment(formData) {
     const button = document.getElementById('submitButton');
-    button.innerHTML = '<span class="button-text">Подготовка оплаты...</span>';
+    button.textContent = 'Подготовка оплаты...';
     button.disabled = true;
 
     try {
@@ -190,7 +190,7 @@
       }
     } catch (error) {
       showToast('Ошибка: ' + error.message, 'error');
-      button.innerHTML = '<span class="button-text">Перейти к оплате</span>';
+      button.textContent = 'Перейти к оплате';
       updateConsentButtons();
     }
   }
@@ -232,51 +232,65 @@
   }
 
   function initScrollAndVideo() {
-    const container = document.getElementById('slidesContainer');
-    if (!container) return;
-    const elements = document.querySelectorAll('.slide-item, .video-item, .video-wrapper');
+    const elements = document.querySelectorAll('.slide-item, .video-item, .video-wrapper, .reviews-section, .contacts-section');
     const videos = document.querySelectorAll('video');
     const progressBar = document.querySelector('.progress-bar');
-    let ticking = false;
 
     videos.forEach((video) => {
       video.setAttribute('preload', 'none');
       video.muted = true;
     });
 
-    const checkScroll = () => {
-      const scrollHeight = container.scrollHeight;
-      const clientHeight = container.clientHeight;
-      const scrollPercentage = (container.scrollTop / Math.max(scrollHeight - clientHeight, 1)) * 100;
-      if (progressBar) progressBar.style.width = scrollPercentage + '%';
+    elements.forEach((el) => el.classList.add('reveal-on-scroll'));
 
-      elements.forEach((el) => {
-        const elTop = el.getBoundingClientRect().top;
-        if (elTop < container.clientHeight * 0.85) {
-          el.style.opacity = '1';
-          el.style.transform = 'translateY(0)';
-        }
-      });
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -5% 0px' }
+    );
+    elements.forEach((el) => revealObserver.observe(el));
 
-      videos.forEach((video) => {
-        const rect = video.getBoundingClientRect();
-        const visible = rect.top < window.innerHeight && rect.bottom > 0;
-        if (visible && video.paused) {
-          video.play().catch(() => {});
-        } else if (!visible && !video.paused) {
-          video.pause();
-        }
-      });
+    const videoObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const video = entry.target;
+          if (entry.isIntersecting) {
+            video.play().catch(() => {});
+          } else {
+            video.pause();
+          }
+        });
+      },
+      { threshold: 0.35 }
+    );
+    videos.forEach((video) => videoObserver.observe(video));
+
+    let ticking = false;
+    const updateProgress = () => {
+      if (!progressBar) return;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = docHeight > 0 ? (window.scrollY / docHeight) * 100 : 0;
+      progressBar.style.width = pct + '%';
       ticking = false;
     };
 
-    container.addEventListener('scroll', () => {
-      if (!ticking) {
-        requestAnimationFrame(checkScroll);
-        ticking = true;
-      }
-    });
-    checkScroll();
+    window.addEventListener(
+      'scroll',
+      () => {
+        if (!ticking) {
+          requestAnimationFrame(updateProgress);
+          ticking = true;
+        }
+      },
+      { passive: true }
+    );
+    updateProgress();
   }
 
   document.addEventListener('DOMContentLoaded', () => {

@@ -9,11 +9,13 @@
     --color-primary-dark: #6b3a0e;
     --color-bg: #f5f0e6;
     --color-surface: #fff;
-    --color-text: #333;
+    --color-text: #2c2419;
     --font-body: 'Montserrat', Arial, sans-serif;
-    --font-display: 'Playfair Display', serif;
-    --shadow: 0 10px 30px rgba(0,0,0,0.1);
-    --radius: 12px;
+    --font-display: 'Playfair Display', Georgia, serif;
+    --shadow: 0 8px 32px rgba(45, 30, 15, 0.08);
+    --shadow-hover: 0 16px 48px rgba(45, 30, 15, 0.12);
+    --radius: 16px;
+    --content-width: 680px;
 }
 
 body {
@@ -63,26 +65,62 @@ body {
 }
 
 .header-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.2rem;
-    font-weight: 700;
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    font-weight: 400;
+    font-style: italic;
     color: #8b4513;
     margin: 0;
     text-align: center;
-    letter-spacing: 0.35em;
-    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    text-transform: none;
     width: 100%;
 }
 
-/* Основной контейнер */
+/* Полноэкранный герой */
+.cinema-hero {
+    position: relative;
+    width: 100%;
+    margin-top: 72px;
+    max-height: min(72vh, 820px);
+    overflow: hidden;
+    background: #1a120c;
+}
+
+.cinema-hero img {
+    width: 100%;
+    height: min(72vh, 820px);
+    object-fit: cover;
+    object-position: center 30%;
+    display: block;
+}
+
+.cinema-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(20, 12, 6, 0.75) 0%, rgba(20, 12, 6, 0.15) 45%, transparent 70%);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 0 24px 40px;
+}
+
+.cinema-hero-tagline {
+    color: rgba(255, 252, 247, 0.92);
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+}
+
+/* Лента — обычный скролл страницы, без «ловушки» */
 .slides-container {
     width: 100%;
-    padding: 0;
-    margin-top: 100px;
-    margin-bottom: 140px;
-    overflow-y: auto;
-    height: calc(100vh - 240px);
-    scroll-snap-type: y proximity;
+    max-width: var(--content-width);
+    margin: 0 auto 160px;
+    padding: 40px 20px 0;
+    overflow: visible;
+    height: auto;
 }
 
 .slide-wrapper {
@@ -90,34 +128,40 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
-    padding-bottom: 40px;
+    gap: 32px;
+    padding-bottom: 48px;
 }
 
-/* Элементы с анимацией */
+/* Плавное появление при прокрутке */
+.reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 .slide-item, 
 .video-item, 
 .video-wrapper {
-    width: 90%;
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.6s ease, transform 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
-    scroll-snap-align: start;
+    width: 100%;
 }
 
 .slide-item {
     background: white;
-    border-radius: 16px;
+    border-radius: var(--radius);
     overflow: hidden;
-    box-shadow: 0 4px 24px rgba(60, 40, 20, 0.08), 0 1px 3px rgba(0,0,0,0.04);
-    border: 1px solid rgba(139, 69, 19, 0.06);
-    transition: all 0.3s ease;
-    will-change: transform, box-shadow;
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(139, 69, 19, 0.07);
+    transition: box-shadow 0.35s ease, transform 0.35s ease;
 }
 
 .slide-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-hover);
 }
 
 .slide-item img {
@@ -166,17 +210,17 @@ body {
 /* Секция с отзывами */
 .reviews-section {
     width: 100%;
-    padding: 50px 20px 30px;
+    padding: 16px 0 8px;
     text-align: center;
 }
 
 .reviews-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.5rem;
+    font-family: var(--font-display);
+    font-size: 2rem;
     font-style: italic;
-    color: #8b4513;
-    margin-bottom: 30px;
     font-weight: 400;
+    color: #8b4513;
+    margin-bottom: 28px;
 }
 
 .videos-container {
@@ -197,22 +241,21 @@ body {
 /* Контакты */
 .contacts-section {
     width: 100%;
-    padding: 50px 20px;
+    padding: 40px 28px;
     text-align: center;
-    background: rgba(255, 255, 255, 0.65);
-    border-radius: 16px;
-    margin: 20px 0;
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: var(--radius);
     border: 1px solid rgba(139, 69, 19, 0.08);
-    box-shadow: 0 4px 24px rgba(60, 40, 20, 0.06);
+    box-shadow: var(--shadow);
 }
 
 .section-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.5rem;
+    font-family: var(--font-display);
+    font-size: 2rem;
     font-style: italic;
-    color: #8b4513;
-    margin-bottom: 30px;
     font-weight: 400;
+    color: #8b4513;
+    margin-bottom: 24px;
 }
 
 .contacts-content {
@@ -314,60 +357,83 @@ body {
     flex: 2;
     display: flex;
     justify-content: center;
+    align-items: center;
     max-width: 400px;
 }
 
 .main-button {
-    padding: 16px 32px;
+    padding: 0 28px;
     background: linear-gradient(135deg, #8b4513 0%, #6b3a0e 100%);
     color: white;
     border: none;
     border-radius: 999px;
-    font-size: 17px;
-    font-weight: 700;
+    font-size: 16px;
+    font-weight: 600;
     font-family: var(--font-body);
     cursor: pointer;
     box-shadow: 0 6px 20px rgba(139,69,19,0.35);
-    transition: all 0.3s ease;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
     border: 1px solid rgba(255, 255, 255, 0.25);
     width: 100%;
+    max-width: 280px;
     min-height: 52px;
+    line-height: 1;
     position: relative;
     overflow: hidden;
     z-index: 1;
-    text-decoration: none;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     text-align: center;
+    letter-spacing: 0.01em;
 }
 
 .main-button::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     background: url('button-bg.png') center/cover;
-    opacity: 0.8;
+    opacity: 0.75;
     z-index: -1;
 }
 
-.main-button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 30px rgba(139,69,19,0.6);
+.main-button--plain::before {
+    display: none;
 }
 
-.button-text {
-    position: relative;
-    z-index: 2;
-    display: block;
-    width: 100%;
-    text-align: center;
-    line-height: 1.2;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.35);
-    letter-spacing: 0.02em;
+.main-button--plain {
+    background: linear-gradient(135deg, #8b4513 0%, #734010 100%);
+    box-shadow: 0 6px 18px rgba(139, 69, 19, 0.32);
+}
+
+.main-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(139,69,19,0.45);
+}
+
+.modal-content-light {
+    background: #faf6ef;
+    border: 1px solid rgba(139, 69, 19, 0.15);
+    box-shadow: 0 24px 64px rgba(30, 20, 10, 0.18);
+}
+
+.modal-content-ticket {
+    max-width: 520px;
+}
+
+.modal-event-info-light .modal-event-description,
+.modal-event-info-light .modal-detail-label,
+.modal-event-info-light .modal-detail-value {
+    color: var(--color-text);
+}
+
+.modal-event-info-light {
+    border-bottom-color: rgba(139, 69, 19, 0.12);
+}
+
+.modal-event-info-light .modal-detail-label {
+    font-weight: 600;
+    color: #8b4513;
 }
 
 /* Пояснение о запрещенной соцсети */
@@ -598,19 +664,21 @@ video {
 
 /* Адаптация для планшетов */
 @media (max-width: 768px) {
-    .slides-container {
-        height: auto;
-        min-height: calc(100vh - 200px);
-        overflow-y: visible;
+    .cinema-hero {
+        margin-top: 64px;
+        max-height: 55vh;
+    }
+    .cinema-hero img {
+        height: 55vh;
     }
     .header-title {
-        font-size: 2rem;
+        font-size: 1.5rem;
     }
     .reviews-title, .section-title {
         font-size: 2rem;
     }
     .slide-item, .video-item {
-        width: 95%;
+        width: 100%;
     }
     .videos-container {
         flex-direction: column;
@@ -627,8 +695,9 @@ video {
         max-height: 450px;
     }
     .main-button {
-        padding: 16px 30px;
-        font-size: 16px;
+        max-width: 100%;
+        font-size: 15px;
+        min-height: 48px;
     }
     .social-link img {
         width: 28px;
@@ -649,10 +718,10 @@ video {
 /* Адаптация для мобильных */
 @media (max-width: 480px) {
     .header-title {
-        font-size: 1.8rem;
+        font-size: 1.35rem;
     }
     .slide-item, .video-item {
-        width: 98%;
+        width: 100%;
     }
     .video-item video, 
     .video-wrapper video {
@@ -660,8 +729,8 @@ video {
         max-height: 400px;
     }
     .main-button {
-        padding: 14px 25px;
-        font-size: 15px;
+        font-size: 14px;
+        min-height: 46px;
     }
     .social-link img {
         width: 24px;
