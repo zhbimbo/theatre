@@ -634,12 +634,7 @@ body {
     cursor: not-allowed;
 }
 
-/* Модалка «Афиши» — светлый фон для формы */
-.modal-content-light {
-    background: #f9f5eb;
-    border: 2px solid rgba(139, 69, 19, 0.25);
-}
-
+/* Модалка — светлый фон */
 .modal-title-dark {
     font-family: 'Playfair Display', serif;
     color: #8b4513;
