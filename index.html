@@ -21,46 +21,6 @@
     <!-- Слайды -->
     <div class="slides-container" id="slidesContainer">
         <div class="slide-wrapper">
-            <!-- Афиша (если есть мероприятие) -->
-            <section class="promo-block hero-section" id="heroSection" style="display:none">
-                <div class="hero-loader" id="heroLoader"></div>
-            </section>
-
-            <!-- Лист ожидания (если нет мероприятий) -->
-            <section class="promo-block waitlist-section" id="waitlistSection" style="display:none">
-                <div class="waitlist-card">
-                    <h2>Скоро новые мероприятия</h2>
-                    <p>Оставьте контакты — напишем, когда откроется продажа билетов.</p>
-                    <form id="waitlistForm" class="purchase-form">
-                        <div class="form-group">
-                            <label for="waitlistName">Ваше имя</label>
-                            <input type="text" id="waitlistName" required placeholder="Имя">
-                        </div>
-                        <div class="form-group">
-                            <label for="waitlistEmail">Email</label>
-                            <input type="email" id="waitlistEmail" required placeholder="your@email.com">
-                        </div>
-                        <div class="form-group">
-                            <label for="waitlistPhone">Телефон</label>
-                            <input type="tel" id="waitlistPhone" placeholder="+7 999 123-45-67">
-                        </div>
-                        <div class="form-group consent-group">
-                            <label class="consent-label">
-                                <input type="checkbox" id="waitlistConsentPd" required>
-                                Даю <a href="consent.html" target="_blank">согласие</a> на обработку ПДн (<a href="privacy.html" target="_blank">политика</a>)
-                            </label>
-                        </div>
-                        <div class="form-group consent-group">
-                            <label class="consent-label">
-                                <input type="checkbox" id="waitlistConsentMarketing">
-                                Согласен на информационную рассылку о мероприятиях
-                            </label>
-                        </div>
-                        <button type="submit" class="submit-button" id="waitlistSubmit" disabled>Оставить контакты</button>
-                    </form>
-                </div>
-            </section>
-
             <!-- Слайд 1 -->
             <div class="slide-item">
                 <img src="Images/img1.png" alt="Слайд 1" loading="lazy">
@@ -188,6 +148,9 @@
         <button class="main-button" id="mainBuyButton" onclick="openTicketModal()" style="display:none">
             <span class="button-text">Купить билет</span>
         </button>
+        <button class="main-button" id="affishaButton" onclick="openAffishaModal()" style="display:none">
+            <span class="button-text">Афиши</span>
+        </button>
     </div>
     
     <div class="social-right">
@@ -290,6 +253,42 @@
                 <button type="submit" class="submit-button" id="submitButton" disabled>
                     <span class="button-text">Перейти к оплате</span>
                 </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Модальное окно «Афиши» / лист ожидания -->
+    <div class="modal-overlay" id="affishaModalOverlay">
+        <div class="modal-content modal-content-light">
+            <button class="modal-close" id="affishaModalClose">&times;</button>
+            <h2 class="modal-title-dark">Афиша</h2>
+            <p class="affisha-lead">Сейчас нет активных мероприятий. Оставьте контакты — сообщим, когда откроется продажа.</p>
+            <form id="waitlistForm" class="purchase-form">
+                <div class="form-group">
+                    <label for="waitlistName">Ваше имя</label>
+                    <input type="text" id="waitlistName" required placeholder="Имя">
+                </div>
+                <div class="form-group">
+                    <label for="waitlistEmail">Email</label>
+                    <input type="email" id="waitlistEmail" required placeholder="your@email.com">
+                </div>
+                <div class="form-group">
+                    <label for="waitlistPhone">Телефон</label>
+                    <input type="tel" id="waitlistPhone" placeholder="+7 999 123-45-67">
+                </div>
+                <div class="form-group consent-group">
+                    <label class="consent-label">
+                        <input type="checkbox" id="waitlistConsentPd" required>
+                        Даю <a href="consent.html" target="_blank">согласие</a> на обработку ПДн (<a href="privacy.html" target="_blank">политика</a>)
+                    </label>
+                </div>
+                <div class="form-group consent-group">
+                    <label class="consent-label">
+                        <input type="checkbox" id="waitlistConsentMarketing">
+                        Согласен на информационную рассылку о мероприятиях
+                    </label>
+                </div>
+                <button type="submit" class="submit-button" id="waitlistSubmit" disabled>Оставить контакты</button>
             </form>
         </div>
     </div>

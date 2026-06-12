@@ -38,44 +38,19 @@
     }
   }
 
-  function renderHero() {
-    const hero = document.getElementById('heroSection');
+  function updateBottomButtons() {
     const buyBtn = document.getElementById('mainBuyButton');
-    const waitBlock = document.getElementById('waitlistSection');
-    const loader = document.getElementById('heroLoader');
+    const affishaBtn = document.getElementById('affishaButton');
 
-    if (loader) loader.style.display = 'none';
-
-    if (!events.length) {
-      if (hero) { hero.style.display = 'none'; hero.innerHTML = ''; }
+    if (events.length) {
+      currentEvent = events[0];
+      if (buyBtn) buyBtn.style.display = 'flex';
+      if (affishaBtn) affishaBtn.style.display = 'none';
+    } else {
+      currentEvent = null;
       if (buyBtn) buyBtn.style.display = 'none';
-      if (waitBlock) waitBlock.style.display = 'block';
-      return;
+      if (affishaBtn) affishaBtn.style.display = 'flex';
     }
-
-    if (hero) hero.style.display = 'block';
-
-    if (waitBlock) waitBlock.style.display = 'none';
-    if (buyBtn) buyBtn.style.display = 'flex';
-
-    currentEvent = events[0];
-    if (!hero || !currentEvent) return;
-
-    hero.innerHTML = `
-      <div class="hero-card">
-        ${currentEvent.poster_url ? `<img src="${currentEvent.poster_url}" alt="" class="hero-poster" loading="lazy">` : ''}
-        <div class="hero-info">
-          <span class="hero-badge">Ближайшее мероприятие</span>
-          <h2 class="hero-title">${currentEvent.title}</h2>
-          <p class="hero-desc">${currentEvent.description || ''}</p>
-          <ul class="hero-meta">
-            <li>📅 ${formatDate(currentEvent.date)}</li>
-            <li>📍 ${currentEvent.location || ''}</li>
-            <li>💰 от ${Number(currentEvent.price).toLocaleString()} ₽</li>
-          </ul>
-        </div>
-      </div>
-    `;
   }
 
   function renderEventModal() {
@@ -110,7 +85,7 @@
       const response = await fetch(API + '/api/events/active');
       const data = await response.json();
       events = data.events || [];
-      renderHero();
+      updateBottomButtons();
       if (events.length) {
         await loadAvailableTickets();
         renderEventModal();
@@ -132,12 +107,13 @@
               price: json.event.price,
               times: json.event.times
             }];
-            renderHero();
+            updateBottomButtons();
             await loadAvailableTickets();
+            renderEventModal();
           }
         }
       } catch (_) {}
-      renderHero();
+      updateBottomButtons();
     }
   }
 
@@ -160,7 +136,7 @@
 
   function openModal() {
     if (!currentEvent) {
-      showToast('Сейчас нет активных мероприятий', 'warn');
+      openAffishaModal();
       return;
     }
     renderEventModal();
@@ -169,6 +145,14 @@
 
   function closeModal() {
     document.getElementById('modalOverlay').style.display = 'none';
+  }
+
+  function openAffishaModal() {
+    document.getElementById('affishaModalOverlay').style.display = 'flex';
+  }
+
+  function closeAffishaModal() {
+    document.getElementById('affishaModalOverlay').style.display = 'none';
   }
 
   function updateTotalAmount() {
@@ -238,6 +222,7 @@
 
       showToast('Спасибо! Сообщим, когда появится афиша.', 'success');
       e.target.reset();
+      closeAffishaModal();
     } catch (err) {
       showToast(err.message, 'error');
     } finally {
@@ -249,7 +234,7 @@
   function initScrollAndVideo() {
     const container = document.getElementById('slidesContainer');
     if (!container) return;
-    const elements = document.querySelectorAll('.slide-item, .video-item, .video-wrapper, .promo-block');
+    const elements = document.querySelectorAll('.slide-item, .video-item, .video-wrapper');
     const videos = document.querySelectorAll('video');
     const progressBar = document.querySelector('.progress-bar');
     let ticking = false;
@@ -306,6 +291,11 @@
     document.getElementById('modalOverlay')?.addEventListener('click', (e) => {
       if (e.target.id === 'modalOverlay') closeModal();
     });
+    document.getElementById('affishaModalClose')?.addEventListener('click', closeAffishaModal);
+    document.getElementById('affishaModalOverlay')?.addEventListener('click', (e) => {
+      if (e.target.id === 'affishaModalOverlay') closeAffishaModal();
+    });
+
     document.getElementById('ticketQuantity')?.addEventListener('change', updateTotalAmount);
     document.getElementById('eventTime')?.addEventListener('change', function () {
       const available = availableTickets[this.value] || 0;
@@ -353,5 +343,6 @@
     document.getElementById('waitlistForm')?.addEventListener('submit', submitWaitlist);
 
     window.openTicketModal = openModal;
+    window.openAffishaModal = openAffishaModal;
   });
 })();

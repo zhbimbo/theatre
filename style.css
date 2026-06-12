@@ -558,6 +558,28 @@ body {
     cursor: not-allowed;
 }
 
+/* Модалка «Афиши» — светлый фон для формы */
+.modal-content-light {
+    background: #f9f5eb;
+    border: 2px solid rgba(139, 69, 19, 0.25);
+}
+
+.modal-title-dark {
+    font-family: 'Playfair Display', serif;
+    color: #8b4513;
+    margin-bottom: 12px;
+    text-align: center;
+    font-size: 1.8rem;
+}
+
+.affisha-lead {
+    text-align: center;
+    color: #555;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+}
+
 /* Гарантируем muted для видео */
 video {
     -webkit-muted: true;
