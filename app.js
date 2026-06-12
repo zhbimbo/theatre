@@ -41,17 +41,16 @@
     return date.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
   }
 
-  function updateConsentButtons() {
-    const purchaseConsent = document.getElementById('consentPd');
-    const submitBtn = document.getElementById('submitButton');
-    if (submitBtn && purchaseConsent) {
-      submitBtn.disabled = !purchaseConsent.checked;
-    }
-    const waitConsent = document.getElementById('waitlistConsentPd');
-    const waitBtn = document.getElementById('waitlistSubmit');
-    if (waitBtn && waitConsent) {
-      waitBtn.disabled = !waitConsent.checked;
-    }
+  function escapeHtml(text) {
+    return String(text || '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  function hasAvailableSlots(event) {
+    return (event.times || []).some((t) => (t.available_count ?? 0) > 0);
   }
 
   function updateBottomButtons() {
@@ -59,7 +58,9 @@
     const affishaBtn = document.getElementById('affishaButton');
 
     if (events.length) {
-      currentEvent = events[0];
+      if (!currentEvent || !events.some((e) => e.id === currentEvent.id)) {
+        currentEvent = events[0];
+      }
       buyBtn?.classList.add('is-shown', 'glass-btn--accent');
       affishaBtn?.classList.remove('is-shown');
     } else {
@@ -67,6 +68,98 @@
       buyBtn?.classList.remove('is-shown', 'glass-btn--accent');
       affishaBtn?.classList.add('is-shown');
     }
+  }
+
+  function renderEventSelect() {
+    const group = document.getElementById('eventSelectGroup');
+    const select = document.getElementById('eventSelect');
+    if (!group || !select) return;
+
+    if (events.length <= 1) {
+      group.hidden = true;
+      return;
+    }
+
+    group.hidden = false;
+    select.innerHTML = events.map((e) =>
+      `<option value="${escapeHtml(e.id)}"${currentEvent?.id === e.id ? ' selected' : ''}>${escapeHtml(e.title)} — ${formatDate(e.date)}</option>`
+    ).join('');
+  }
+
+  function renderEventsList() {
+    const section = document.getElementById('eventsSection');
+    const grid = document.getElementById('eventsGrid');
+    if (!section || !grid) return;
+
+    if (!events.length) {
+      section.hidden = true;
+      grid.innerHTML = '';
+      return;
+    }
+
+    section.hidden = false;
+    grid.innerHTML = events.map((e) => {
+      const timesHtml = (e.times || []).map((t) => {
+        const avail = t.available_count ?? 0;
+        if (avail > 0) {
+          return `<span class="event-time-chip">${escapeHtml(t.time)} · ${avail} мест</span>`;
+        }
+        return `<span class="event-time-chip event-time-chip--sold">${escapeHtml(t.time)} · нет мест</span>`;
+      }).join('');
+
+      const canBuy = hasAvailableSlots(e);
+
+      return `
+        <article class="event-card glass-panel">
+          <h3 class="event-card__title">${escapeHtml(e.title)}</h3>
+          <p class="event-card__date">${formatDate(e.date)}</p>
+          ${e.location ? `<p class="event-card__location">${escapeHtml(e.location)}</p>` : ''}
+          ${e.description ? `<p class="event-card__desc">${escapeHtml(e.description)}</p>` : ''}
+          ${timesHtml ? `<div class="event-card__times">${timesHtml}</div>` : ''}
+          <p class="event-card__price">${Number(e.price).toLocaleString('ru-RU')} ₽</p>
+          <button type="button" class="glass-btn glass-btn--cta glass-btn--accent is-shown event-card__buy" data-event-id="${escapeHtml(e.id)}" ${canBuy ? '' : 'disabled'}>${canBuy ? 'Купить билет' : 'Распродано'}</button>
+        </article>
+      `;
+    }).join('');
+
+    grid.querySelectorAll('.event-card__buy').forEach((btn) => {
+      btn.addEventListener('click', async () => {
+        await selectEvent(btn.dataset.eventId);
+        openModal();
+      });
+    });
+
+    grid.querySelectorAll('.event-card').forEach((card) => card.classList.add('reveal-on-scroll'));
+    initRevealObserver(grid.querySelectorAll('.reveal-on-scroll:not(.is-visible)'));
+  }
+
+  let revealObserver = null;
+
+  function initRevealObserver(nodes) {
+    if (!nodes.length) return;
+    if (!revealObserver) {
+      revealObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              revealObserver.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.12, rootMargin: '0px 0px -5% 0px' }
+      );
+    }
+    nodes.forEach((el) => revealObserver.observe(el));
+  }
+
+  async function selectEvent(eventId) {
+    const event = events.find((e) => e.id === eventId);
+    if (!event) return;
+    currentEvent = event;
+    await loadAvailableTickets();
+    renderEventModal();
+    renderEventSelect();
   }
 
   function initHeaderAutoHide() {
@@ -105,7 +198,8 @@
     document.getElementById('modalEventDescription').textContent = currentEvent.description || '';
     document.getElementById('modalEventDate').textContent = formatDate(currentEvent.date);
     document.getElementById('modalEventLocation').textContent = currentEvent.location || '';
-    document.getElementById('modalEventPrice').textContent = Number(currentEvent.price).toLocaleString() + ' ₽';
+    document.getElementById('modalEventPrice').textContent = Number(currentEvent.price).toLocaleString('ru-RU') + ' ₽';
+    renderEventSelect();
     updateTimeSlots();
     updateTotalAmount();
   }
@@ -133,9 +227,9 @@
       events = data.events || [];
       updateBottomButtons();
       if (events.length) {
-        await loadAvailableTickets();
-        renderEventModal();
+        await selectEvent(currentEvent?.id || events[0].id);
       }
+      renderEventsList();
     } catch (error) {
       console.error('Events load error:', error);
       try {
@@ -154,12 +248,13 @@
               times: json.event.times
             }];
             updateBottomButtons();
-            await loadAvailableTickets();
-            renderEventModal();
+            await selectEvent(events[0].id);
+            renderEventsList();
           }
         }
       } catch (_) {}
       updateBottomButtons();
+      renderEventsList();
     }
   }
 
@@ -187,6 +282,14 @@
     }
     renderEventModal();
     document.getElementById('modalOverlay').style.display = 'flex';
+  }
+
+  function openModalForEvent(eventId) {
+    if (eventId) {
+      selectEvent(eventId).then(openModal);
+      return;
+    }
+    openModal();
   }
 
   function closeModal() {
@@ -289,18 +392,18 @@
 
     elements.forEach((el) => el.classList.add('reveal-on-scroll'));
 
-    const revealObserver = new IntersectionObserver(
+    const revealObserverLocal = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add('is-visible');
-            revealObserver.unobserve(entry.target);
+            revealObserverLocal.unobserve(entry.target);
           }
         });
       },
       { threshold: 0.12, rootMargin: '0px 0px -5% 0px' }
     );
-    elements.forEach((el) => revealObserver.observe(el));
+    elements.forEach((el) => revealObserverLocal.observe(el));
 
     const videoObserver = new IntersectionObserver(
       (entries) => {
@@ -339,6 +442,19 @@
     updateProgress();
   }
 
+  function updateConsentButtons() {
+    const purchaseConsent = document.getElementById('consentPd');
+    const submitBtn = document.getElementById('submitButton');
+    if (submitBtn && purchaseConsent) {
+      submitBtn.disabled = !purchaseConsent.checked;
+    }
+    const waitConsent = document.getElementById('waitlistConsentPd');
+    const waitBtn = document.getElementById('waitlistSubmit');
+    if (waitBtn && waitConsent) {
+      waitBtn.disabled = !waitConsent.checked;
+    }
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
     loadEvents();
     initScrollAndVideo();
@@ -346,6 +462,10 @@
     updateConsentButtons();
 
     document.getElementById('mainBuyButton')?.addEventListener('click', openModal);
+
+    document.getElementById('eventSelect')?.addEventListener('change', async (e) => {
+      await selectEvent(e.target.value);
+    });
     document.getElementById('affishaButton')?.addEventListener('click', openAffishaModal);
 
     document.getElementById('consentPd')?.addEventListener('change', updateConsentButtons);
@@ -412,6 +532,7 @@
     document.getElementById('waitlistForm')?.addEventListener('submit', submitWaitlist);
 
     window.openTicketModal = openModal;
+    window.openTicketModalForEvent = openModalForEvent;
     window.openAffishaModal = openAffishaModal;
   });
 })();

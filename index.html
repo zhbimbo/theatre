@@ -25,6 +25,11 @@
     </section>
 
     <main class="slides-container" id="slidesContainer">
+        <section class="glass-section events-section" id="eventsSection" hidden aria-label="Афиша">
+            <p class="section-eyebrow">Афиша</p>
+            <h2 class="section-heading">Ближайшие спектакли</h2>
+            <div class="events-grid" id="eventsGrid"></div>
+        </section>
         <div class="slide-wrapper">
             <div class="slide-item">
                 <img src="Images/img2.png" alt="О проекте" loading="lazy">
@@ -178,6 +183,10 @@
                 </div>
             </div>
             <form id="purchaseForm" class="purchase-form">
+                <div class="form-group" id="eventSelectGroup" hidden>
+                    <label for="eventSelect">Спектакль:</label>
+                    <select id="eventSelect" name="eventSelect"></select>
+                </div>
                 <div class="form-group">
                     <label for="eventTime">Выберите время:</label>
                     <select id="eventTime" name="eventTime" required>
