@@ -135,12 +135,14 @@
     </main>
 
     <nav class="dock" aria-label="Действия">
-        <a class="glass-btn glass-btn--icon" href="https://t.me/storytheatre" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
+        <a class="glass-btn glass-btn--icon dock-side dock-side--left" href="https://t.me/storytheatre" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
             <img src="telegram-icon.png" alt="" loading="lazy">
         </a>
-        <button type="button" class="glass-btn glass-btn--cta" id="mainBuyButton">Купить билет</button>
-        <button type="button" class="glass-btn glass-btn--cta" id="affishaButton">Афиша</button>
-        <a class="glass-btn glass-btn--icon" href="https://www.instagram.com/story__theatre/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+        <div class="dock-center">
+            <button type="button" class="glass-btn glass-btn--cta" id="mainBuyButton">Купить билет</button>
+            <button type="button" class="glass-btn glass-btn--cta" id="affishaButton">Афиша</button>
+        </div>
+        <a class="glass-btn glass-btn--icon dock-side dock-side--right" href="https://www.instagram.com/story__theatre/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
             <img src="instagram-icon.png" alt="" loading="lazy">
             <span class="asterisk">*</span>
         </a>
@@ -203,8 +205,11 @@
                 </div>
                 <div class="form-group">
                     <label for="customerPhone">Номер телефона:</label>
-                    <input type="tel" id="customerPhone" name="customerPhone" required placeholder="+7 999 123-45-67"
-                           pattern="\+7\s?[0-9]{3}\s?[0-9]{3}-?[0-9]{2}-?[0-9]{2}">
+                    <input type="tel" id="customerPhone" name="customerPhone" required
+                           placeholder="+7 999 123-45-67"
+                           autocomplete="tel"
+                           inputmode="tel">
+                    <span class="field-hint">+7, 8 или 10 цифр — с пробелами и скобками тоже ок</span>
                 </div>
                 <div class="form-summary">
                     <div class="summary-item">
@@ -245,7 +250,8 @@
                 </div>
                 <div class="form-group">
                     <label for="waitlistPhone">Телефон</label>
-                    <input type="tel" id="waitlistPhone" placeholder="+7 999 123-45-67">
+                    <input type="tel" id="waitlistPhone" placeholder="+7 999 123-45-67" autocomplete="tel" inputmode="tel">
+                    <span class="field-hint">Необязательно · +7, 8 или 10 цифр</span>
                 </div>
                 <div class="form-group consent-group">
                     <label class="consent-label">

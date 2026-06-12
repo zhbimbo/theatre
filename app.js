@@ -20,6 +20,22 @@
     }, 4000);
   }
 
+  function normalizePhone(raw) {
+    if (!raw) return '';
+    const digits = String(raw).replace(/\D/g, '');
+    if (digits.length === 11 && (digits[0] === '7' || digits[0] === '8')) {
+      return '+7' + digits.slice(1);
+    }
+    if (digits.length === 10) return '+7' + digits;
+    return '';
+  }
+
+  function isValidPhone(raw) {
+    if (!raw || !String(raw).trim()) return false;
+    const digits = String(raw).replace(/\D/g, '');
+    return digits.length === 10 || (digits.length === 11 && (digits[0] === '7' || digits[0] === '8'));
+  }
+
   function formatDate(dateString) {
     const date = new Date(dateString);
     return date.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
@@ -235,7 +251,7 @@
       const body = {
         name: document.getElementById('waitlistName').value.trim(),
         email: document.getElementById('waitlistEmail').value.trim(),
-        phone: document.getElementById('waitlistPhone').value.trim(),
+        phone: normalizePhone(document.getElementById('waitlistPhone').value.trim()),
         consent_pd: document.getElementById('waitlistConsentPd').checked,
         consent_marketing: document.getElementById('waitlistConsentMarketing').checked,
         policy_version: POLICY_VERSION
@@ -379,6 +395,11 @@
         showToast('Заполните все поля', 'warn');
         return;
       }
+      if (!isValidPhone(formData.phone)) {
+        showToast('Укажите телефон: +7, 8XXXXXXXXXX или 10 цифр', 'warn');
+        return;
+      }
+      formData.phone = normalizePhone(formData.phone);
       const available = availableTickets[formData.event_time];
       if (available < formData.quantity) {
         showToast('Доступно только ' + available + ' билетов', 'warn');

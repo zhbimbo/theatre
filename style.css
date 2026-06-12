@@ -11,7 +11,8 @@
     --color-text: #2c2419;
     --font-body: 'Montserrat', system-ui, sans-serif;
     --font-display: 'Playfair Display', Georgia, serif;
-    --content-width: min(960px, 94vw);
+    --page-width: min(1200px, 97vw);
+    --content-width: var(--page-width);
     --glass-bg: rgba(255, 252, 248, 0.52);
     --glass-bg-strong: rgba(255, 252, 248, 0.72);
     --glass-border: rgba(255, 255, 255, 0.75);
@@ -144,7 +145,7 @@ body {
     width: 100%;
     max-width: var(--content-width);
     margin: 0 auto;
-    padding: 40px 0 60px;
+    padding: 40px 16px 60px;
 }
 
 .slide-wrapper {
@@ -236,14 +237,28 @@ body {
 
 .video-cell video {
     width: 100%;
-    max-width: 280px;
+    max-width: min(360px, 42vw);
     height: auto;
-    max-height: 420px;
+    max-height: 480px;
     aspect-ratio: 9 / 16;
     object-fit: cover;
     border-radius: 14px;
     background: #111;
     box-shadow: 0 12px 32px rgba(0, 0, 0, 0.22);
+}
+
+@media (min-width: 1024px) {
+    .video-grid--2 {
+        gap: 28px;
+    }
+
+    .video-grid--3 {
+        gap: 20px;
+    }
+
+    .video-cell video {
+        max-width: 320px;
+    }
 }
 
 /* ─── Contacts ─── */
@@ -275,18 +290,42 @@ body {
     opacity: 0.75;
 }
 
-/* ─── Dock: 3 glass buttons ─── */
+/* ─── Dock: соцсети по краям, CTA по центру ─── */
 .dock {
+    position: fixed;
+    bottom: 24px;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    pointer-events: none;
+    padding: 0 clamp(16px, 3vw, 40px);
+}
+
+.dock-side,
+.dock-center {
+    pointer-events: auto;
+}
+
+.dock-side--left {
+    position: fixed;
+    bottom: 24px;
+    left: clamp(16px, 3vw, 40px);
+}
+
+.dock-side--right {
+    position: fixed;
+    bottom: 24px;
+    right: clamp(16px, 3vw, 40px);
+}
+
+.dock-center {
     position: fixed;
     bottom: 24px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
-    align-items: center;
-    justify-content: center;
     gap: 10px;
-    z-index: 1000;
-    padding: 0 8px;
+    align-items: center;
 }
 
 .glass-btn {
@@ -574,6 +613,13 @@ body {
     font-size: 0.92rem;
 }
 
+.field-hint {
+    font-size: 11px;
+    color: #888;
+    line-height: 1.4;
+    margin-top: 2px;
+}
+
 /* Toast */
 .toast-container {
     position: fixed;
@@ -636,9 +682,18 @@ video {
         margin: 0 auto;
     }
 
-    .dock {
+    .dock-side--left {
+        left: 12px;
         bottom: 18px;
-        gap: 8px;
+    }
+
+    .dock-side--right {
+        right: 12px;
+        bottom: 18px;
+    }
+
+    .dock-center {
+        bottom: 18px;
     }
 
     .glass-btn--icon {
@@ -672,8 +727,7 @@ video {
     }
 
     .dock {
-        width: calc(100% - 20px);
-        justify-content: space-between;
+        /* legacy hook */
     }
 }
 
