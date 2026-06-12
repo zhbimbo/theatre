@@ -4,9 +4,21 @@
     box-sizing: border-box;
 }
 
+:root {
+    --color-primary: #8b4513;
+    --color-primary-dark: #6b3a0e;
+    --color-bg: #f5f0e6;
+    --color-surface: #fff;
+    --color-text: #333;
+    --font-body: 'Montserrat', Arial, sans-serif;
+    --font-display: 'Playfair Display', serif;
+    --shadow: 0 10px 30px rgba(0,0,0,0.1);
+    --radius: 12px;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    background: #f5f0e6;
+    font-family: var(--font-body);
+    background: var(--color-bg);
     padding: 0;
     margin: 0;
     width: 100%;
@@ -63,10 +75,10 @@ body {
 .slides-container {
     width: 100%;
     padding: 0;
-    margin-top: 100px;
+    margin-top: 20px;
     margin-bottom: 140px;
-    overflow-y: auto;
-    height: calc(100vh - 240px);
+    overflow-y: visible;
+    min-height: auto;
     scroll-snap-type: y proximity;
 }
 
@@ -631,8 +643,200 @@ video {
     .modal-title {
         font-size: 1.5rem;
     }
-    .form-group select,
     .form-group input {
         padding: 10px 12px;
+    }
+}
+
+/* Hero / афиша */
+.hero-section {
+    max-width: 960px;
+    margin: 110px auto 24px;
+    padding: 0 20px;
+}
+
+.hero-loader {
+    text-align: center;
+    color: #666;
+    padding: 24px;
+}
+
+.hero-card {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 24px;
+    background: var(--color-surface);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    border: 1px solid rgba(139, 69, 19, 0.15);
+}
+
+.hero-poster {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    min-height: 220px;
+}
+
+.hero-info {
+    padding: 28px 28px 28px 0;
+}
+
+.hero-badge {
+    display: inline-block;
+    background: rgba(139, 69, 19, 0.12);
+    color: var(--color-primary);
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+}
+
+.hero-title {
+    font-family: var(--font-display);
+    color: var(--color-primary);
+    font-size: 2rem;
+    margin-bottom: 12px;
+}
+
+.hero-desc {
+    line-height: 1.6;
+    margin-bottom: 16px;
+    color: #555;
+}
+
+.hero-meta {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-weight: 600;
+}
+
+.hero-empty {
+    text-align: center;
+    padding: 32px;
+    background: var(--color-surface);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+/* Waitlist */
+.waitlist-section {
+    max-width: 560px;
+    margin: 110px auto 32px;
+    padding: 0 20px;
+}
+
+.waitlist-card {
+    background: var(--color-surface);
+    border-radius: var(--radius);
+    padding: 32px;
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(139, 69, 19, 0.15);
+}
+
+.waitlist-card h2 {
+    font-family: var(--font-display);
+    color: var(--color-primary);
+    margin-bottom: 8px;
+}
+
+.waitlist-card > p {
+    margin-bottom: 20px;
+    color: #555;
+}
+
+/* Consent */
+.consent-group {
+    margin-top: 4px;
+}
+
+.consent-label {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    font-size: 13px;
+    line-height: 1.5;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.consent-label input {
+    margin-top: 3px;
+    width: auto;
+}
+
+.consent-label a {
+    color: var(--color-primary);
+}
+
+/* Footer */
+.site-footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px 24px;
+    padding: 20px;
+    font-size: 13px;
+    background: rgba(139, 69, 19, 0.08);
+    border-top: 1px solid rgba(139, 69, 19, 0.15);
+}
+
+.site-footer a {
+    color: var(--color-primary);
+    text-decoration: none;
+}
+
+.site-footer a:hover {
+    text-decoration: underline;
+}
+
+/* Toast */
+.toast-container {
+    position: fixed;
+    bottom: 100px;
+    right: 20px;
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-width: 320px;
+}
+
+.toast {
+    background: #333;
+    color: #fff;
+    padding: 14px 18px;
+    border-radius: 8px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    font-size: 14px;
+    box-shadow: var(--shadow);
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.toast-success { background: #2e7d32; }
+.toast-error { background: #c62828; }
+.toast-warn { background: #ef6c00; }
+
+@media (max-width: 768px) {
+    .hero-card {
+        grid-template-columns: 1fr;
+    }
+    .hero-info {
+        padding: 20px;
+    }
+    .hero-section, .waitlist-section {
+        margin-top: 100px;
     }
 }
