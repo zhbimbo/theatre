@@ -5,20 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Театр историй</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Прогресс-бар -->
     <div class="progress-bar"></div>
+    <div class="ambient-glow" aria-hidden="true"></div>
 
-    <!-- Шапка -->
-    <header class="new-header">
-        <div class="header-container">
+    <header class="site-header" id="siteHeader">
+        <div class="glass-pill glass-pill--header">
             <h1 class="header-title">Театр историй</h1>
         </div>
     </header>
 
-    <!-- Герой -->
     <section class="cinema-hero" aria-label="Театр историй">
         <img src="Images/img1.png" alt="Театр историй" loading="eager" fetchpriority="high">
         <div class="cinema-hero-overlay">
@@ -26,66 +24,66 @@
         </div>
     </section>
 
-    <!-- Лента -->
     <main class="slides-container" id="slidesContainer">
         <div class="slide-wrapper">
-            <!-- Слайды -->
-            <div class="video-item">
-                <video controls preload="none" playsinline muted>
-                    <source src="Чехов1.M4V" type="video/mp4">
-                    Ваш браузер не поддерживает видео.
-                </video>
-            </div>
-            
-            <!-- Слайды 2-3 -->
             <div class="slide-item">
-                <img src="Images/img2.png" alt="Слайд 2" loading="lazy">
+                <img src="Images/img2.png" alt="О проекте" loading="lazy">
             </div>
             <div class="slide-item">
-                <img src="Images/img3.png" alt="Слайд 3" loading="lazy">
+                <img src="Images/img3.png" alt="Идея проекта" loading="lazy">
             </div>
-            
-            <!-- Изба3.MP4 -->
-            <div class="video-item">
-                <video controls preload="none" playsinline muted>
-                    <source src="Изба3.MP4" type="video/mp4">
-                    Ваш браузер не поддерживает видео.
-                </video>
-            </div>
-            
-            <!-- Слайды 4-5 -->
+
+            <section class="glass-section">
+                <p class="section-eyebrow">Кулисы</p>
+                <h2 class="section-heading">Как рождается спектакль</h2>
+                <div class="glass-panel">
+                    <div class="video-grid video-grid--2">
+                        <div class="video-cell">
+                            <video controls preload="none" playsinline muted>
+                                <source src="Чехов1.M4V" type="video/mp4">
+                            </video>
+                        </div>
+                        <div class="video-cell">
+                            <video controls preload="none" playsinline muted>
+                                <source src="Изба3.MP4" type="video/mp4">
+                            </video>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <div class="slide-item">
                 <img src="Images/img4.png" alt="Слайд 4" loading="lazy">
             </div>
             <div class="slide-item">
                 <img src="Images/img5.png" alt="Слайд 5" loading="lazy">
             </div>
-            
-            <!-- Егор5.MP4 -->
-            <div class="video-item">
-                <video controls preload="none" playsinline muted>
-                    <source src="Егор5.MP4" type="video/mp4">
-                    Ваш браузер не поддерживает видео.
-                </video>
-            </div>
-            
-            <!-- Слайды 6-7 -->
+
+            <section class="glass-section">
+                <p class="section-eyebrow">Атмосфера</p>
+                <h2 class="section-heading">Моменты с площадок</h2>
+                <div class="glass-panel">
+                    <div class="video-grid video-grid--2">
+                        <div class="video-cell">
+                            <video controls preload="none" playsinline muted>
+                                <source src="Егор5.MP4" type="video/mp4">
+                            </video>
+                        </div>
+                        <div class="video-cell">
+                            <video controls preload="none" playsinline muted>
+                                <source src="Патрики7.MOV" type="video/mp4">
+                            </video>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <div class="slide-item">
                 <img src="Images/img6.png" alt="Слайд 6" loading="lazy">
             </div>
             <div class="slide-item">
                 <img src="Images/img7.png" alt="Слайд 7" loading="lazy">
             </div>
-            
-            <!-- Патрики7.MOV -->
-            <div class="video-item">
-                <video controls preload="none" playsinline muted>
-                    <source src="Патрики7.MOV" type="video/mp4">
-                    Ваш браузер не поддерживает видео.
-                </video>
-            </div>
-            
-            <!-- Слайды 8-11 -->
             <div class="slide-item">
                 <img src="Images/img8.png" alt="Слайд 8" loading="lazy">
             </div>
@@ -98,81 +96,66 @@
             <div class="slide-item">
                 <img src="Images/img11.png" alt="Слайд 11" loading="lazy">
             </div>
-            
-            <!-- Отзывы -->
-            <div class="reviews-section">
-                <h2 class="reviews-title">Наши отзывы</h2>
-                <div class="videos-container">
-                    <div class="video-wrapper">
-                        <video controls preload="none" playsinline muted>
-                            <source src="Video1.MOV" type="video/mp4">
-                            Ваш браузер не поддерживает видео.
-                        </video>
-                    </div>
-                    <div class="video-wrapper">
-                        <video controls preload="none" playsinline muted>
-                            <source src="Video2.MP4" type="video/mp4">
-                            Ваш браузер не поддерживает видео.
-                        </video>
-                    </div>
-                    <div class="video-wrapper">
-                        <video controls preload="none" playsinline muted>
-                            <source src="Video3.MP4" type="video/mp4">
-                            Ваш браузер не поддерживает видео.
-                        </video>
+
+            <section class="glass-section">
+                <p class="section-eyebrow">Гости</p>
+                <h2 class="section-heading">Наши отзывы</h2>
+                <div class="glass-panel">
+                    <div class="video-grid video-grid--3">
+                        <div class="video-cell">
+                            <video controls preload="none" playsinline muted>
+                                <source src="Video1.MOV" type="video/mp4">
+                            </video>
+                        </div>
+                        <div class="video-cell">
+                            <video controls preload="none" playsinline muted>
+                                <source src="Video2.MP4" type="video/mp4">
+                            </video>
+                        </div>
+                        <div class="video-cell">
+                            <video controls preload="none" playsinline muted>
+                                <source src="Video3.MP4" type="video/mp4">
+                            </video>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </section>
 
-            <!-- Контакты -->
-            <div class="contacts-section">
-                <h2 class="section-title">Контакты</h2>
-                <div class="contacts-content">
+            <section class="glass-section contacts-section">
+                <p class="section-eyebrow">Связь</p>
+                <h2 class="section-heading">Контакты</h2>
+                <div class="glass-panel glass-panel--contacts">
                     <p class="contacts-description">Ваше мероприятие от Театра историй</p>
                     <p class="contact-name">Продюсер Виктория Филиппова</p>
-                    <a href="tel:+79267737970" class="contact-link">Телефон: +7 926 773 79 70</a>
-                    <a href="mailto:storytheatre@yandex.ru" class="contact-link">Почта: storytheatre@yandex.ru</a>
+                    <a href="tel:+79267737970" class="contact-link">+7 926 773 79 70</a>
+                    <a href="mailto:storytheatre@yandex.ru" class="contact-link">storytheatre@yandex.ru</a>
                 </div>
-            </div>
+            </section>
         </div>
     </main>
 
-<!-- Нижний блок с соцсетями и кнопкой -->
-<div class="bottom-section">
-    <div class="social-left">
-        <div class="social-link">
-            <a href="https://t.me/storytheatre" target="_blank" rel="noopener noreferrer">
-                <img src="telegram-icon.png" alt="Telegram" loading="lazy">
-            </a>
-        </div>
-    </div>
-    
-    <div class="button-container">
-        <button type="button" class="main-button" id="mainBuyButton" onclick="openTicketModal()">Купить билет</button>
-        <button type="button" class="main-button main-button--plain" id="affishaButton" onclick="openAffishaModal()">Афиша</button>
-    </div>
-    
-    <div class="social-right">
-        <div class="social-link">
-            <a href="https://www.instagram.com/story__theatre/" target="_blank" rel="noopener noreferrer">
-                <img src="instagram-icon.png" alt="Галерея*" loading="lazy">
-                <span class="asterisk">*</span>
-            </a>
-        </div>
-    </div>
-</div>
+    <nav class="dock" aria-label="Действия">
+        <a class="glass-btn glass-btn--icon" href="https://t.me/storytheatre" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
+            <img src="telegram-icon.png" alt="" loading="lazy">
+        </a>
+        <button type="button" class="glass-btn glass-btn--cta" id="mainBuyButton">Купить билет</button>
+        <button type="button" class="glass-btn glass-btn--cta" id="affishaButton">Афиша</button>
+        <a class="glass-btn glass-btn--icon" href="https://www.instagram.com/story__theatre/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <img src="instagram-icon.png" alt="" loading="lazy">
+            <span class="asterisk">*</span>
+        </a>
+    </nav>
 
     <div class="legal-notice">
-        * — Социальная сеть принадлежит компании Meta, признанной экстремистской в РФ
+        * — Meta признана экстремистской в РФ
         · <a href="privacy.html">Политика</a>
-        · <a href="consent.html">Согласие на ПДн</a>
+        · <a href="consent.html">ПДн</a>
     </div>
 
     <div id="toastContainer" class="toast-container"></div>
 
-    <!-- Модальное окно покупки -->
     <div class="modal-overlay" id="modalOverlay">
-        <div class="modal-content modal-content-light modal-content-ticket">
+        <div class="modal-content modal-glass modal-content-ticket">
             <button class="modal-close" id="modalClose">&times;</button>
             <h2 class="modal-title-dark" id="modalEventTitle">Romans d'amour</h2>
             <div class="modal-event-info modal-event-info-light">
@@ -180,7 +163,7 @@
                 <div class="modal-event-details">
                     <div class="modal-detail-item">
                         <span class="modal-detail-label">📅 Дата:</span>
-                        <span class="modal-detail-value" id="modalEventDate">30 октября 2025</span>
+                        <span class="modal-detail-value" id="modalEventDate"></span>
                     </div>
                     <div class="modal-detail-item">
                         <span class="modal-detail-label">📍 Место:</span>
@@ -188,11 +171,10 @@
                     </div>
                     <div class="modal-detail-item">
                         <span class="modal-detail-label">💰 Цена:</span>
-                        <span class="modal-detail-value" id="modalEventPrice">5 000 ₽</span>
+                        <span class="modal-detail-value" id="modalEventPrice"></span>
                     </div>
                 </div>
             </div>
-
             <form id="purchaseForm" class="purchase-form">
                 <div class="form-group">
                     <label for="eventTime">Выберите время:</label>
@@ -201,7 +183,6 @@
                     </select>
                     <div class="ticket-availability" id="ticketAvailability"></div>
                 </div>
-
                 <div class="form-group">
                     <label for="ticketQuantity">Количество билетов:</label>
                     <select id="ticketQuantity" name="ticketQuantity" required>
@@ -212,22 +193,18 @@
                         <option value="4">4 билета</option>
                     </select>
                 </div>
-
                 <div class="form-group">
                     <label for="customerName">Ваше имя:</label>
                     <input type="text" id="customerName" name="customerName" required placeholder="Введите ваше имя">
                 </div>
-
                 <div class="form-group">
                     <label for="customerEmail">Email:</label>
                     <input type="email" id="customerEmail" name="customerEmail" required placeholder="your@email.com">
                 </div>
-                
                 <div class="form-group">
-                  <label for="customerPhone">Номер телефона:</label>
-                  <input type="tel" id="customerPhone" name="customerPhone" required 
-                         placeholder="+7 999 123-45-67"
-                         pattern="\+7\s?[0-9]{3}\s?[0-9]{3}-?[0-9]{2}-?[0-9]{2}">
+                    <label for="customerPhone">Номер телефона:</label>
+                    <input type="tel" id="customerPhone" name="customerPhone" required placeholder="+7 999 123-45-67"
+                           pattern="\+7\s?[0-9]{3}\s?[0-9]{3}-?[0-9]{2}-?[0-9]{2}">
                 </div>
                 <div class="form-summary">
                     <div class="summary-item">
@@ -235,11 +212,10 @@
                         <span id="totalAmount">0 ₽</span>
                     </div>
                 </div>
-
                 <div class="form-group consent-group">
                     <label class="consent-label">
                         <input type="checkbox" id="consentPd" required>
-                        Даю <a href="consent.html" target="_blank">согласие</a> на обработку персональных данных (<a href="privacy.html" target="_blank">политика</a>)
+                        Даю <a href="consent.html" target="_blank">согласие</a> на обработку ПДн (<a href="privacy.html" target="_blank">политика</a>)
                     </label>
                 </div>
                 <div class="form-group consent-group">
@@ -248,17 +224,13 @@
                         Согласен на информационную рассылку о мероприятиях
                     </label>
                 </div>
-
-                <button type="submit" class="submit-button" id="submitButton" disabled>
-                    <span class="button-text">Перейти к оплате</span>
-                </button>
+                <button type="submit" class="submit-button" id="submitButton" disabled>Перейти к оплате</button>
             </form>
         </div>
     </div>
 
-    <!-- Модальное окно «Афиши» / лист ожидания -->
     <div class="modal-overlay" id="affishaModalOverlay">
-        <div class="modal-content modal-content-light">
+        <div class="modal-content modal-glass">
             <button class="modal-close" id="affishaModalClose">&times;</button>
             <h2 class="modal-title-dark">Афиша</h2>
             <p class="affisha-lead">Сейчас нет активных мероприятий. Оставьте контакты — сообщим, когда откроется продажа.</p>

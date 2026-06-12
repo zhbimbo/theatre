@@ -44,13 +44,43 @@
 
     if (events.length) {
       currentEvent = events[0];
-      buyBtn?.classList.add('is-shown');
+      buyBtn?.classList.add('is-shown', 'glass-btn--accent');
       affishaBtn?.classList.remove('is-shown');
     } else {
       currentEvent = null;
-      buyBtn?.classList.remove('is-shown');
+      buyBtn?.classList.remove('is-shown', 'glass-btn--accent');
       affishaBtn?.classList.add('is-shown');
     }
+  }
+
+  function initHeaderAutoHide() {
+    const header = document.getElementById('siteHeader');
+    if (!header) return;
+
+    let lastY = window.scrollY;
+    let ticking = false;
+
+    const onScroll = () => {
+      const y = window.scrollY;
+      if (y > 100 && y > lastY + 8) {
+        header.classList.add('is-hidden');
+      } else if (y < lastY - 8 || y < 60) {
+        header.classList.remove('is-hidden');
+      }
+      lastY = y;
+      ticking = false;
+    };
+
+    window.addEventListener(
+      'scroll',
+      () => {
+        if (!ticking) {
+          requestAnimationFrame(onScroll);
+          ticking = true;
+        }
+      },
+      { passive: true }
+    );
   }
 
   function renderEventModal() {
@@ -232,7 +262,7 @@
   }
 
   function initScrollAndVideo() {
-    const elements = document.querySelectorAll('.slide-item, .video-item, .video-wrapper, .reviews-section, .contacts-section');
+    const elements = document.querySelectorAll('.slide-item, .glass-section');
     const videos = document.querySelectorAll('video');
     const progressBar = document.querySelector('.progress-bar');
 
@@ -296,7 +326,11 @@
   document.addEventListener('DOMContentLoaded', () => {
     loadEvents();
     initScrollAndVideo();
+    initHeaderAutoHide();
     updateConsentButtons();
+
+    document.getElementById('mainBuyButton')?.addEventListener('click', openModal);
+    document.getElementById('affishaButton')?.addEventListener('click', openAffishaModal);
 
     document.getElementById('consentPd')?.addEventListener('change', updateConsentButtons);
     document.getElementById('waitlistConsentPd')?.addEventListener('change', updateConsentButtons);
