@@ -298,7 +298,7 @@ body {
     right: max(14px, env(safe-area-inset-right, 0px));
     z-index: 1000;
     display: grid;
-    grid-template-columns: auto 1fr auto;
+    grid-template-columns: 52px minmax(120px, 1fr) 52px;
     align-items: center;
     gap: 8px;
     pointer-events: none;
@@ -323,6 +323,8 @@ body {
     gap: 10px;
     align-items: center;
     min-width: 0;
+    flex-shrink: 0;
+    z-index: 2;
 }
 
 .dock-side--right {
@@ -383,7 +385,8 @@ body {
 }
 
 .glass-btn--cta.is-shown {
-    display: inline-flex;
+    display: flex !important;
+    flex-shrink: 0;
 }
 
 .glass-btn--cta.glass-btn--accent {
@@ -776,6 +779,10 @@ video {
     .glass-btn--icon {
         width: 48px;
         height: 48px;
+    }
+
+    .dock {
+        grid-template-columns: 48px minmax(100px, 1fr) 48px;
     }
 
     .glass-btn--cta {
