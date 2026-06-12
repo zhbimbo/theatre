@@ -18,49 +18,49 @@
         </div>
     </header>
 
-    <!-- Афиша / hero -->
-    <section class="hero-section" id="heroSection">
-        <div class="hero-loader" id="heroLoader">Загрузка афиши...</div>
-    </section>
-
-    <!-- Лист ожидания (если нет мероприятий) -->
-    <section class="waitlist-section" id="waitlistSection" style="display:none">
-        <div class="waitlist-card">
-            <h2>Скоро новые мероприятия</h2>
-            <p>Оставьте контакты — напишем, когда откроется продажа билетов.</p>
-            <form id="waitlistForm" class="purchase-form">
-                <div class="form-group">
-                    <label for="waitlistName">Ваше имя</label>
-                    <input type="text" id="waitlistName" required placeholder="Имя">
-                </div>
-                <div class="form-group">
-                    <label for="waitlistEmail">Email</label>
-                    <input type="email" id="waitlistEmail" required placeholder="your@email.com">
-                </div>
-                <div class="form-group">
-                    <label for="waitlistPhone">Телефон</label>
-                    <input type="tel" id="waitlistPhone" placeholder="+7 999 123-45-67">
-                </div>
-                <div class="form-group consent-group">
-                    <label class="consent-label">
-                        <input type="checkbox" id="waitlistConsentPd" required>
-                        Даю <a href="consent.html" target="_blank">согласие</a> на обработку ПДн (<a href="privacy.html" target="_blank">политика</a>)
-                    </label>
-                </div>
-                <div class="form-group consent-group">
-                    <label class="consent-label">
-                        <input type="checkbox" id="waitlistConsentMarketing">
-                        Согласен на информационную рассылку о мероприятиях
-                    </label>
-                </div>
-                <button type="submit" class="submit-button" id="waitlistSubmit" disabled>Оставить контакты</button>
-            </form>
-        </div>
-    </section>
-
     <!-- Слайды -->
     <div class="slides-container" id="slidesContainer">
         <div class="slide-wrapper">
+            <!-- Афиша (если есть мероприятие) -->
+            <section class="promo-block hero-section" id="heroSection" style="display:none">
+                <div class="hero-loader" id="heroLoader"></div>
+            </section>
+
+            <!-- Лист ожидания (если нет мероприятий) -->
+            <section class="promo-block waitlist-section" id="waitlistSection" style="display:none">
+                <div class="waitlist-card">
+                    <h2>Скоро новые мероприятия</h2>
+                    <p>Оставьте контакты — напишем, когда откроется продажа билетов.</p>
+                    <form id="waitlistForm" class="purchase-form">
+                        <div class="form-group">
+                            <label for="waitlistName">Ваше имя</label>
+                            <input type="text" id="waitlistName" required placeholder="Имя">
+                        </div>
+                        <div class="form-group">
+                            <label for="waitlistEmail">Email</label>
+                            <input type="email" id="waitlistEmail" required placeholder="your@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="waitlistPhone">Телефон</label>
+                            <input type="tel" id="waitlistPhone" placeholder="+7 999 123-45-67">
+                        </div>
+                        <div class="form-group consent-group">
+                            <label class="consent-label">
+                                <input type="checkbox" id="waitlistConsentPd" required>
+                                Даю <a href="consent.html" target="_blank">согласие</a> на обработку ПДн (<a href="privacy.html" target="_blank">политика</a>)
+                            </label>
+                        </div>
+                        <div class="form-group consent-group">
+                            <label class="consent-label">
+                                <input type="checkbox" id="waitlistConsentMarketing">
+                                Согласен на информационную рассылку о мероприятиях
+                            </label>
+                        </div>
+                        <button type="submit" class="submit-button" id="waitlistSubmit" disabled>Оставить контакты</button>
+                    </form>
+                </div>
+            </section>
+
             <!-- Слайд 1 -->
             <div class="slide-item">
                 <img src="Images/img1.png" alt="Слайд 1" loading="lazy">
@@ -200,16 +200,11 @@
     </div>
 </div>
 
-    <!-- Пояснение про запрещенную соцсеть -->
     <div class="legal-notice">
         * — Социальная сеть принадлежит компании Meta, признанной экстремистской в РФ
+        · <a href="privacy.html">Политика</a>
+        · <a href="consent.html">Согласие на ПДн</a>
     </div>
-
-    <footer class="site-footer">
-        <a href="privacy.html">Политика конфиденциальности</a>
-        <a href="consent.html">Согласие на обработку ПДн</a>
-        <a href="mailto:storytheatre@yandex.ru">storytheatre@yandex.ru</a>
-    </footer>
 
     <div id="toastContainer" class="toast-container"></div>
 

@@ -47,11 +47,13 @@
     if (loader) loader.style.display = 'none';
 
     if (!events.length) {
-      if (hero) hero.innerHTML = '<p class="hero-empty">Скоро новые мероприятия. Оставьте контакты — сообщим первыми.</p>';
+      if (hero) { hero.style.display = 'none'; hero.innerHTML = ''; }
       if (buyBtn) buyBtn.style.display = 'none';
       if (waitBlock) waitBlock.style.display = 'block';
       return;
     }
+
+    if (hero) hero.style.display = 'block';
 
     if (waitBlock) waitBlock.style.display = 'none';
     if (buyBtn) buyBtn.style.display = 'flex';
@@ -247,7 +249,7 @@
   function initScrollAndVideo() {
     const container = document.getElementById('slidesContainer');
     if (!container) return;
-    const elements = document.querySelectorAll('.slide-item, .video-item, .video-wrapper');
+    const elements = document.querySelectorAll('.slide-item, .video-item, .video-wrapper, .promo-block');
     const videos = document.querySelectorAll('video');
     const progressBar = document.querySelector('.progress-bar');
     let ticking = false;
