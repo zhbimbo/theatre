@@ -258,7 +258,7 @@
         // Загрузка доступных билетов
         async function loadAvailableTickets() {
             try {
-                const response = await fetch('https://story-theatre-api.fly.dev/api/available-tickets');
+                const response = await fetch('https://theatre-o08i.onrender.com/api/available-tickets');
                 const tickets = await response.json();
                 
                 availableTickets = {};
@@ -399,7 +399,7 @@
 
                 console.log('🔄 Создаем платеж...', formData);
                 
-                const response = await fetch('https://story-theatre-api.fly.dev/create-payment', {
+                const response = await fetch('https://theatre-o08i.onrender.com/create-payment', {
                     method: 'POST',
                     headers: { 
                         'Content-Type': 'application/json' 
@@ -518,13 +518,13 @@
     // Wake-up сервера при каждой загрузке страницы
     document.addEventListener('DOMContentLoaded', function() {
       // Будим сервер сразу после загрузки страницы
-      fetch('https://story-theatre-api.fly.dev/ping')
+      fetch('https://theatre-o08i.onrender.com/ping')
         .then(response => {
           console.log('✅ Сервер разбужен');
           
           // Дополнительно: будим еще раз через 10 секунд для надежности
           setTimeout(() => {
-            fetch('https://story-theatre-api.fly.dev/ping')
+            fetch('https://theatre-o08i.onrender.com/ping')
               .then(() => console.log('✅ Сервер разбужен повторно'))
               .catch(() => console.log('❌ Повторный wake-up не удался'));
           }, 10000);
@@ -537,7 +537,7 @@
     // Дополнительно: будим при возврате на вкладку
     document.addEventListener('visibilitychange', function() {
       if (!document.hidden) {
-        fetch('https://story-theatre-api.fly.dev/ping')
+        fetch('https://theatre-o08i.onrender.com/ping')
           .then(() => console.log('✅ Сервер разбужен при возврате'))
           .catch(() => {});
       }
