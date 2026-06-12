@@ -510,6 +510,11 @@ body {
     text-decoration: none;
 }
 
+.legal-notice__meta,
+.legal-notice__links {
+    display: inline;
+}
+
 /* ─── Modals ─── */
 .modal-overlay {
     display: none;
@@ -848,9 +853,28 @@ video {
     }
 
     .legal-notice {
-        bottom: calc(76px + env(safe-area-inset-bottom, 0px));
-        padding: 0 56px;
-        font-size: 9px;
+        position: static;
+        width: auto;
+        max-width: var(--page-width);
+        margin: 8px auto 0;
+        padding: 16px 20px 8px;
+        font-size: 10px;
+        line-height: 1.5;
+        color: #9a9088;
+        z-index: auto;
+    }
+
+    .legal-notice__meta,
+    .legal-notice__links {
+        display: block;
+    }
+
+    .legal-notice__links {
+        margin-top: 4px;
+    }
+
+    body {
+        padding-bottom: 100px;
     }
 
     .consent-row {
